@@ -1,0 +1,26 @@
+8 bis
+Altitude setting is clampToGround.
+
+8
+Harmonisation avec les fichiers communs à VNav V22.
+
+7
+Altitude mise en absolue partout.
+
+6
+Harmonisation avec les fichiers communs à VNav V21.
+
+5
+Harmonisation avec les fichiers communs à VNav V15.
+
+4
+Modifications mineures.
+
+3
+Harmonisation avec les fichiers communs à VNav V12.
+
+2
+Harmonisation avec les fichiers communs à VNav V11.
+
+1
+Version initiale.

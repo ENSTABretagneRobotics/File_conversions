@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <Placemark>
+    <name>Model</name>
+    <Style id="default">
+    </Style>
+    <Model id="model_1">
+      <altitudeMode>absolute</altitudeMode>
+      <Location>
+        <longitude>-4.411168</longitude>
+        <latitude>48.447080</latitude>
+        <altitude>100</altitude>
+      </Location>
+      <Orientation>
+        <heading>90</heading>
+        <tilt>30</tilt>
+        <roll>60</roll>
+      </Orientation>
+      <Scale>
+        <x>1</x>
+        <y>1</y>
+        <z>1</z>
+      </Scale>
+      <Link>
+        <href>untitled.dae</href>
+      </Link>
+      <ResourceMap>
+        <Alias>
+          <targetHref>texture.jpg</targetHref>
+          <sourceHref>untitled/texture.jpg</sourceHref>
+        </Alias>
+        <Alias>
+          <targetHref>texture_0.jpg</targetHref>
+          <sourceHref>untitled/texture_0.jpg</sourceHref>
+        </Alias>
+        <Alias>
+          <targetHref>texture_1.jpg</targetHref>
+          <sourceHref>untitled/texture_1.jpg</sourceHref>
+        </Alias>
+        <Alias>
+          <targetHref>texture_2.jpg</targetHref>
+          <sourceHref>untitled/texture_2.jpg</sourceHref>
+        </Alias>
+        <Alias>
+          <targetHref>texture_3.jpg</targetHref>
+          <sourceHref>untitled/texture_3.jpg</sourceHref>
+        </Alias>
+        <Alias>
+          <targetHref>texture_4.jpg</targetHref>
+          <sourceHref>untitled/texture_4.jpg</sourceHref>
+        </Alias>
+        <Alias>
+          <targetHref>texture_5.JPG</targetHref>
+          <sourceHref>untitled/texture_5.JPG</sourceHref>
+        </Alias>
+        <Alias>
+          <targetHref>texture_6.jpg</targetHref>
+          <sourceHref>untitled/texture_6.jpg</sourceHref>
+        </Alias>
+      </ResourceMap>
+    </Model>
+  </Placemark>
+</kml>

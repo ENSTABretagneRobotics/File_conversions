@@ -1,0 +1,23 @@
+QT -= core
+QT -= gui
+
+CONFIG += console
+CONFIG -= app_bundle
+
+TEMPLATE = app
+
+TARGET = NMEA2CSV
+
+DEFINES -= UNICODE
+win32:DEFINES += WIN32 _CONSOLE
+
+SOURCES += \
+    Main.c \
+    OSMisc.c \
+    OSTime.c \
+    OSCore.c
+
+HEADERS += \
+    OSMisc.h \
+    OSTime.h \
+    OSCore.h

@@ -1,0 +1,14 @@
+4
+Added GPRMC and GPGLL support if there is no GPGGA.
+
+3
+Added utc as the first column.
+
+3
+Added height of the geoid above WGS84 ellipsoid, when available.
+
+2
+Added altitude, when available.
+
+1
+Initial version.

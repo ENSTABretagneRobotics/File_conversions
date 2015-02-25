@@ -1,0 +1,8 @@
+3
+Added a Makefile for Linux.
+
+2
+The input file must now be specified as a parameter.
+
+1
+Initial version.
