@@ -1,0 +1,3 @@
+mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define et pouvoir glisser-deposer comme csv2v4log pour certains (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs)... (si pas de params, utilise noms en durs, autrement utilise params)
+
+vibes3d-like avec googleearth? mais reset de la vue à chaque rechargement du fichier... par contre bon pour replay, mais est-ce possible de voir sous l'eau?
