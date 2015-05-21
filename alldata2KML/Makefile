@@ -25,7 +25,8 @@ Main.o: Main.c Globals.o
 	$(CC) $(CFLAGS) -c $<
 
 alldata2KML: Main.o Globals.o Utils.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^  $(LDFLAGS)
+	#$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 clean:
 	rm -f $(PROGS) $(PROGS).elf $(PROGS).exe *.o *.obj core *.gch

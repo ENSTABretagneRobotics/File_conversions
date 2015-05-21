@@ -28,7 +28,7 @@ Main.o: Main.c Globals.o
 	$(CC) $(CFLAGS) -c $<
 
 Waypoints2mission: Main.o Globals.o Waypoints.o Utils.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
 	rm -f $(PROGS) $(PROGS).elf $(PROGS).exe *.o *.obj core *.gch
