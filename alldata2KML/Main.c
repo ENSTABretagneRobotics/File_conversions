@@ -80,6 +80,7 @@ int main()
 				fprintf(kmlfile, "\t<Placemark>\n");
 				fprintf(kmlfile, "\t\t<visibility>0</visibility>\n");
 				fprintf(kmlfile, "\t\t<TimeStamp>\n\t\t\t<when>%.32s</when>\n\t\t</TimeStamp>\n", timebuf);
+				//fprintf(kmlfile, "\t\t<Model>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<Location>\n");
 				fprintf(kmlfile, "\t\t<Model>\n\t\t\t<altitudeMode>clampToGround</altitudeMode>\n\t\t\t<Location>\n");
 				fprintf(kmlfile, "\t\t\t\t<longitude>%f</longitude>\n", longitude);
 				fprintf(kmlfile, "\t\t\t\t<latitude>%f</latitude>\n", latitude);
@@ -88,6 +89,7 @@ int main()
 				fprintf(kmlfile, "\t\t\t\t<heading>%d</heading>\n", (int)((fmod_2PI(3*M_PI/2.0-psi)+M_PI)*180.0/M_PI));
 				fprintf(kmlfile, "\t\t\t\t<tilt>%d</tilt>\n", (int)(theta*180.0/M_PI));
 				fprintf(kmlfile, "\t\t\t\t<roll>%d</roll>\n", (int)(-phi*180.0/M_PI));
+				//fprintf(kmlfile, "\t\t\t</Orientation>\n\t\t\t<Scale>\n\t\t\t\t<x>50</x>\n\t\t\t\t<y>50</y>\n\t\t\t\t<z>50</z>\n\t\t\t</Scale>\n");
 				fprintf(kmlfile, "\t\t\t</Orientation>\n\t\t\t<Scale>\n\t\t\t\t<x>1</x>\n\t\t\t\t<y>1</y>\n\t\t\t\t<z>1</z>\n\t\t\t</Scale>\n");
 				fprintf(kmlfile, "\t\t\t<Link>\n\t\t\t\t<href>untitled.dae</href>\n\t\t\t</Link>\n");
 				fprintf(kmlfile, "\t\t\t<ResourceMap>\n");

@@ -1,0 +1,11 @@
+4
+Meilleure gestion de certains mode d'altitude.
+
+3
+Correction de certains messages d'erreurs.
+
+2
+Harmonisation avec les fichiers communs à VNav V15.
+
+1
+Version initiale.

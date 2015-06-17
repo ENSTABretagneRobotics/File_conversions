@@ -1,0 +1,23 @@
+6 ter
+Version compatible avec log.txt généré par ASLogger.
+
+6 bis
+Added altitude, when available.
+
+5 bis
+Version avec seulement 1 colonne latitude suivi d'une colonne longitude dans le fichier CSV.
+
+5
+Altitude mise en absolue partout.
+
+4
+Harmonisation avec les fichiers communs à VNav V15.
+
+3
+Meilleure gestion des longs trajets.
+
+2
+Optimisation du fichier KML.
+
+1
+Version initiale.

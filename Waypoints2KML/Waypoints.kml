@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<Style id="sn_ylw-pushpin">
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>2</width>
+		</LineStyle>
+	</Style>
+	<Placemark>
+		<name>0</name>
+		<Point>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>-4.427361,48.391382,0.000000</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>1</name>
+		<Point>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>-4.424336,48.390194,0.000000</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>0-1</name>
+		<styleUrl>#sn_ylw-pushpin</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<altitudeMode>absolute</altitudeMode>			<coordinates>
+				-4.427361,48.391382,0.000000 -4.424336,48.390194,0.000000
+			</coordinates>
+		</LineString>
+	</Placemark>
+	<Placemark>
+		<name>2</name>
+		<Point>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>-4.427607,48.389059,0.000000</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>1-2</name>
+		<styleUrl>#sn_ylw-pushpin</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<altitudeMode>absolute</altitudeMode>			<coordinates>
+				-4.424336,48.390194,0.000000 -4.427607,48.389059,0.000000
+			</coordinates>
+		</LineString>
+	</Placemark>
+	<Placemark>
+		<name>3</name>
+		<Point>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>-4.427361,48.391382,0.000000</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>2-3</name>
+		<styleUrl>#sn_ylw-pushpin</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<altitudeMode>absolute</altitudeMode>			<coordinates>
+				-4.427607,48.389059,0.000000 -4.427361,48.391382,0.000000
+			</coordinates>
+		</LineString>
+	</Placemark>
+</Document>
+</kml>
