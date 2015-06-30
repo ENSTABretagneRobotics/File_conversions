@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
 	if (argc != 2)
 	{
-		printf("Usage : a.out file.alog\n");
+		printf("Usage : ALOG2NMEA file.alog\n");
 		return EXIT_FAILURE;
 	}
 
