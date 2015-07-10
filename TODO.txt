@@ -6,4 +6,6 @@ choix de GGA ou RMC, s'il y a les 2 on a du coup une ligne sur 2 avec les altitu
 
 mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...
 
+code d'adaptation pour fusionner logs de razor et nmea pour générer alldata.txt
+
 vibes3d-like avec googleearth? mais reset de la vue à chaque rechargement du fichier... par contre bon pour replay, mais est-ce possible de voir sous l'eau?

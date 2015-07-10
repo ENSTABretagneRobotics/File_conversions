@@ -1,8 +1,8 @@
 PROGS = NMEA2CSV
 
 CC = g++
-CFLAGS += -g
-#CFLAGS += -O3
+CFLAGS += -g -fpermissive
+#CFLAGS += -O3 -fpermissive
 CFLAGS += -Wall
 #CFLAGS += -Wextra -Winline
 

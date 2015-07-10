@@ -3,8 +3,8 @@ PROGS = GPSSMS2KML
 #CC = /home/user/armadeus-4.0/buildroot/output/build/staging_dir/usr/bin/arm-linux-gcc
 #CC = arm-linux-gcc
 CC = gcc
-#CFLAGS += -g -D _DEBUG
-CFLAGS += -O3
+#CFLAGS += -g -fpermissive -D _DEBUG
+CFLAGS += -O3 -fpermissive
 CFLAGS += -Wall
 CFLAGS += -Wextra
 
