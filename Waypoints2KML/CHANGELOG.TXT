@@ -1,3 +1,6 @@
+9
+Corrected \n around altitudeMode.
+
 8
 Harmonisation avec les fichiers communs à VNav V22.
 

@@ -61,7 +61,7 @@ int main()
 		fprintf(kmlfile, "\t\t</Point>\n\t</Placemark>\n");
 
 		fprintf(kmlfile, "\t<Placemark>\n\t\t<name>%d-%d</name>\n", i-1, i);
-		fprintf(kmlfile, "\t\t<styleUrl>#sn_ylw-pushpin</styleUrl>\n\t\t<LineString>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\t\t\t<coordinates>\n");
+		fprintf(kmlfile, "\t\t<styleUrl>#sn_ylw-pushpin</styleUrl>\n\t\t<LineString>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<coordinates>\n");
 		fprintf(kmlfile, "\t\t\t\t%f,%f,%f %f,%f,%f\n", wpslong[i-1], wpslat[i-1], 100.0, wpslong[i], wpslat[i], 100.0);
 		fprintf(kmlfile, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
 	}

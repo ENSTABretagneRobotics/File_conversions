@@ -1,3 +1,4 @@
+
 lognav2alldata pour avoir aussi le temps dans googleearth (replay...)
 
 glisser-deposer comme csv2v4log, alog2nmea (avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning) : faire nmea2csv, GPSSMS2KML, waypoints conversions...
