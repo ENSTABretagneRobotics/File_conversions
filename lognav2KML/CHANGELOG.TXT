@@ -1,10 +1,14 @@
-7 bis
+8
+Added input parameter and changed dependencies.
+Merged the different altitude versions.
+
+7
 utc is now in the first column.
 
-6 bis
+6
 Added altitude, when available.
 
-5 bis
+5
 Version avec seulement 1 colonne latitude suivi d'une colonne longitude dans le fichier CSV.
 
 5

@@ -7,23 +7,48 @@
 #	undef _MSC_VER
 #endif // defined(__GNUC__) || defined(__BORLANDC__)
 
-#include "Globals.h"
+#include "OSMisc.h"
 
-int main()
+#define ALTITUDE_MODE "absolute"
+//#define ALTITUDE_MODE "clampToGround"
+
+int main(int argc, char* argv[])
 {
-	FILE* logfile = NULL;
-	FILE* kmlfile = NULL;
+	char szFileInPath[256];
+	char szFileOutPath[256];
+	FILE* filein = NULL;
+	FILE* fileout = NULL;
+	char szTemp[256];
+	int idx = 0;
 	char line[4096];
 	unsigned int i = 0;
 	double f0 = 0, f1 = 0, latitude = 0, longitude = 0, altitude = 0;
+
+	if (argc != 2)
+	{
+		strcpy(szFileInPath, "log.txt");
+		printf("Warning : No parameter specified.\n");
+		printf("Usage : log2KML file.txt.\n");
+		printf("Default : log2KML %.255s.\n", szFileInPath);
+	}
+	else
+	{
+		sprintf(szFileInPath, "%.249s", argv[1]);
+	}
+
+	strcpy(szTemp, szFileInPath);
+	// Remove the extension.
+	for (idx = strlen(szTemp)-1; idx >= 0; idx--) { if (szTemp[idx] == '.') break; }
+	if ((idx > 0)&&(idx < (int)strlen(szTemp))) memset(szTemp+idx, 0, strlen(szTemp)-idx);
+	sprintf(szFileOutPath, "%.249s.kml", szTemp);
 
 	printf("Check and change if needed\n\n");
 	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");
 	printf("if you do not know if you should use a '.' or a ',' in floating points numbers\n\n");
 	printf("or a ';' or ',' in list separators.\n\n");
 
-	logfile = fopen("log.txt", "r");
-	if (logfile == NULL)
+	filein = fopen(szFileInPath, "r");
+	if (filein == NULL)
 	{
 		printf("Unable to open txt file.\n");
 #ifdef _DEBUG
@@ -33,11 +58,11 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	kmlfile = fopen("log.kml", "w");
-	if (kmlfile == NULL)
+	fileout = fopen(szFileOutPath, "w");
+	if (fileout == NULL)
 	{
 		printf("Unable to create kml file.\n");
-		fclose(logfile);
+		fclose(filein);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -45,35 +70,35 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	fprintf(kmlfile, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-	fprintf(kmlfile, "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
-	//fprintf(kmlfile, "<Folder>\n");
-	//fprintf(kmlfile, "<name>log</name>\n");
-	//fprintf(kmlfile, "<open>1</open>\n");
+	fprintf(fileout, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+	fprintf(fileout, "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
+	//fprintf(fileout, "<Folder>\n");
+	//fprintf(fileout, "<name>log</name>\n");
+	//fprintf(fileout, "<open>1</open>\n");
 
-	fprintf(kmlfile, "<Document>\n");
-	fprintf(kmlfile, "<name>log</name>\n");
-	fprintf(kmlfile, "\t<Placemark>\n\t\t<name>log</name>\n");
-	fprintf(kmlfile, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
-	fprintf(kmlfile, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<coordinates>\n");
+	fprintf(fileout, "<Document>\n");
+	fprintf(fileout, "<name>log</name>\n");
+	fprintf(fileout, "\t<Placemark>\n\t\t<name>log</name>\n");
+	fprintf(fileout, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
+	fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
 
 	printf("Converting...\n");
 
 	i = 0;
 	memset(line, 0, sizeof(line));
-	while (fgets3(logfile, line, sizeof(line)) != NULL) 
+	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
 		if (sscanf(line, "%lf;%lf;%lf;%lf;%lf", &f0, &f1, &latitude, &longitude, &altitude) == 5) 
 		{
 			if ((i%65504) == 65503)
 			{
 				// Divide in several placemarks if too many coordinates.
-				fprintf(kmlfile, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
-				fprintf(kmlfile, "\t<Placemark>\n\t\t<name>log</name>\n");
-				fprintf(kmlfile, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
-				fprintf(kmlfile, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<coordinates>\n");
+				fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
+				fprintf(fileout, "\t<Placemark>\n\t\t<name>log</name>\n");
+				fprintf(fileout, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
+				fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
 			}
-			fprintf(kmlfile, "%f,%f,%f ", longitude, latitude, altitude);
+			fprintf(fileout, "%f,%f,%f ", longitude, latitude, altitude);
 			i++;
 		}
 		else if (sscanf(line, "%lf;%lf;%lf;%lf", &f0, &f1, &latitude, &longitude) == 4) 
@@ -81,13 +106,13 @@ int main()
 			if ((i%65504) == 65503)
 			{
 				// Divide in several placemarks if too many coordinates.
-				fprintf(kmlfile, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
-				fprintf(kmlfile, "\t<Placemark>\n\t\t<name>log</name>\n");
-				fprintf(kmlfile, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
-				fprintf(kmlfile, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<coordinates>\n");
+				fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
+				fprintf(fileout, "\t<Placemark>\n\t\t<name>log</name>\n");
+				fprintf(fileout, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
+				fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
 			}
 			// Optimization for the altitude : integer.
-			fprintf(kmlfile, "%f,%f,%d ", longitude, latitude, 0);
+			fprintf(fileout, "%f,%f,%d ", longitude, latitude, 0);
 			i++;
 		}
 		else
@@ -97,17 +122,17 @@ int main()
 		memset(line, 0, sizeof(line));
 	}
 
-	fprintf(kmlfile, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
-	fprintf(kmlfile, "</Document>\n");
-	//fprintf(kmlfile, "</Folder>\n");
-	fprintf(kmlfile, "</kml>\n");
+	fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
+	fprintf(fileout, "</Document>\n");
+	//fprintf(fileout, "</Folder>\n");
+	fprintf(fileout, "</kml>\n");
 
 	printf("Found %u positions.\n", i);
 
-	if (fclose(kmlfile) != EXIT_SUCCESS) 
+	if (fclose(fileout) != EXIT_SUCCESS) 
 	{
 		printf("Error closing kml file.\n");
-		fclose(logfile);
+		fclose(filein);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -115,7 +140,7 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	if (fclose(logfile) != EXIT_SUCCESS) 
+	if (fclose(filein) != EXIT_SUCCESS) 
 	{
 		printf("Error closing txt file.\n");
 #ifdef _DEBUG

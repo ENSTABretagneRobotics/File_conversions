@@ -73,10 +73,11 @@ int main(int argc, char* argv[])
 	//FILE* filein = NULL;
 	FILE* fileout = NULL;
 	char szTemp[256];
+	int idx = 0;
 	double wpslat[MAX_NB_WP];
 	double wpslong[MAX_NB_WP];
-	int nbWPs = 0;
 	int i = 0;
+	int nbWPs = 0;
 
 	if (argc != 2)
 	{
@@ -92,8 +93,8 @@ int main(int argc, char* argv[])
 
 	strcpy(szTemp, szFileInPath);
 	// Remove the extension.
-	for (i = strlen(szTemp)-1; i >= 0; i--) { if (szTemp[i] == '.') break; }
-	if ((i > 0)&&(i < (int)strlen(szTemp))) memset(szTemp+i, 0, strlen(szTemp)-i);
+	for (idx = strlen(szTemp)-1; idx >= 0; idx--) { if (szTemp[idx] == '.') break; }
+	if ((idx > 0)&&(idx < (int)strlen(szTemp))) memset(szTemp+idx, 0, strlen(szTemp)-idx);
 	sprintf(szFileOutPath, "%.241s_mission.txt", szTemp);
 
 	printf("Check and change if needed\n\n");

@@ -15,17 +15,20 @@ LDFLAGS += -lm
 
 default: $(PROGS)
 
-Utils.o: Utils.c Utils.h
+OSCore.o: OSCore.c OSCore.h
 	$(CC) $(CFLAGS) -c $<
 
-Globals.o: Globals.c Globals.h Utils.o
+OSMisc.o: OSMisc.c OSMisc.h OSTime.o
 	$(CC) $(CFLAGS) -c $<
 
-Main.o: Main.c Globals.o 
+OSTime.o: OSTime.c OSTime.h OSCore.o
 	$(CC) $(CFLAGS) -c $<
 
-lognav2KML: Main.o Globals.o Utils.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+Main.o: Main.c OSMisc.o OSTime.o OSCore.o 
+	$(CC) $(CFLAGS) -c $<
+
+lognav2KML: Main.o OSMisc.o OSTime.o OSCore.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
 	rm -f $(PROGS) $(PROGS).elf $(PROGS).exe *.o *.obj core *.gch

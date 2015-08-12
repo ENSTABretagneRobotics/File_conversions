@@ -1,10 +1,13 @@
-6 ter
+8
+Added input parameter and changed dependencies.
+
+7
 Version compatible avec log.txt généré par ASLogger.
 
-6 bis
+6
 Added altitude, when available.
 
-5 bis
+5
 Version avec seulement 1 colonne latitude suivi d'une colonne longitude dans le fichier CSV.
 
 5
