@@ -82,6 +82,11 @@ int main(int argc, char* argv[])
 				memset(line, 0, sizeof(line));
 				if (fgets3(filein, line, sizeof(line)) == NULL) break;
 			}
+			if (strstr(line, "<gx:drawOrder>") != NULL)
+			{
+				memset(line, 0, sizeof(line));
+				if (fgets3(filein, line, sizeof(line)) == NULL) break;
+			}
 			substr = strstr(line, "<coordinates>");
 			if (substr && 
 				sscanf(substr, "<coordinates>%lf,%lf,%lf</coordinates>", 
