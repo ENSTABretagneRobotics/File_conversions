@@ -11,14 +11,14 @@
 		<name>0</name>
 		<Point>
 			<altitudeMode>absolute</altitudeMode>
-			<coordinates>-4.427361,48.391382,0.000000</coordinates>
+			<coordinates>-4.427361,48.391382,100.000000</coordinates>
 		</Point>
 	</Placemark>
 	<Placemark>
 		<name>1</name>
 		<Point>
 			<altitudeMode>absolute</altitudeMode>
-			<coordinates>-4.424336,48.390194,0.000000</coordinates>
+			<coordinates>-4.424336,48.390194,100.000000</coordinates>
 		</Point>
 	</Placemark>
 	<Placemark>
@@ -26,8 +26,9 @@
 		<styleUrl>#sn_ylw-pushpin</styleUrl>
 		<LineString>
 			<tessellate>1</tessellate>
-			<altitudeMode>absolute</altitudeMode>			<coordinates>
-				-4.427361,48.391382,0.000000 -4.424336,48.390194,0.000000
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>
+				-4.427361,48.391382,100.000000 -4.424336,48.390194,100.000000
 			</coordinates>
 		</LineString>
 	</Placemark>
@@ -35,7 +36,7 @@
 		<name>2</name>
 		<Point>
 			<altitudeMode>absolute</altitudeMode>
-			<coordinates>-4.427607,48.389059,0.000000</coordinates>
+			<coordinates>-4.427607,48.389059,100.000000</coordinates>
 		</Point>
 	</Placemark>
 	<Placemark>
@@ -43,8 +44,9 @@
 		<styleUrl>#sn_ylw-pushpin</styleUrl>
 		<LineString>
 			<tessellate>1</tessellate>
-			<altitudeMode>absolute</altitudeMode>			<coordinates>
-				-4.424336,48.390194,0.000000 -4.427607,48.389059,0.000000
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>
+				-4.424336,48.390194,100.000000 -4.427607,48.389059,100.000000
 			</coordinates>
 		</LineString>
 	</Placemark>
@@ -52,7 +54,7 @@
 		<name>3</name>
 		<Point>
 			<altitudeMode>absolute</altitudeMode>
-			<coordinates>-4.427361,48.391382,0.000000</coordinates>
+			<coordinates>-4.427361,48.391382,100.000000</coordinates>
 		</Point>
 	</Placemark>
 	<Placemark>
@@ -60,8 +62,9 @@
 		<styleUrl>#sn_ylw-pushpin</styleUrl>
 		<LineString>
 			<tessellate>1</tessellate>
-			<altitudeMode>absolute</altitudeMode>			<coordinates>
-				-4.427607,48.389059,0.000000 -4.427361,48.391382,0.000000
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>
+				-4.427607,48.389059,100.000000 -4.427361,48.391382,100.000000
 			</coordinates>
 		</LineString>
 	</Placemark>

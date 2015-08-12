@@ -1,11 +1,10 @@
-
-lognav2alldata pour avoir aussi le temps dans googleearth (replay...)
-
 glisser-deposer comme csv2v4log, alog2nmea (avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning) : faire nmea2csv, GPSSMS2KML, waypoints conversions...
+
+mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...
 
 choix de GGA ou RMC, s'il y a les 2 on a du coup une ligne sur 2 avec les altitudes, c'est pas l'idéal, prévoir fichier de config pour choisir avec option auto (= comme c'est actuellement) par défaut, GGA, RMC...
 
-mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...
+lognav2alldata pour avoir aussi le temps dans googleearth (replay...)
 
 code d'adaptation pour fusionner logs de razor et nmea pour générer alldata.txt
 

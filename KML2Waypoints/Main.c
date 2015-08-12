@@ -7,24 +7,45 @@
 #	undef _MSC_VER
 #endif // defined(__GNUC__) || defined(__BORLANDC__)
 
-#include "Globals.h"
+#include "OSMisc.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-	FILE* kmlfile = NULL;
-	FILE* csvfile = NULL;
+	char szFileInPath[256];
+	char szFileOutPath[256];
+	FILE* filein = NULL;
+	FILE* fileout = NULL;
+	char szTemp[256];
 	char line[4096];
 	char* substr = NULL;
 	int i = 0;
 	double latitude = 0, longitude = 0, altitude = 0;
+
+	if (argc != 2)
+	{
+		strcpy(szFileInPath, "Waypoints.kml");
+		printf("Warning : No parameter specified.\n");
+		printf("Usage : KML2Waypoints file.kml.\n");
+		printf("Default : KML2Waypoints %.255s.\n", szFileInPath);
+	}
+	else
+	{
+		sprintf(szFileInPath, "%.249s", argv[1]);
+	}
+
+	strcpy(szTemp, szFileInPath);
+	// Remove the extension.
+	for (i = strlen(szTemp)-1; i >= 0; i--) { if (szTemp[i] == '.') break; }
+	if ((i > 0)&&(i < (int)strlen(szTemp))) memset(szTemp+i, 0, strlen(szTemp)-i);
+	sprintf(szFileOutPath, "%.249s.csv", szTemp);
 
 	printf("Check and change if needed\n\n");
 	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");
 	printf("if you do not know if you should use a '.' or a ',' in floating points numbers\n\n");
 	printf("or a ';' or ',' in list separators.\n\n");
 
-	kmlfile = fopen("Waypoints.kml", "r");
-	if (kmlfile == NULL)
+	filein = fopen(szFileInPath, "r");
+	if (filein == NULL)
 	{
 		printf("Unable to open kml file.\n");
 #ifdef _DEBUG
@@ -34,11 +55,11 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	csvfile = fopen("Waypoints.csv", "w");
-	if (csvfile == NULL)
+	fileout = fopen(szFileOutPath, "w");
+	if (fileout == NULL)
 	{
 		printf("Unable to create csv file.\n");
-		fclose(kmlfile);
+		fclose(filein);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -50,23 +71,23 @@ int main()
 
 	i = 0;
 	memset(line, 0, sizeof(line));
-	while (fgets3(kmlfile, line, sizeof(line)) != NULL) 
+	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
 		if (strstr(line, "<Point>") != NULL)
 		{
 			memset(line, 0, sizeof(line));
-			if (fgets3(kmlfile, line, sizeof(line)) == NULL) break;
+			if (fgets3(filein, line, sizeof(line)) == NULL) break;
 			if (strstr(line, "<altitudeMode>") != NULL)
 			{
 				memset(line, 0, sizeof(line));
-				if (fgets3(kmlfile, line, sizeof(line)) == NULL) break;
+				if (fgets3(filein, line, sizeof(line)) == NULL) break;
 			}
 			substr = strstr(line, "<coordinates>");
 			if (substr && 
 				sscanf(substr, "<coordinates>%lf,%lf,%lf</coordinates>", 
 				&longitude, &latitude, &altitude) == 3) 
 			{
-				fprintf(csvfile, "%f;%f;\n", latitude, longitude);
+				fprintf(fileout, "%f;%f;\n", latitude, longitude);
 				i++;
 			}
 			else
@@ -79,7 +100,7 @@ int main()
 
 	printf("Found %d waypoints.\n", i);
 
-	if (fclose(csvfile) != EXIT_SUCCESS) 
+	if (fclose(fileout) != EXIT_SUCCESS) 
 	{
 		printf("Error closing csv file.\n");
 #ifdef _DEBUG
@@ -89,10 +110,10 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	if (fclose(kmlfile) != EXIT_SUCCESS) 
+	if (fclose(filein) != EXIT_SUCCESS) 
 	{
 		printf("Error closing kml file.\n");
-		fclose(csvfile);
+		fclose(fileout);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();

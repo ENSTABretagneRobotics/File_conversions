@@ -15,19 +15,19 @@ LDFLAGS += -lm
 
 default: $(PROGS)
 
-Utils.o: Utils.c Utils.h
+OSCore.o: OSCore.c OSCore.h
 	$(CC) $(CFLAGS) -c $<
 
-Waypoints.o: Waypoints.c Waypoints.h Utils.o
+OSMisc.o: OSMisc.c OSMisc.h OSTime.o
 	$(CC) $(CFLAGS) -c $<
 
-Globals.o: Globals.c Globals.h Waypoints.o
+OSTime.o: OSTime.c OSTime.h OSCore.o
 	$(CC) $(CFLAGS) -c $<
 
-Main.o: Main.c Globals.o 
+Main.o: Main.c OSMisc.o OSTime.o OSCore.o 
 	$(CC) $(CFLAGS) -c $<
 
-Waypoints2KML: Main.o Globals.o Waypoints.o Utils.o
+Waypoints2KML: Main.o OSMisc.o OSTime.o OSCore.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:

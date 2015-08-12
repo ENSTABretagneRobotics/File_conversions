@@ -201,19 +201,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Globals.c"
-				>
-			</File>
-			<File
 				RelativePath=".\Main.c"
 				>
 			</File>
 			<File
-				RelativePath=".\Utils.c"
+				RelativePath=".\OSCore.c"
 				>
 			</File>
 			<File
-				RelativePath=".\Waypoints.c"
+				RelativePath=".\OSMisc.c"
+				>
+			</File>
+			<File
+				RelativePath=".\OSTime.c"
 				>
 			</File>
 		</Filter>
@@ -223,15 +223,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Globals.h"
+				RelativePath=".\OSCore.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Utils.h"
+				RelativePath=".\OSMisc.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Waypoints.h"
+				RelativePath=".\OSTime.h"
 				>
 			</File>
 		</Filter>
@@ -243,6 +243,10 @@
 		</Filter>
 		<File
 			RelativePath=".\CHANGELOG.TXT"
+			>
+		</File>
+		<File
+			RelativePath=".\Makefile"
 			>
 		</File>
 		<File

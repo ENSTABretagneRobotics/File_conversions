@@ -1,2 +1,5 @@
+2
+Added input parameter and changed dependencies.
+
 1
 Initial version.

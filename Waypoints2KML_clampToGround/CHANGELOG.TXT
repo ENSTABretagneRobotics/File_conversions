@@ -1,3 +1,6 @@
+10 bis
+Added input parameter and changed dependencies.
+
 9 bis
 Corrected \n around altitudeMode.
 
