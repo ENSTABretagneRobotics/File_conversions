@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:gml="http://www.opengis.net/gml"
+attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd" />
+  <xs:element name="AreaScanning" type="TeamType"/>
+  <xs:complexType name="TeamType">
+    <xs:sequence>
+      <xs:element name="TeamName" type="xs:string"/>
+      <xs:element name="Section" maxOccurs="100">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="sectioni" type="xs:integer" />
+            <xs:element name="sectionj" type="xs:integer" />
+            <xs:element name="dateTime" type="xs:dateTime" />
+            <xs:element ref="gml:pos"></xs:element>
+            <xs:element name="depth" type="xs:float" minOccurs="0" />
+            <xs:element name="watertemp" type="xs:float" minOccurs="0" />
+            <xs:element name="airtemp" type="xs:float" minOccurs="0" />
+            <xs:element name="watersalinity" type="xs:float" minOccurs="0" />
+            <xs:element name="conductivity" type="xs:float" minOccurs="0" />
+            <xs:element name="chlorophyll" type="xs:float" minOccurs="0" />
+            <xs:element name="ammonium" type="xs:float" minOccurs="0" />
+            <xs:element name="nitrate" type="xs:float" minOccurs="0" />
+            <xs:element name="chloride" type="xs:float" minOccurs="0" />
+            <xs:element name="totaldissolvedsolids" type="xs:float" minOccurs="0" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Teamid" type="xs:string" use="required"/>
+  </xs:complexType>
+</xs:schema>

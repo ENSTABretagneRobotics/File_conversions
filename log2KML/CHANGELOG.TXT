@@ -1,3 +1,6 @@
+9
+Added name of the file inside the KML.
+
 8
 Added input parameter and changed dependencies.
 

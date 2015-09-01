@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AreaScanning Teamid="" xmlns:gml="http://www.opengis.net/gml" xmlns:smil20="http://www.w3.org/2001/SMIL20/" xmlns:smil20lang="http://www.w3.org/2001/SMIL20/Language" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AreaScanningResult.xsd">
+  <TeamName>TeamName</TeamName>
+  <Section>
+    <sectioni>0</sectioni>
+    <sectionj>0</sectionj>
+    <dateTime>2001-12-31T12:00:00Z</dateTime>
+    <gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">49.27 -123.11</gml:pos>
+    <depth>0.0</depth>
+    <watertemp>0.0</watertemp>
+    <airtemp>0.0</airtemp>
+    <watersalinity>0.0</watersalinity>
+    <conductivity>0.0</conductivity>
+    <chlorophyll>0.0</chlorophyll>
+    <ammonium>0.0</ammonium>
+    <nitrate>0.0</nitrate>
+    <chloride>0.0</chloride>
+    <totaldissolvedsolids>0.0</totaldissolvedsolids>
+  </Section>
+  <Section>
+    <sectioni>1</sectioni>
+    <sectionj>0</sectionj>
+    <dateTime>2001-12-31T12:00:10Z</dateTime>
+    <gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">49.27546 -123.11</gml:pos>
+    <depth>0.0</depth>
+    <watertemp>0.0</watertemp>
+    <airtemp>0.0</airtemp>
+    <watersalinity>0.0</watersalinity>
+    <conductivity>0.0</conductivity>
+    <chlorophyll>0.0</chlorophyll>
+    <ammonium>0.0</ammonium>
+    <nitrate>0.0</nitrate>
+    <chloride>0.0</chloride>
+    <totaldissolvedsolids>0.0</totaldissolvedsolids>
+  </Section>
+</AreaScanning>

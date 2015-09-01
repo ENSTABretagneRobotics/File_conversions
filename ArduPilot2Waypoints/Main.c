@@ -17,16 +17,17 @@ int main(int argc, char* argv[])
 	FILE* fileout = NULL;
 	char szTemp[256];
 	char line[4096];
-	char* substr = NULL;
 	int i = 0;
-	double latitude = 0, longitude = 0, altitude = 0;
+	int i0, i1, i2, i3;
+	double d0, d1, d2, d3;
+	double latitude = 0, longitude = 0;
 
 	if (argc != 2)
 	{
-		strcpy(szFileInPath, "Waypoints.kml");
+		strcpy(szFileInPath, "Waypoints.txt");
 		printf("Warning : No parameter specified.\n");
-		printf("Usage : KML2Waypoints file.kml.\n");
-		printf("Default : KML2Waypoints %.255s.\n", szFileInPath);
+		printf("Usage : ArduPilot2Waypoints file.csv.\n");
+		printf("Default : ArduPilot2Waypoints %.255s.\n", szFileInPath);
 	}
 	else
 	{
@@ -45,7 +46,7 @@ int main(int argc, char* argv[])
 	filein = fopen(szFileInPath, "r");
 	if (filein == NULL)
 	{
-		printf("Unable to open kml file.\n");
+		printf("Unable to open ArduPilot file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -71,32 +72,16 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if (strstr(line, "<Point>") != NULL)
+		if ((sscanf(line, "%d %d %d %d %lf %lf %lf %lf %lf %lf", 
+			&i0, &i1, &i2, &i3, &d0, &d1, &d2, &d3, &longitude, &latitude) == 10)&&
+			(latitude != 0)&&(longitude != 0))
 		{
-			memset(line, 0, sizeof(line));
-			if (fgets3(filein, line, sizeof(line)) == NULL) break;
-			if (strstr(line, "<altitudeMode>") != NULL)
-			{
-				memset(line, 0, sizeof(line));
-				if (fgets3(filein, line, sizeof(line)) == NULL) break;
-			}
-			if (strstr(line, "<gx:drawOrder>") != NULL)
-			{
-				memset(line, 0, sizeof(line));
-				if (fgets3(filein, line, sizeof(line)) == NULL) break;
-			}
-			substr = strstr(line, "<coordinates>");
-			if (substr && 
-				sscanf(substr, "<coordinates>%lf,%lf,%lf</coordinates>", 
-				&longitude, &latitude, &altitude) == 3) 
-			{
-				fprintf(fileout, "%f;%f;\n", latitude, longitude);
-				i++;
-			}
-			else
-			{
-				printf("Error reading kml file.\n");
-			}
+			fprintf(fileout, "%f;%f;\n", latitude, longitude);
+			i++;
+		}
+		else
+		{
+			printf("Error reading ArduPilot file.\n");
 		}
 		memset(line, 0, sizeof(line));
 	}

@@ -79,6 +79,14 @@ Debug macros specific to OSMisc.
 #endif // _WIN32
 #endif // DISABLE_USER_INPUT_FUNCTIONS
 
+//// To check...
+//#ifdef __GNUC__
+//#define _stricmp strcasecmp
+//#define _strnicmp strncasecmp
+//#define stricmp _stricmp
+//#define strnicmp _strnicmp
+//#endif // __GNUC__
+
 #define MAX_BUF_LEN 256
 
 #define MAX_TIMEOUT_PROMPTGETUSERINPUTTIMEOUT 25500
@@ -104,6 +112,19 @@ Return : The converted angle.
 inline double fmod_2PI(double theta)
 {
 	return fmod(fmod(theta, 2*M_PI)+3*M_PI, 2*M_PI)-M_PI;
+}
+
+inline double fmod_360(double theta)
+{
+	return fmod(fmod(theta, 2*180.0)+3*180.0, 2*180.0)-180.0;
+}
+
+inline double quantification(double v, double step)
+{
+	//double q = 0;
+	//q = q >= 0? floor(v/step+0.5): ceil(v/step-0.5);
+	//q = q*step;
+	return floor(v/step+0.5)*step;
 }
 
 #ifndef SQR_DEFINED
@@ -328,9 +349,219 @@ inline char* fgets3(FILE* file, char* line, int nbChar)
 	return r;
 }
 
+inline int fload(char* szFilePath, unsigned char* buf, size_t elementsize, size_t count, size_t* pBytesLoaded)
+{
+	FILE* file = NULL;
+
+	file = fopen(szFilePath, "rb");
+
+	if (file == NULL)
+	{
+		return EXIT_FAILURE;
+	}
+
+	*pBytesLoaded = fread(buf, elementsize, count, file);
+	if (*pBytesLoaded <= 0)
+	{
+		// Empty file, elementsize or count is 0, or there was an error.
+		fclose(file);
+		return EXIT_FAILURE;
+	}
+
+	if (feof(file) == 0)
+	{
+		// buf was not big enough or there was an error.
+		fclose(file);
+		return EXIT_FAILURE;
+	}
+
+	if (fclose(file) != EXIT_SUCCESS)
+	{
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+inline int fsave(char* szFilePath, unsigned char* buf, size_t elementsize, size_t count, size_t* pBytesSaved)
+{
+	FILE* file = NULL;
+
+	file = fopen(szFilePath, "wb");
+
+	if (file == NULL)
+	{
+		return EXIT_FAILURE;
+	}
+
+	*pBytesSaved = fwrite(buf, elementsize, count, file);
+	if (*pBytesSaved != elementsize*count)
+	{
+		fclose(file);
+		return EXIT_FAILURE;
+	}
+
+	if (fclose(file) != EXIT_SUCCESS)
+	{
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+inline int fcopyload(char* szFromFilePath, char* szToFilePath, unsigned char* buf, size_t elementsize, size_t count, size_t* pBytesCopied)
+{
+	FILE* fromfile = NULL;
+	FILE* tofile = NULL;
+	size_t BytesRead = 0;
+
+	fromfile = fopen(szFromFilePath, "rb");
+	if (fromfile == NULL)
+	{
+		return EXIT_FAILURE;
+	}
+
+	tofile = fopen(szToFilePath, "wb");
+	if (tofile == NULL)
+	{
+		fclose(fromfile);
+		return EXIT_FAILURE;
+	}
+
+	BytesRead = fread(buf, elementsize, count, fromfile);
+	if (BytesRead <= 0)
+	{
+		// Empty file, elementsize or count is 0, or there was an error.
+		fclose(tofile);
+		fclose(fromfile);
+		return EXIT_FAILURE;
+	}
+
+	if (feof(fromfile) == 0)
+	{
+		// buf was not big enough or there was an error.
+		fclose(tofile);
+		fclose(fromfile);
+		return EXIT_FAILURE;
+	}
+
+	*pBytesCopied = fwrite(buf, elementsize, BytesRead, tofile);
+	if (*pBytesCopied != BytesRead)
+	{
+		fclose(tofile);
+		fclose(fromfile);
+		return EXIT_FAILURE;
+	}
+
+	if (fclose(tofile) != EXIT_SUCCESS)
+	{
+		fclose(fromfile);
+		return EXIT_FAILURE;
+	}
+
+	if (fclose(fromfile) != EXIT_SUCCESS)
+	{
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+inline int fcopy(char* szFromFilePath, char* szToFilePath, size_t* pBytesCopied)
+{
+	FILE* fromfile = NULL;
+	FILE* tofile = NULL;
+	unsigned char buf[1024];
+	size_t BytesRead = 0, BytesWritten = 0;
+
+	fromfile = fopen(szFromFilePath, "rb");
+	if (fromfile == NULL)
+	{
+		return EXIT_FAILURE;
+	}
+
+	tofile = fopen(szToFilePath, "wb");
+	if (tofile == NULL)
+	{
+		fclose(fromfile);
+		return EXIT_FAILURE;
+	}
+
+	*pBytesCopied = 0;
+	do
+	{
+		BytesRead = fread(buf, sizeof(buf), 1, fromfile);
+		if (BytesRead <= 0)
+		{
+			// Empty file, elementsize or count is 0, or there was an error.
+			fclose(tofile);
+			fclose(fromfile);
+			return EXIT_FAILURE;
+		}
+
+		BytesWritten = fwrite(buf, BytesRead, 1, tofile);
+		if (BytesWritten != BytesRead)
+		{
+			fclose(tofile);
+			fclose(fromfile);
+			return EXIT_FAILURE;
+		}
+
+		*pBytesCopied += BytesWritten;
+	}
+	while (feof(fromfile) == 0);
+
+	if (fclose(tofile) != EXIT_SUCCESS)
+	{
+		fclose(fromfile);
+		return EXIT_FAILURE;
+	}
+
+	if (fclose(fromfile) != EXIT_SUCCESS)
+	{
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+inline void RemoveExtensionInFilePath(char* szFilePath)
+{
+	int idx = 0;
+
+	for (idx = (int)strlen(szFilePath)-1; idx >= 0; idx--) { if (szFilePath[idx] == '.') break; }
+	if ((idx > 0)&&(idx < (int)strlen(szFilePath))) memset(szFilePath+idx, 0, strlen(szFilePath)-idx);
+}
+
+inline void RemovePathInFilePath(char* szFilePath)
+{
+	int idx = 0;
+	BOOL bFound = FALSE;
+
+	for (idx = (int)strlen(szFilePath)-2; idx >= 0; idx--)
+	{ 
+		if ((szFilePath[idx] == '/')||(szFilePath[idx] == '\\'))
+		{
+			bFound = TRUE;
+			break; 
+		}
+	}
+	if ((bFound)&&(idx >= 0)&&(idx < (int)strlen(szFilePath)-1)) memmove(szFilePath, szFilePath+idx+1, strlen(szFilePath)-idx);
+}
+
 inline double sensor_err(double bias_err, double max_rand_err)
 {
 	return bias_err+max_rand_err*(2.0*rand()/(double)RAND_MAX-1.0);
+}
+
+// Return theta_star (see http://www.ensta-bretagne.fr/jaulin/paper_jaulin_irsc12.pdf).
+inline double LineFollowing(double phi, double e, double gamma_infinite, double r)
+{
+	//printf("theta_star = %f deg\n", fmod_2PI(phi-(2.0*gamma_infinite/M_PI)*atan(e/r))*180.0/M_PI);
+	//printf("theta_star = %f deg\n", fmod_2PI(phi-(2.0*gamma_infinite/M_PI)*atan2(e,r))*180.0/M_PI);
+
+	//return phi-(2.0*gamma_infinite/M_PI)*atan(e/r);
+	return phi-(2.0*gamma_infinite/M_PI)*atan2(e,r);
 }
 
 /*
@@ -345,6 +576,21 @@ inline uint8 SwapBits(uint8 x)
 	return  
 		((x & 0x01) << 7) | ((x & 0x02) << 5) | ((x & 0x04) << 3) | ((x & 0x08) << 1) | 
 		((x & 0x10) >> 1) | ((x & 0x20) >> 3) | ((x & 0x40) >> 5) | ((x & 0x80) >> 7);
+}
+
+inline void SwapBytes(unsigned char* buf, int nb)
+{
+	int i = 0;
+	int sym_i = 0;
+	unsigned char byte = 0;
+
+	for (i = nb/2-1; i >= 0; i--)
+	{
+		sym_i = nb-1-i;
+		byte = buf[sym_i];
+		buf[sym_i] = buf[i];
+		buf[i] = byte;
+	}
 }
 
 /*
@@ -500,6 +746,61 @@ inline void RefCoordSystem2GPS(double lat0, double long0, double alt0,
 	}
 }
 
+// angle_env : Angle of the x axis of the environment coordinate system 
+// w.r.t. an East - North - Up coordinate system, should be set to 0 if no 
+// specific environment (i.e. an East - North - Up coordinate system) 
+// is used as reference (in rad).
+inline void GPS2EnvCoordSystem(double lat_env, double long_env, double alt_env, double angle_env,
+							   double latitude, double longitude, double altitude,
+							   double* pX, double* pY, double* pZ)
+{
+	double x_enu = 0, y_enu = 0, z_enu = 0;
+
+	GPS2RefCoordSystem(lat_env, long_env, alt_env, latitude, longitude, altitude, &x_enu, &y_enu, &z_enu, EAST_NORTH_UP_COORDINATE_SYSTEM);
+
+	// Conversion from East - North - Up to environment coordinate system.
+	*pX = x_enu*cos(-angle_env)-y_enu*sin(-angle_env);
+	*pY = x_enu*sin(-angle_env)+y_enu*cos(-angle_env);
+	*pZ = z_enu;
+}
+
+inline void EnvCoordSystem2GPS(double lat_env, double long_env, double alt_env, double angle_env, 
+							   double x, double y, double z,
+							   double* pLatitude, double* pLongitude, double* pAltitude)
+{
+	double x_enu = 0, y_enu = 0, z_enu = 0;
+
+	// Conversion from environment to East - North - Up coordinate system.
+	x_enu = x*cos(angle_env)-y*sin(angle_env);
+	y_enu = x*sin(angle_env)+y*cos(angle_env);
+	z_enu = z;
+
+	RefCoordSystem2GPS(lat_env, long_env, alt_env, x_enu, y_enu, z_enu, pLatitude, pLongitude, pAltitude, EAST_NORTH_UP_COORDINATE_SYSTEM);
+}
+
+// The angles conversions are most of the time used separately...
+inline void Robot2EnvCoordSystem(double x_robot, double y_robot, double z_robot, double theta_robot,
+								 double x, double y, double z, //double theta,
+								 double* pX, double* pY, double* pZ//, double* pTheta
+								 )
+{
+	*pX = x*cos(theta_robot)-y*sin(theta_robot)+x_robot;
+	*pY = x*sin(theta_robot)+y*cos(theta_robot)+y_robot;
+	*pZ = z+z_robot;
+	//*pTheta = theta+theta_robot;
+}
+
+inline void EnvCoordSystem2Robot(double x_robot, double y_robot, double z_robot, double theta_robot, 
+								 double x, double y, double z, //double theta,
+								 double* pX, double* pY, double* pZ//, double* pTheta
+								 )
+{
+	*pX = (x-x_robot)*cos(-theta_robot)-(y-y_robot)*sin(-theta_robot);
+	*pY = (x-x_robot)*sin(-theta_robot)+(y-y_robot)*cos(-theta_robot);
+	*pZ = z-z_robot;
+	//*pTheta = theta-theta_robot;
+}
+
 inline void DecDeg2DegDecMin(double decdeg, int* pDeg, double* pDecMin)
 {
 	*pDeg = (int)decdeg;
@@ -597,6 +898,57 @@ inline double Hue_2_RGB(double v1, double v2, double vH)
 	return v1;
 }
 
+inline void Gray2RGB_Matlab(UCHAR val, UCHAR* pR, UCHAR* pG, UCHAR* pB)
+{
+	double h = (2.0/3.0)-(2.0/3.0)*val/255.0;
+
+	*pR = (UCHAR)(255.0*Hue_2_RGB(0,1,h+1.0/3.0));
+	*pG = (UCHAR)(255.0*Hue_2_RGB(0,1,h));
+	*pB = (UCHAR)(255.0*Hue_2_RGB(0,1,h-1.0/3.0));
+}
+
+inline void Gray2RGB_Seanet(UCHAR val, UCHAR* pR, UCHAR* pG, UCHAR* pB)
+{
+	double h = 1, h1 = 0, v1 = 0, v2 = 1;
+
+	h1 = val/255.0;
+	//h = (5.0/6.0)-(2.0/3.0)*h1;
+	if (h1 < 1.0/6.0) {h = (5.0/6.0); v2 = 6.0*h1;}
+	else if (h1 > 5.0/6.0) {h = (5.0/6.0)-(2.0/3.0); v1 = 6.0*(h1-5.0/6.0);}
+	else h = (5.0/6.0)-(h1-1.0/6.0);
+
+	*pR = (UCHAR)(255.0*Hue_2_RGB(v1,v2,h+1.0/3.0));
+	*pG = (UCHAR)(255.0*Hue_2_RGB(v1,v2,h));
+	*pB = (UCHAR)(255.0*Hue_2_RGB(v1,v2,h-1.0/3.0));
+}
+
+/*
+Example : k in [0..4], m = 5
+255 0 0 - 0
+128 128 0 - 1
+0 255 0 - 2
+0 128 128 - 3
+0  0 255 - 4
+
+255-255*k/m, 255*(1-abs(2*(k/m-1/2))), 255*k/m
+
+Be careful to rounding!
+
+(int)(255-255*(int)k/((int)m-1)), 
+(int)(255-abs((255*2*(int)k-255*((int)m-1))/((int)m-1))), 
+(int)(255*(int)k/((int)m-1))
+*/
+inline void Gray2RGB_Quick(UCHAR val, UCHAR* pR, UCHAR* pG, UCHAR* pB)
+{
+	int r = 255-(int)val;
+	int g = 255-abs(2*(int)val-255);
+	int b = val;
+
+	*pR = (UCHAR)r;
+	*pG = (UCHAR)g;
+	*pB = (UCHAR)b;
+}
+
 /*
 Convert from HSL to RGB.
 
@@ -627,9 +979,9 @@ inline void HSL2RGB(double h, double s, double l, UCHAR* r, UCHAR* g, UCHAR* b)
 
 		var_1 = 2*l-var_2;
 
-		*r = (UCHAR)(255.0*Hue_2_RGB(var_1,var_2,h + 1.0/3.0));
+		*r = (UCHAR)(255.0*Hue_2_RGB(var_1,var_2,h+1.0/3.0));
 		*g = (UCHAR)(255.0*Hue_2_RGB(var_1,var_2,h));
-		*b = (UCHAR)(255.0*Hue_2_RGB(var_1,var_2,h - 1.0/3.0));
+		*b = (UCHAR)(255.0*Hue_2_RGB(var_1,var_2,h-1.0/3.0));
 	}
 }
 

@@ -9,12 +9,16 @@
 
 #include "OSMisc.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-	FILE* nmeafile = NULL;
-	FILE* csvfile = NULL;
+	char szFileInPath[256];
+	char szFileOutPath[256];
+	FILE* filein = NULL;
+	FILE* fileout = NULL;
+	char szTemp[256];
+	char szName[256];
 	char line[4096];
-	int i = 0;
+	unsigned int i = 0;
 	double latitude = 0, longitude = 0, altitude = 0;
 	// Temporary buffers for sscanf().
 	double utc;
@@ -27,13 +31,31 @@ int main()
 	double hdop;
 	double height_geoid;
 
+	if (argc != 2)
+	{
+		strcpy(szFileInPath, "lognav.txt");
+		printf("Warning : No parameter specified.\n");
+		printf("Usage : NMEA2CSV file.txt.\n");
+		printf("Default : NMEA2CSV %.255s.\n", szFileInPath);
+	}
+	else
+	{
+		sprintf(szFileInPath, "%.249s", argv[1]);
+	}
+
+	strcpy(szTemp, szFileInPath);
+	RemoveExtensionInFilePath(szTemp);
+	sprintf(szFileOutPath, "%.249s.csv", szTemp);
+	strcpy(szName, szTemp);
+	RemovePathInFilePath(szName);
+
 	printf("Check and change if needed\n\n");
 	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");
 	printf("if you do not know if you should use a '.' or a ',' in floating points numbers\n\n");
 	printf("or a ';' or ',' in list separators.\n\n");
 
-	nmeafile = fopen("lognav.txt", "r");
-	if (nmeafile == NULL)
+	filein = fopen(szFileInPath, "r");
+	if (filein == NULL)
 	{
 		printf("Unable to open nmea file.\n");
 #ifdef _DEBUG
@@ -43,11 +65,11 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	csvfile = fopen("lognav.csv", "w");
-	if (csvfile == NULL)
+	fileout = fopen(szFileOutPath, "w");
+	if (fileout == NULL)
 	{
 		printf("Unable to create csv file.\n");
-		fclose(nmeafile);
+		fclose(filein);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -59,7 +81,7 @@ int main()
 
 	i = 0;
 	memset(line, 0, sizeof(line));
-	while (fgets(line, sizeof(line), nmeafile) != NULL) 
+	while (fgets(line, sizeof(line), filein) != NULL) 
 	{
 		utc = 0;
 		memset(szlatdeg, 0, sizeof(szlatdeg));
@@ -76,7 +98,7 @@ int main()
 			latitude = (north == 'N')?(latdeg+latmin/60.0):-(latdeg+latmin/60.0);
 			longitude = (east == 'E')?(longdeg+longmin/60.0):-(longdeg+longmin/60.0);
 
-			fprintf(csvfile, "%f;%f;%f;%f;%f;\n", utc, latitude, longitude, altitude, height_geoid);
+			fprintf(fileout, "%f;%f;%f;%f;%f;\n", utc, latitude, longitude, altitude, height_geoid);
 			i++;
 		}
 		else if (sscanf(line, "$GPGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d,%d,%lf,%lf,M", &utc, 
@@ -91,7 +113,7 @@ int main()
 			latitude = (north == 'N')?(latdeg+latmin/60.0):-(latdeg+latmin/60.0);
 			longitude = (east == 'E')?(longdeg+longmin/60.0):-(longdeg+longmin/60.0);
 
-			fprintf(csvfile, "%f;%f;%f;%f;\n", utc, latitude, longitude, altitude);
+			fprintf(fileout, "%f;%f;%f;%f;\n", utc, latitude, longitude, altitude);
 			i++;
 		}
 		else if (sscanf(line, "$GPGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d", &utc, 
@@ -106,7 +128,7 @@ int main()
 			latitude = (north == 'N')?(latdeg+latmin/60.0):-(latdeg+latmin/60.0);
 			longitude = (east == 'E')?(longdeg+longmin/60.0):-(longdeg+longmin/60.0);
 
-			fprintf(csvfile, "%f;%f;%f;\n", utc, latitude, longitude);
+			fprintf(fileout, "%f;%f;%f;\n", utc, latitude, longitude);
 			i++;
 		}
 		// In case of no GPGGA...
@@ -121,7 +143,7 @@ int main()
 			latitude = (north == 'N')?(latdeg+latmin/60.0):-(latdeg+latmin/60.0);
 			longitude = (east == 'E')?(longdeg+longmin/60.0):-(longdeg+longmin/60.0);
 
-			fprintf(csvfile, "%f;%f;%f;\n", utc, latitude, longitude);
+			fprintf(fileout, "%f;%f;%f;\n", utc, latitude, longitude);
 			i++;
 		}
 		// In case of no GPGGA nor GPRMC...
@@ -136,7 +158,7 @@ int main()
 			latitude = (north == 'N')?(latdeg+latmin/60.0):-(latdeg+latmin/60.0);
 			longitude = (east == 'E')?(longdeg+longmin/60.0):-(longdeg+longmin/60.0);
 
-			fprintf(csvfile, "%f;%f;%f;\n", utc, latitude, longitude);
+			fprintf(fileout, "%f;%f;%f;\n", utc, latitude, longitude);
 			i++;
 		}
 		else
@@ -146,9 +168,9 @@ int main()
 		memset(line, 0, sizeof(line));
 	}
 
-	printf("Found %d positions.\n", i);
+	printf("Found %u positions.\n", i);
 
-	if (fclose(csvfile) != EXIT_SUCCESS) 
+	if (fclose(fileout) != EXIT_SUCCESS) 
 	{
 		printf("Error closing csv file.\n");
 #ifdef _DEBUG
@@ -158,10 +180,10 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	if (fclose(nmeafile) != EXIT_SUCCESS) 
+	if (fclose(filein) != EXIT_SUCCESS) 
 	{
 		printf("Error closing nmea file.\n");
-		fclose(csvfile);
+		fclose(fileout);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();

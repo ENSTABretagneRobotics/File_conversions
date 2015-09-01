@@ -1,3 +1,6 @@
+5
+Added input parameter.
+
 4
 Added GPRMC and GPGLL support if there is no GPGGA.
 

@@ -1,3 +1,7 @@
+9
+Added VAIMOS_MODE.
+Added name of the file inside the KML.
+
 8
 Added input parameter and changed dependencies.
 Merged the different altitude versions.

@@ -9,6 +9,7 @@
 
 #include "OSMisc.h"
 
+#define VAIMOS_MODE
 //#define ALTITUDE_MODE "absolute"
 #define ALTITUDE_MODE "clampToGround"
 
@@ -19,16 +20,22 @@ int main(int argc, char* argv[])
 	FILE* filein = NULL;
 	FILE* fileout = NULL;
 	char szTemp[256];
-	int idx = 0;
+	char szName[256];
 	char line[4096];
 	unsigned int i = 0;
-	double utc = 0, latitude = 0, longitude = 0, altitude = 0;
+	double latitude = 0, longitude = 0, altitude = 0;
+#ifdef VAIMOS_MODE
+	int i0 = 0;
+	double f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12;
+#else
+	double utc = 0;
+#endif // VAIMOS_MODE
 
 	if (argc != 2)
 	{
 		strcpy(szFileInPath, "lognav.csv");
 		printf("Warning : No parameter specified.\n");
-		printf("Usage : lognav2KML file.txt.\n");
+		printf("Usage : lognav2KML file.csv.\n");
 		printf("Default : lognav2KML %.255s.\n", szFileInPath);
 	}
 	else
@@ -37,10 +44,10 @@ int main(int argc, char* argv[])
 	}
 
 	strcpy(szTemp, szFileInPath);
-	// Remove the extension.
-	for (idx = strlen(szTemp)-1; idx >= 0; idx--) { if (szTemp[idx] == '.') break; }
-	if ((idx > 0)&&(idx < (int)strlen(szTemp))) memset(szTemp+idx, 0, strlen(szTemp)-idx);
+	RemoveExtensionInFilePath(szTemp);
 	sprintf(szFileOutPath, "%.249s.kml", szTemp);
+	strcpy(szName, szTemp);
+	RemovePathInFilePath(szName);
 
 	printf("Check and change if needed\n\n");
 	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");
@@ -73,12 +80,12 @@ int main(int argc, char* argv[])
 	fprintf(fileout, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 	fprintf(fileout, "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n");
 	//fprintf(fileout, "<Folder>\n");
-	//fprintf(fileout, "<name>lognav</name>\n");
+	//fprintf(fileout, "<name>%.249s</name>\n", szName);
 	//fprintf(fileout, "<open>1</open>\n");
 
 	fprintf(fileout, "<Document>\n");
-	fprintf(fileout, "<name>lognav</name>\n");
-	fprintf(fileout, "\t<Placemark>\n\t\t<name>lognav</name>\n");
+	fprintf(fileout, "<name>%.249s</name>\n", szName);
+	fprintf(fileout, "\t<Placemark>\n\t\t<name>%.249s</name>\n", szName);
 	fprintf(fileout, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
 	fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
 
@@ -88,26 +95,39 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if (sscanf(line, "%lf;%lf;%lf;%lf", &utc, &latitude, &longitude, &altitude) == 4) 
+#ifdef VAIMOS_MODE
+		if ((sscanf(line, "%d;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf", 
+			&i0, &f0, &f1, &f2, &f3, &f4, &f5, &f6, &f7, &f8, &f9, &f10, &f11, &f12,
+			&latitude, &longitude) == 16)&&(latitude != 0)&&(longitude != 0))
+#else
+		if (
+			(sscanf(line, "%lf;%lf;%lf;%lf", &utc, &latitude, &longitude, &altitude) == 4)&&
+			(latitude != 0)&&(longitude != 0)
+			) 
+#endif // VAIMOS_MODE
 		{
 			if ((i%65504) == 65503)
 			{
 				// Divide in several placemarks if too many coordinates.
 				fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
-				fprintf(fileout, "\t<Placemark>\n\t\t<name>lognav</name>\n");
+				fprintf(fileout, "\t<Placemark>\n\t\t<name>%.249s</name>\n", szName);
 				fprintf(fileout, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
 				fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
 			}
 			fprintf(fileout, "%f,%f,%f ", longitude, latitude, altitude);
 			i++;
 		}
-		else if (sscanf(line, "%lf;%lf;%lf", &utc, &latitude, &longitude) == 3) 
+#ifndef VAIMOS_MODE
+		else if (
+			(sscanf(line, "%lf;%lf;%lf", &utc, &latitude, &longitude) == 3)&&
+			(latitude != 0)&&(longitude != 0)
+			)
 		{
 			if ((i%65504) == 65503)
 			{
 				// Divide in several placemarks if too many coordinates.
 				fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
-				fprintf(fileout, "\t<Placemark>\n\t\t<name>lognav</name>\n");
+				fprintf(fileout, "\t<Placemark>\n\t\t<name>%.249s</name>\n", szName);
 				fprintf(fileout, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
 				fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
 			}
@@ -115,6 +135,7 @@ int main(int argc, char* argv[])
 			fprintf(fileout, "%f,%f,%d ", longitude, latitude, 0);
 			i++;
 		}
+#endif // VAIMOS_MODE
 		else
 		{
 			printf("Skipping an invalid line in the csv file.\n");
