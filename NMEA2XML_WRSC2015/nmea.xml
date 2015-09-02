@@ -6,1215 +6,455 @@
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T16:53:51Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105150 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T16:55:04Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>0</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T16:58:12Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105150 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>0</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T16:59:08Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105150 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>0</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T17:00:00Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105150 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T17:00:44Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T17:01:24Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T17:01:48Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>5</sectionj>
 		<dateTime>2015-09-01T17:02:37Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.953300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>4</sectionj>
 		<dateTime>2015-09-01T17:03:01Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.952700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>3</sectionj>
 		<dateTime>2015-09-01T17:03:25Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.952100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>2</sectionj>
 		<dateTime>2015-09-01T17:03:52Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.951500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>1</sectionj>
 		<dateTime>2015-09-01T17:04:21Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.950900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>1</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T17:04:44Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105450 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>0</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T17:14:27Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105150 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T17:15:14Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>1</sectionj>
 		<dateTime>2015-09-01T17:15:29Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.950900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>2</sectionj>
 		<dateTime>2015-09-01T17:16:41Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.951500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>3</sectionj>
 		<dateTime>2015-09-01T17:17:35Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.952100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>4</sectionj>
 		<dateTime>2015-09-01T17:18:36Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.952700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>5</sectionj>
 		<dateTime>2015-09-01T17:19:28Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.953300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T17:20:18Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T17:21:07Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T17:21:54Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>2</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T17:23:16Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.105750 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T17:29:46Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T17:30:28Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T17:31:10Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T17:31:45Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>5</sectionj>
 		<dateTime>2015-09-01T17:32:24Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.953300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>4</sectionj>
 		<dateTime>2015-09-01T17:32:59Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.952700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>3</sectionj>
 		<dateTime>2015-09-01T17:33:36Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.952100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>2</sectionj>
 		<dateTime>2015-09-01T17:34:08Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.951500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>1</sectionj>
 		<dateTime>2015-09-01T17:34:43Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.950900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>3</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T17:35:18Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106050 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T17:35:59Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>1</sectionj>
 		<dateTime>2015-09-01T17:36:42Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.950900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>2</sectionj>
 		<dateTime>2015-09-01T17:38:30Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.951500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>3</sectionj>
 		<dateTime>2015-09-01T17:39:40Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.952100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>4</sectionj>
 		<dateTime>2015-09-01T17:40:42Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.952700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>5</sectionj>
 		<dateTime>2015-09-01T17:41:45Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.953300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T17:42:48Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T17:43:53Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T17:45:05Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>4</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T17:46:21Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106350 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T17:47:22Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T17:48:28Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T17:49:12Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T17:49:45Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>5</sectionj>
 		<dateTime>2015-09-01T17:50:19Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.953300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>4</sectionj>
 		<dateTime>2015-09-01T17:50:59Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.952700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>3</sectionj>
 		<dateTime>2015-09-01T17:51:31Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.952100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>2</sectionj>
 		<dateTime>2015-09-01T17:52:03Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.951500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>1</sectionj>
 		<dateTime>2015-09-01T17:52:37Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.950900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>5</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T17:53:14Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106650 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T17:54:01Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>1</sectionj>
 		<dateTime>2015-09-01T17:54:53Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.950900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>2</sectionj>
 		<dateTime>2015-09-01T17:56:24Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.951500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>3</sectionj>
 		<dateTime>2015-09-01T17:57:48Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.952100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>4</sectionj>
 		<dateTime>2015-09-01T18:00:00Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.952700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>4</sectionj>
 		<dateTime>2015-09-01T18:02:22Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.952700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>5</sectionj>
 		<dateTime>2015-09-01T18:05:04Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.953300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T18:05:45Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T18:07:14Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T18:08:37Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>6</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T18:09:48Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.106950 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>9</sectionj>
 		<dateTime>2015-09-01T18:11:16Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.955700</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>8</sectionj>
 		<dateTime>2015-09-01T18:12:11Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.955100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>7</sectionj>
 		<dateTime>2015-09-01T18:12:52Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.954500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>6</sectionj>
 		<dateTime>2015-09-01T18:13:31Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.953900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>5</sectionj>
 		<dateTime>2015-09-01T18:14:12Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.953300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>3</sectionj>
 		<dateTime>2015-09-01T18:15:29Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.952100</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>2</sectionj>
 		<dateTime>2015-09-01T18:16:02Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.951500</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>1</sectionj>
 		<dateTime>2015-09-01T18:16:32Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.950900</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>7</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T18:17:09Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107250 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 	<Section>
 		<sectioni>8</sectioni>
 		<sectionj>0</sectionj>
 		<dateTime>2015-09-01T18:18:35Z</dateTime>
 		<gml:pos srsDimension="2" srsName="urn:ogc:def:crs:EPSG:6.6:4326">60.107550 19.950300</gml:pos>
-		<depth>0.0</depth>
-		<watertemp>0.0</watertemp>
-		<airtemp>0.0</airtemp>
-		<watersalinity>0.0</watersalinity>
-		<conductivity>0.0</conductivity>
-		<chlorophyll>0.0</chlorophyll>
-		<ammonium>0.0</ammonium>
-		<nitrate>0.0</nitrate>
-		<chloride>0.0</chloride>
-		<totaldissolvedsolids>0.0</totaldissolvedsolids>
 	</Section>
 </AreaScanning>

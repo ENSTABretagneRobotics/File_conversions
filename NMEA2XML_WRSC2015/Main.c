@@ -172,16 +172,16 @@ int main(int argc, char* argv[])
 							year, month, day, hour, minute, second);
 						fprintf(fileout, "\t\t<gml:pos srsDimension=\"2\" srsName=\"urn:ogc:def:crs:EPSG:6.6:4326\">%f %f</gml:pos>\n", 
 							sections[i][j].latpos, sections[i][j].longpos);
-						fprintf(fileout, "\t\t<depth>0.0</depth>\n");
-						fprintf(fileout, "\t\t<watertemp>0.0</watertemp>\n");
-						fprintf(fileout, "\t\t<airtemp>0.0</airtemp>\n");
-						fprintf(fileout, "\t\t<watersalinity>0.0</watersalinity>\n");
-						fprintf(fileout, "\t\t<conductivity>0.0</conductivity>\n");
-						fprintf(fileout, "\t\t<chlorophyll>0.0</chlorophyll>\n");
-						fprintf(fileout, "\t\t<ammonium>0.0</ammonium>\n");
-						fprintf(fileout, "\t\t<nitrate>0.0</nitrate>\n");
-						fprintf(fileout, "\t\t<chloride>0.0</chloride>\n");
-						fprintf(fileout, "\t\t<totaldissolvedsolids>0.0</totaldissolvedsolids>\n");
+						//fprintf(fileout, "\t\t<depth>0.0</depth>\n");
+						//fprintf(fileout, "\t\t<watertemp>0.0</watertemp>\n");
+						//fprintf(fileout, "\t\t<airtemp>0.0</airtemp>\n");
+						//fprintf(fileout, "\t\t<watersalinity>0.0</watersalinity>\n");
+						//fprintf(fileout, "\t\t<conductivity>0.0</conductivity>\n");
+						//fprintf(fileout, "\t\t<chlorophyll>0.0</chlorophyll>\n");
+						//fprintf(fileout, "\t\t<ammonium>0.0</ammonium>\n");
+						//fprintf(fileout, "\t\t<nitrate>0.0</nitrate>\n");
+						//fprintf(fileout, "\t\t<chloride>0.0</chloride>\n");
+						//fprintf(fileout, "\t\t<totaldissolvedsolids>0.0</totaldissolvedsolids>\n");
 						fprintf(fileout, "\t</Section>\n");
 						ns++;
 					}
