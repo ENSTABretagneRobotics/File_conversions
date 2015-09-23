@@ -1,6 +1,3 @@
-10
-Added LOGSTATE_MODE.
-
 9
 Added VAIMOS_MODE.
 Added name of the file inside the KML.
