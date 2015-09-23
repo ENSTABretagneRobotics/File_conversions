@@ -9,8 +9,8 @@
 
 #include "OSMisc.h"
 
-#define LOGSTATE_MODE
-//#define VAIMOS_MODE
+//#define LOGSTATE_MODE
+#define VAIMOS_MODE
 //#define ALTITUDE_MODE "absolute"
 #define ALTITUDE_MODE "clampToGround"
 
@@ -25,12 +25,17 @@ int main(int argc, char* argv[])
 	char line[4096];
 	unsigned int i = 0;
 	double latitude = 0, longitude = 0, altitude = 0;
-#if defined(VAIMOS_MODE) || defined(LOGSTATE_MODE)
+#ifdef VAIMOS_MODE
 	int i0 = 0;
-	double f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25;
+	double f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12; 
+#else
+#ifdef LOGSTATE_MODE
+	double f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12; 
+	double f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25;
 #else
 	double utc = 0;
-#endif // defined(VAIMOS_MODE) || defined(LOGSTATE_MODE)
+#endif // LOGSTATE_MODE
+#endif // VAIMOS_MODE
 
 	if (argc != 2)
 	{
