@@ -160,3 +160,7 @@ $RECYCLE.BIN/
 # =========================
 
 TODO/
+!*ReadMe.txt
+!*/Release/
+*/Release/*
+!*/Release/*.exe
