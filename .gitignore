@@ -8,8 +8,8 @@
 
 # Build results
 
-#*/[Dd]ebug/
-#*/[Rr]elease/
+*/[Dd]ebug/
+*/[Rr]elease/
 */x64/
 */build/
 */[Bb]in/
@@ -161,6 +161,6 @@ $RECYCLE.BIN/
 
 TODO/
 !*ReadMe.txt
-#!*/Release/
-#*/Release/*
-#!*/Release/*.exe
+!*/Release/
+*/Release/*
+!*/Release/*.exe
