@@ -1,0 +1,12 @@
+% bDisableAutoDateDetection
+0
+% bForce_GPGGA_height_geoid
+0
+% bForce_GPGGA_altitude
+0
+% bForce_GPGGA
+0
+% bForce_GPRMC
+0
+% bForce_GPGLL
+0

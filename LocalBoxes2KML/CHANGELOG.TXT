@@ -1,2 +1,5 @@
+Changed dependencies.
+Added Visual Studio 2012 project files.
+
 1
 Initial version.

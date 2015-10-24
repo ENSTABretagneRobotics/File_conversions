@@ -7,16 +7,13 @@
 #	undef _MSC_VER
 #endif // defined(__GNUC__) || defined(__BORLANDC__)
 
-#ifndef WAYPOINTS_H
-#define WAYPOINTS_H
+#ifndef GLOBALS_H
+#define GLOBALS_H
 
-#include "Utils.h"
+#include "OSMisc.h"
+#include "CoordSystemChg.h"
 
-#define MAX_NB_WP 256
+// Environment parameters.
+extern double angle_env, lat_env, long_env, alt_env;
 
-int LoadWaypoints(double wpslat[], double wpslong[], int* pNbWPs);
-int CheckWaypoints(double wpslat[], double wpslong[], int nbWPs);
-int GetCurrentWaypoint(int* pCurWP);
-int SetCurrentWaypoint(int CurWP);
-
-#endif // WAYPOINTS_H
+#endif // GLOBALS_H

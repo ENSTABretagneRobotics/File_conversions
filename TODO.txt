@@ -1,15 +1,25 @@
+NMEA2CSV
+trouver exemple de fichier avec que du GLL pour tester (HTC-HD2?)...
+convertir utc en tv_sec decimal ou optionnellement en nb de s depuis le début du fichier?
 
 display in google earth-like app a trajectory since the beginning or since a selectable time
 générer facilement un kml avec une photo a un bon endroit
 
-glisser-deposer comme csv2v4log, alog2nmea (avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning) : faire nmea2csv, GPSSMS2KML, waypoints conversions...
+glisser-deposer comme csv2v4log, alog2nmea (avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning) : faire GPSSMS2KML, waypoints conversions...
 
 mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...
-
-choix de GGA ou RMC, s'il y a les 2 on a du coup une ligne sur 2 avec les altitudes, c'est pas l'idéal, prévoir fichier de config pour choisir avec option auto (= comme c'est actuellement) par défaut, GGA, RMC...
 
 lognav2alldata pour avoir aussi le temps dans googleearth (replay...)
 
 code d'adaptation pour fusionner logs de razor et nmea pour générer alldata.txt
 
 vibes3d-like avec googleearth? mais reset de la vue à chaque rechargement du fichier... par contre bon pour replay, mais est-ce possible de voir sous l'eau?
+
+
+
+OLD
+
+l'inconvénient de la détection auto de trame qui a le plus de données est que si à un moment on a du fix 3D et qu'on n'a plus que du 2D à un autre moment, on ne va pas garder les infos de fix 2D, dans ce cas le fichier de config serait bien pour manuellement choisir...
+des fois on n'a pas la date complete aussi, essayer toujours de récupérer la date venant du dernier RMC
+c'était pour quoi le (!utc)&&  ???
+choix de GGA ou RMC, s'il y a les 2 on a du coup une ligne sur 2 avec les altitudes, c'est pas l'idéal, prévoir fichier de config pour choisir avec option auto (= comme c'est actuellement) par défaut, GGA, RMC...->essaye de déterminer comme il faut automatiquement...

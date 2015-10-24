@@ -1,3 +1,13 @@
+7
+Removed message indicating skipped lines to improve performance.
+
+6
+Added checking of GPS_quality_indicator > 0 for GPGGA.
+Better automatic selection of the best NMEA sentence available.
+Better conversion of time data.
+Added Visual Studio 2012 project files.
+Added configuration file.
+
 5
 Added input parameter.
 

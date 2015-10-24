@@ -12,7 +12,7 @@
 int main()
 {
 	double d0 = 0, d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0, d7 = 0, d8 = 0, d9 = 0, d10 = 0; 
-	double t = 0, latmin = 0, longmin = 0, latmax = 0, longmax = 0, altitude = 0;
+	double dt = 0, t0 = 0, t = 0, latmin = 0, longmin = 0, latmax = 0, longmax = 0, altitude = 0;
 	double xmin = 0, ymin = 0, xmax = 0, ymax = 0, z = 0;
 	FILE* logstatefile = NULL;
 	FILE* kmlfile = NULL;
@@ -62,10 +62,12 @@ int main()
 
 	printf("Converting...\n");
 
+	t = 0;
 	i = 0;
 	memset(line, 0, sizeof(line));
 	while (fgets3(logstatefile, line, sizeof(line)) != NULL) 
 	{
+		t0 = t;
 		if (sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf", 
 			&t, &d0, &d1, &d2, &d3, &d4, &d5, &d6, &d7, &d8, &d9, &d10, 
