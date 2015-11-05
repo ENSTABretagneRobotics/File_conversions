@@ -1,4 +1,5 @@
-Changed dependencies.
+2
+Added input parameter and changed dependencies.
 Added Visual Studio 2012 project files.
 
 1

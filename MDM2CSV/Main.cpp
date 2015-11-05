@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 		return EXIT_FAILURE;
 	}
 
-	fprintf(fileout, "t (in s);latitude;longitude;distance (in m)\n");
+	fprintf(fileout, "t (in s);latitude;longitude;distance (in m);\n");
 
 	printf("Converting...\n");
 
