@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Input Files">
+      <UniqueIdentifier>{59b3d449-e2a7-4e7a-a21d-e6fea7d9e563}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Env.cpp">
@@ -65,9 +68,17 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
-    <Text Include="env.txt" />
+    <Text Include="env.txt">
+      <Filter>Input Files</Filter>
+    </Text>
+    <Text Include="LocalBoxes2KML.txt">
+      <Filter>Input Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />
+    <None Include="logstate.csv">
+      <Filter>Input Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

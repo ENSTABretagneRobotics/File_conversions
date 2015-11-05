@@ -113,8 +113,10 @@
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
     <Text Include="env.txt" />
+    <Text Include="LocalBoxes2KML.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="logstate.csv" />
     <None Include="Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,6 +5,8 @@ convertir utc en tv_sec decimal ou optionnellement en nb de s depuis le début du
 display in google earth-like app a trajectory since the beginning or since a selectable time
 générer facilement un kml avec une photo a un bon endroit
 
+pouvoir dessiner facilement ellipse dans google earth
+
 glisser-deposer comme csv2v4log, alog2nmea (avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning) : faire GPSSMS2KML, waypoints conversions...
 
 mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...

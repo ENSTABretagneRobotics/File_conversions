@@ -13,18 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="Input Files">
-      <UniqueIdentifier>{59b3d449-e2a7-4e7a-a21d-e6fea7d9e563}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Env.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Globals.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OSCore.c">
@@ -38,24 +29,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AxisOptions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoordSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoordSystem2Img.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoordSystemChg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Env.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OSCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -68,17 +41,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
-    <Text Include="env.txt">
-      <Filter>Input Files</Filter>
-    </Text>
-    <Text Include="LocalBoxes2KML.txt">
-      <Filter>Input Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Makefile" />
-    <None Include="logstate.csv">
-      <Filter>Input Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

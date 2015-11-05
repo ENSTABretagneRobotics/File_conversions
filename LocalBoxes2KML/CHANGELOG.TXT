@@ -1,3 +1,6 @@
+3
+Added configuration file.
+
 2
 Added input parameter and changed dependencies.
 Added Visual Studio 2012 project files.

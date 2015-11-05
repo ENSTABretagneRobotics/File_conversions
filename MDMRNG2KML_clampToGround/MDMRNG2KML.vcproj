@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="LocalBoxes2KML"
+	Name="MDMRNG2KML"
 	ProjectGUID="{91891A29-3BB8-4201-A1AC-A9889A52389E}"
-	RootNamespace="LocalBoxes2KML"
+	RootNamespace="MDMRNG2KML"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -180,15 +180,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Env.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Globals.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Main.cpp"
+				RelativePath=".\Main.c"
 				>
 			</File>
 			<File
@@ -210,30 +202,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\AxisOptions.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CoordSystem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CoordSystem2Img.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CoordSystemChg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Env.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Globals.h"
-				>
-			</File>
-			<File
 				RelativePath=".\OSCore.h"
 				>
 			</File>
@@ -252,28 +220,8 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
-		<Filter
-			Name="Input Files"
-			>
-			<File
-				RelativePath=".\env.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\LocalBoxes2KML.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\logstate.csv"
-				>
-			</File>
-		</Filter>
 		<File
 			RelativePath=".\CHANGELOG.TXT"
-			>
-		</File>
-		<File
-			RelativePath=".\Makefile"
 			>
 		</File>
 	</Files>

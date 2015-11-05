@@ -252,12 +252,24 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<Filter
+			Name="Input Files"
+			>
+			<File
+				RelativePath=".\env.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\LocalBoxes2KML.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\logstate.csv"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\CHANGELOG.TXT"
-			>
-		</File>
-		<File
-			RelativePath=".\env.txt"
 			>
 		</File>
 		<File
