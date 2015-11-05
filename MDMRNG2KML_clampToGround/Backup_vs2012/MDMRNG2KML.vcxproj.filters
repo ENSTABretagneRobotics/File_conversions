@@ -42,4 +42,7 @@
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+  </ItemGroup>
 </Project>

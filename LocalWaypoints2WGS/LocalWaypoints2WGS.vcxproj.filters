@@ -13,33 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Input Files">
+      <UniqueIdentifier>{d6a5b262-5341-41e9-8f33-e8cea120be1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.c">
+    <ClCompile Include="Env.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OSCore.c">
+    <ClCompile Include="Globals.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OSMisc.c">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OSTime.c">
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Waypoints.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OSCore.h">
+    <ClInclude Include="Env.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OSMisc.h">
+    <ClInclude Include="Globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OSTime.h">
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Waypoints.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="env.txt">
+      <Filter>Input Files</Filter>
+    </Text>
+    <Text Include="wplocal.txt">
+      <Filter>Input Files</Filter>
+    </Text>
     <Text Include="CHANGELOG.TXT" />
   </ItemGroup>
   <ItemGroup>

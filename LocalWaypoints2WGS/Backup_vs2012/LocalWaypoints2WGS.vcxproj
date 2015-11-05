@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{91891A29-3BB8-4201-A1AC-A9889A52389E}</ProjectGuid>
-    <RootNamespace>MDMRNG2KML</RootNamespace>
+    <RootNamespace>LocalWaypoints2WGS</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -92,17 +92,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.c" />
-    <ClCompile Include="OSCore.c" />
-    <ClCompile Include="OSMisc.c" />
-    <ClCompile Include="OSTime.c" />
+    <ClCompile Include="Env.cpp" />
+    <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Waypoints.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OSCore.h" />
-    <ClInclude Include="OSMisc.h" />
-    <ClInclude Include="OSTime.h" />
+    <ClInclude Include="Env.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Waypoints.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="env.txt" />
+    <Text Include="wplocal.txt" />
     <Text Include="CHANGELOG.TXT" />
   </ItemGroup>
   <ItemGroup>

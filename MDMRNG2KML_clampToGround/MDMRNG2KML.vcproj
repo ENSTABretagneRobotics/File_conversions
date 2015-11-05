@@ -224,6 +224,10 @@
 			RelativePath=".\CHANGELOG.TXT"
 			>
 		</File>
+		<File
+			RelativePath=".\Makefile"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
