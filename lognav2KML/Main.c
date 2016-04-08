@@ -10,7 +10,7 @@
 #include "OSMisc.h"
 
 //#define LOGSTATE_MODE
-#define VAIMOS_MODE
+//#define VAIMOS_MODE
 //#define ALTITUDE_MODE "absolute"
 #define ALTITUDE_MODE "clampToGround"
 
@@ -141,7 +141,7 @@ int main(int argc, char* argv[])
 				fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
 				fprintf(fileout, "\t<Placemark>\n\t\t<name>%.249s</name>\n", szName);
 				fprintf(fileout, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
-				fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
+				fprintf(fileout, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>clampToGround</altitudeMode>\n\t\t\t<coordinates>\n");
 			}
 			// Optimization for the altitude : integer.
 			fprintf(fileout, "%f,%f,%d ", longitude, latitude, 0);
