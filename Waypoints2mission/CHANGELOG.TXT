@@ -1,3 +1,6 @@
+3
+Added possibility to have a space separator instead of a semicolon in Waypoints.csv.
+
 2
 Added input parameter and changed dependencies.
 

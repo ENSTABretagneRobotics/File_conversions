@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
 		if ((sscanf(line, "%d %d %d %d %lf %lf %lf %lf %lf %lf", 
-			&i0, &i1, &i2, &i3, &d0, &d1, &d2, &d3, &longitude, &latitude) == 10)&&
+			&i0, &i1, &i2, &i3, &d0, &d1, &d2, &d3, &latitude, &longitude) == 10)&&
 			(latitude != 0)&&(longitude != 0))
 		{
 			fprintf(fileout, "%f;%f;\n", latitude, longitude);
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			printf("Error reading ArduPilot file.\n");
+			printf("Skipping an invalid line in the ArduPilot file.\n");
 		}
 		memset(line, 0, sizeof(line));
 	}

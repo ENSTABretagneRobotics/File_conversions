@@ -39,7 +39,8 @@ int LoadWaypointsEx(char* szFileInPath, double wpslat[], double wpslong[], int* 
 			fclose(file);
 			return EXIT_FAILURE;
 		}
-		if (sscanf(line, "%lf;%lf", &wpslat[i], &wpslong[i]) == 2) 
+		if ((sscanf(line, "%lf;%lf", &wpslat[i], &wpslong[i]) == 2)||
+			(sscanf(line, "%lf %lf", &wpslat[i], &wpslong[i]) == 2)) 
 		{
 			i++;
 		}

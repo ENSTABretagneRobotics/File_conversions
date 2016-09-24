@@ -1,0 +1,30 @@
+8
+Specific version for WRSC 2016, that uses GPRMC.
+
+7
+Removed message indicating skipped lines to improve performance.
+
+6
+Added checking of GPS_quality_indicator > 0 for GPGGA.
+Better automatic selection of the best NMEA sentence available.
+Better conversion of time data.
+Added Visual Studio 2012 project files.
+Added configuration file.
+
+5
+Added input parameter.
+
+4
+Added GPRMC and GPGLL support if there is no GPGGA.
+
+3
+Added utc as the first column.
+
+3
+Added height of the geoid above WGS84 ellipsoid, when available.
+
+2
+Added altitude, when available.
+
+1
+Initial version.

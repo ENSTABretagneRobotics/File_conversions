@@ -103,6 +103,18 @@ Debug macros specific to OSMisc.
 #define NORTH_WEST_UP_COORDINATE_SYSTEM 2
 
 /*
+Return an angle between 0 and 2*M_PI.
+
+double theta : (IN) Value.
+
+Return : The converted angle.
+*/
+inline double fmod_2PI_pos(double theta)
+{
+	return fmod(fmod(theta, 2*M_PI)+2*M_PI, 2*M_PI);
+}
+
+/*
 Return an angle between -M_PI and M_PI.
 
 double theta : (IN) Value.
@@ -114,9 +126,76 @@ inline double fmod_2PI(double theta)
 	return fmod(fmod(theta, 2*M_PI)+3*M_PI, 2*M_PI)-M_PI;
 }
 
+/*
+Return an angle between 0 and 360.
+
+double theta : (IN) Value.
+
+Return : The converted angle.
+*/
+inline double fmod_360_pos(double theta)
+{
+	return fmod(fmod(theta, 2*180.0)+2*180.0, 2*180.0);
+}
+
+/*
+Return an angle between -180 and 180.
+
+double theta : (IN) Value.
+
+Return : The converted angle.
+*/
 inline double fmod_360(double theta)
 {
 	return fmod(fmod(theta, 2*180.0)+3*180.0, 2*180.0)-180.0;
+}
+
+/*
+Convert any angle in rad to an angle between 0 and 360 deg.
+
+double theta : (IN) Value in rad.
+
+Return : The converted angle in deg.
+*/
+inline double fmod_360_pos_rad2deg(double theta)
+{
+	return fmod(fmod(theta*180.0/M_PI, 2*180.0)+2*180.0, 2*180.0);
+}
+
+/*
+Convert any angle in rad to an angle between -180 and 180 deg.
+
+double theta : (IN) Value in rad.
+
+Return : The converted angle in deg.
+*/
+inline double fmod_360_rad2deg(double theta)
+{
+	return fmod(fmod(theta*180.0/M_PI, 2*180.0)+3*180.0, 2*180.0)-180.0;
+}
+
+/*
+Convert any angle in deg to an angle between 0 and 2*M_PI rad.
+
+double theta : (IN) Value in deg.
+
+Return : The converted angle in rad.
+*/
+inline double fmod_2PI_pos_deg2rad(double theta)
+{
+	return fmod(fmod(theta*M_PI/180.0, 2*M_PI)+2*M_PI, 2*M_PI);
+}
+
+/*
+Convert any angle in deg to an angle between -M_PI and M_PI rad.
+
+double theta : (IN) Value in deg.
+
+Return : The converted angle in rad.
+*/
+inline double fmod_2PI_deg2rad(double theta)
+{
+	return fmod(fmod(theta*M_PI/180.0, 2*M_PI)+3*M_PI, 2*M_PI)-M_PI;
 }
 
 inline double quantification(double v, double step)
@@ -347,6 +426,73 @@ inline char* fgets3(FILE* file, char* line, int nbChar)
 	}
 
 	return r;
+}
+
+/*
+Return : The current line number or -1 if an error occurs.
+*/
+inline int ftellline(FILE* file)
+{ 
+	int cur = 0, i = 0;
+	char* r = NULL;
+	char line[1024];
+
+	cur = ftell(file);
+	rewind(file);
+
+	do
+	{
+		do
+		{
+			r = fgets(line, sizeof(line), file);
+			if (r == NULL) 
+			{
+				// Go back to initial position.
+				fseek(file, cur, SEEK_SET);
+				return -1;
+			}
+		} while ((strlen(r) == sizeof(line)-1)&&(r[sizeof(line)-2] != '\n'));
+		i++;
+	} while (ftell(file) <= cur);
+
+	// Go back to initial position.
+	if (fseek(file, cur, SEEK_SET) != EXIT_SUCCESS) return -1;
+
+	return i;
+}
+
+/*
+Return : EXIT_SUCCESS or EXIT_FAILURE if linenumber does not exist and in this case 
+the file tries to stay at its original position unless a file error occurs.
+*/
+inline int fsetline(FILE* file, int linenumber)
+{ 
+	int cur = 0, i = 0;
+	char* r = NULL;
+	char line[1024];
+
+	if (linenumber <= 0) return EXIT_FAILURE;
+
+	cur = ftell(file);
+	rewind(file);
+
+	while (i < linenumber-1)
+	{
+		do
+		{
+			r = fgets(line, sizeof(line), file);
+			if (r == NULL) 
+			{
+				// If fgets() fails, try to go back to initial position.
+				clearerr(file);
+				fseek(file, cur, SEEK_SET);
+				return EXIT_FAILURE;
+			}
+		} while ((strlen(r) == sizeof(line)-1)&&(r[sizeof(line)-2] != '\n'));
+		i++;
+	} 
+
+	return EXIT_SUCCESS;
 }
 
 inline int fload(char* szFilePath, unsigned char* buf, size_t elementsize, size_t count, size_t* pBytesLoaded)
@@ -1117,6 +1263,7 @@ EXTERN_C char GetUserInput(void);
 
 /*
 Wait for the user to press any key.
+See also getch() or kbhit() functions (conio.h).
 
 Return : Nothing.
 */

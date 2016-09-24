@@ -1,2 +1,5 @@
+2
+Corrected bug with latitude and longitude inverted.
+
 1
 Initial version.

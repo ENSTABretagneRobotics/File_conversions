@@ -1,0 +1,151 @@
+// Prevent Visual Studio Intellisense from defining _WIN32 and _MSC_VER when we use 
+// Visual Studio to edit Linux or Borland C++ code.
+#ifdef __linux__
+#	undef _WIN32
+#endif // __linux__
+#if defined(__GNUC__) || defined(__BORLANDC__)
+#	undef _MSC_VER
+#endif // defined(__GNUC__) || defined(__BORLANDC__)
+
+#include "OSMisc.h"
+
+#define MAX_NB_WP 256
+
+int LoadWaypointsEx(char* szFileInPath, double wpslat[], double wpslong[], int* pNbWPs)
+{
+	FILE* file = NULL;
+	char line[MAX_BUF_LEN];
+	int i = 0;
+
+	memset(wpslat, 0, MAX_NB_WP);
+	memset(wpslong, 0, MAX_NB_WP);
+	*pNbWPs = 0;
+
+	file = fopen(szFileInPath, "r");
+	if (file == NULL)
+	{
+		printf("Waypoints file not found.\n");
+		return EXIT_FAILURE;
+	}
+
+	i = 0;
+	memset(line, 0, sizeof(line));
+	while (fgets3(file, line, sizeof(line)) != NULL) 
+	{
+		if (i >= MAX_NB_WP) 
+		{
+			printf("Too many waypoints.\n");
+			*pNbWPs = i;
+			fclose(file);
+			return EXIT_FAILURE;
+		}
+		if ((sscanf(line, "%lf;%lf", &wpslat[i], &wpslong[i]) == 2)||
+			(sscanf(line, "%lf %lf", &wpslat[i], &wpslong[i]) == 2)) 
+		{
+			i++;
+		}
+		else
+		{
+			printf("Skipping an invalid line in the waypoints file.\n");
+		}
+		memset(line, 0, sizeof(line));
+	}
+	*pNbWPs = i;
+	if (*pNbWPs <= 0)
+	{
+		printf("Invalid waypoints file.\n");
+		*pNbWPs = 0;
+		fclose(file);
+		return EXIT_FAILURE;
+	}
+	if (fclose(file) != EXIT_SUCCESS) 
+	{
+		printf("Error closing waypoints file.\n");
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+int main(int argc, char* argv[])
+{
+	char szFileInPath[256];
+	char szFileOutPath[256];
+	//FILE* filein = NULL;
+	FILE* fileout = NULL;
+	char szTemp[256];
+	double wpslat[MAX_NB_WP];
+	double wpslong[MAX_NB_WP];
+	int i = 0;
+	int nbWPs = 0;
+
+	if (argc != 2)
+	{
+		strcpy(szFileInPath, "Waypoints.csv");
+		printf("Warning : No parameter specified.\n");
+		printf("Usage : Waypoints2Ardupilot file.csv.\n");
+		printf("Default : Waypoints2Ardupilot %.255s.\n", szFileInPath);
+	}
+	else
+	{
+		sprintf(szFileInPath, "%.241s", argv[1]);
+	}
+
+	strcpy(szTemp, szFileInPath);
+	RemoveExtensionInFilePath(szTemp);
+	sprintf(szFileOutPath, "%.241s.txt", szTemp);
+
+	printf("Check and change if needed\n\n");
+	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");
+	printf("if you do not know if you should use a '.' or a ',' in floating points numbers\n\n");
+	printf("or a ';' or ',' in list separators.\n\n");
+
+	if (LoadWaypointsEx(szFileInPath, wpslat, wpslong, &nbWPs) != EXIT_SUCCESS)
+	{
+#ifdef _DEBUG
+		fprintf(stdout, "Press ENTER to continue . . . ");
+		(void)getchar();
+#endif // _DEBUG
+		return EXIT_FAILURE;
+	}
+
+	fileout = fopen(szFileOutPath, "w");
+	if (fileout == NULL)
+	{
+		printf("Unable to create ArduPilot waypoints file.\n");
+#ifdef _DEBUG
+		fprintf(stdout, "Press ENTER to continue . . . ");
+		(void)getchar();
+#endif // _DEBUG
+		return EXIT_FAILURE;
+	}
+
+	printf("Converting...\n");
+		
+	fprintf(fileout, "QGC WPL 110\n"
+		"0	1	0	0	0	0	0	0	0	0	0	1\n");
+	for (i = 0; i < nbWPs; i++)
+	{
+		fprintf(fileout, "%d\t%d\t%d\t%d\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%d\n", 
+			i+1, 0, 3, 16, 0.0, 0.0, 0.0, 0.0, wpslat[i], wpslong[i], 0.0, 1);
+	}
+
+	printf("Found %d waypoints.\n", nbWPs);
+
+	if (fclose(fileout) != EXIT_SUCCESS) 
+	{
+		printf("Error closing ArduPilot waypoints file.\n");
+#ifdef _DEBUG
+		fprintf(stdout, "Press ENTER to continue . . . ");
+		(void)getchar();
+#endif // _DEBUG
+		return EXIT_FAILURE;
+	}
+
+#ifdef _DEBUG
+	fprintf(stdout, "Press ENTER to continue . . . ");
+	(void)getchar();
+#endif // _DEBUG
+
+	return EXIT_SUCCESS;
+}

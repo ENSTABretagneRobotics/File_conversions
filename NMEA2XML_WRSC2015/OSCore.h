@@ -35,7 +35,7 @@ _ Borland C++ Builder : __BORLANDC__
 
 _ GCC : __GNUC__
 
-Predifined macros depending on the target operating system : 
+Predefined macros depending on the target operating system : 
 
 _ 32 bit Windows : _WIN32 & !_WIN64
 
@@ -90,6 +90,9 @@ _ Windows CE : WINCE
 #	ifndef _CRT_SECURE_NO_WARNINGS
 #		define _CRT_SECURE_NO_WARNINGS
 #	endif // _CRT_SECURE_NO_WARNINGS
+#	ifndef _WINSOCK_DEPRECATED_NO_WARNINGS
+#		define _WINSOCK_DEPRECATED_NO_WARNINGS
+#	endif // _WINSOCK_DEPRECATED_NO_WARNINGS
 //#	ifndef _CRT_NONSTDC_NO_WARNINGS
 //#		define _CRT_NONSTDC_NO_WARNINGS
 //#	endif // _CRT_NONSTDC_NO_WARNINGS
@@ -389,6 +392,13 @@ struct RGBCOLOR
 };
 typedef struct RGBCOLOR RGBCOLOR;
 
+inline RGBCOLOR rgbcolor(UCHAR r, UCHAR g, UCHAR b)
+{
+	RGBCOLOR color;
+	color.r = r; color.g = g; color.b = b; 
+	return color;
+}
+
 // If you use Visual Studio in debug configuration, call INIT_DEBUG at the
 // beginning of the program to enable memory leaks detection.
 // If you do not use Visual Studio, INIT_DEBUG will be ignored.
@@ -476,6 +486,14 @@ EXTERN_C char* FormatLastErrorMsg(char* buf, int buflen);
 
 #endif // defined(_DEBUG_MESSAGES) || defined(_DEBUG_WARNINGS) || defined(_DEBUG_ERRORS) 
 
+#ifdef __GNUC__
+// Disable some GCC warnings.
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#if (((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4))
+#pragma GCC diagnostic push
+#endif // (((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4))
+#endif // __GNUC__
+
 #ifdef _DEBUG_DISPLAY
 #	define PRINT_DEBUG_MESSAGE(params) {char szLastErrMsg[LAST_ERROR_MSG_SIZE];szLastErrMsg[LAST_ERROR_MSG_SIZE-1]=0;fprintf_stdout params;}
 #	define PRINT_DEBUG_WARNING(params) {char szLastErrMsg[LAST_ERROR_MSG_SIZE];szLastErrMsg[LAST_ERROR_MSG_SIZE-1]=0;fprintf_stdout params;}
@@ -491,6 +509,15 @@ EXTERN_C char* FormatLastErrorMsg(char* buf, int buflen);
 #		define PRINT_DEBUG_ERROR(params)
 #	endif // _DEBUG_FILE
 #endif // _DEBUG_DISPLAY
+
+#ifdef __GNUC__
+// Restore the GCC warnings previously disabled.
+#if (((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4))
+#pragma GCC diagnostic pop
+#else
+#pragma GCC diagnostic warning "-Wunused-but-set-variable"
+#endif // (((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4))
+#endif // __GNUC__
 
 #ifdef _DEBUG_DISPLAY
 EXTERN_C void fprintf_stdout(const char * _Format, ...);

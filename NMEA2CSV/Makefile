@@ -1,6 +1,6 @@
 PROGS = NMEA2CSV
 
-CC = g++
+CC = gcc
 CFLAGS += -g -fpermissive
 #CFLAGS += -O3 -fpermissive
 CFLAGS += -Wall

@@ -1,3 +1,7 @@
+11
+Added possibility to have a space separator instead of a semicolon in Waypoints.csv.
+Merged the different altitude versions.
+
 10
 Added input parameter and changed dependencies.
 
