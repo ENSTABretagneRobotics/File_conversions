@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="MT2KML"
-	ProjectGUID="{91891A29-3BB8-4201-A1AC-A9889A52389E}"
-	RootNamespace="MT2KML"
+	Name="MT2NMEA"
+	ProjectGUID="{30A6807A-5214-4E51-9ECA-AAFA08F9F6D8}"
+	RootNamespace="MT2NMEA"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;"
+				AdditionalIncludeDirectories=";.;..;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;ENABLE_GETTIMEOFDAY_WIN32;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -85,6 +85,7 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
+				EnableFxCop="true"
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
@@ -118,13 +119,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories=";.;..;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;ENABLE_GETTIMEOFDAY_WIN32;"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
-				WarningLevel="4"
+				WarningLevel="3"
 				DebugInformationFormat="3"
-				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -170,27 +170,6 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
-		<Configuration
-			Name="Armadeus|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="0"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCNMakeTool"
-				BuildCommandLine=""
-				ReBuildCommandLine=""
-				CleanCommandLine=""
-				Output=""
-				PreprocessorDefinitions="$(NOINHERIT);__linux__;__GNUC__;_DEBUG"
-				IncludeSearchPath="$(NOINHERIT);$(ARMADEUS_SDK_DIR)\usr\include"
-				ForcedIncludes="$(NOINHERIT);"
-				AssemblySearchPath="$(NOINHERIT);"
-				ForcedUsingAssemblies="$(NOINHERIT);"
-				CompileAsManaged=""
-			/>
-		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -201,15 +180,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Globals.c"
-				>
-			</File>
-			<File
 				RelativePath=".\Main.c"
-				>
-			</File>
-			<File
-				RelativePath=".\Utils.c"
 				>
 			</File>
 		</Filter>
@@ -218,20 +189,48 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\Globals.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Utils.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="Input Files"
+			>
+			<File
+				RelativePath=".\MT.csv"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="OSUtils"
+			>
+			<File
+				RelativePath=".\OSCore.c"
+				>
+			</File>
+			<File
+				RelativePath=".\OSCore.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OSMisc.c"
+				>
+			</File>
+			<File
+				RelativePath=".\OSMisc.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OSTime.c"
+				>
+			</File>
+			<File
+				RelativePath=".\OSTime.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\CHANGELOG.TXT"

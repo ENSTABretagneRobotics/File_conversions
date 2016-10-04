@@ -15,10 +15,12 @@ int main()
 	FILE* kmlfile = NULL;
 	char line[4096];
 	unsigned int i = 0;
+	unsigned int step = 50; // To change if too many data...
 	double d0 = 0, d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0, d7 = 0, d8 = 0, 
 		d9 = 0, d10 = 0, d11 = 0, d12 = 0, d13 = 0, 
 		roll = 0, pitch = 0, yaw = 0, latitude = 0, longitude = 0, altitude = 0;
-	int UTC_Year = 0, UTC_Month = 0, UTC_Day = 0, UTC_Hour = 0, UTC_Minute = 0, UTC_Seconds = 0; 
+	int UTC_Year = 0, UTC_Month = 0, UTC_Day = 0, UTC_Hour = 0, UTC_Minute = 0; 
+	double UTC_Seconds = 0;
 	struct timeval tv;
 	time_t tt;
 	struct tm* timeptr = NULL;
@@ -76,7 +78,7 @@ int main()
 	{
 		if (sscanf(line, 
 			"%lf;%lf;%lf;"
-			"%d;%d;%d;%d;%d;%d;"
+			"%d;%d;%d;%d;%d;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
@@ -90,7 +92,7 @@ int main()
 			&d11, &d12, &d13, 
 			&tv.tv_sec, &tv.tv_usec) == 28) 
 		{
-			if (i%10 == 0)
+			if (i%step == 0)
 			{
 				tt = (time_t)tv.tv_sec;
 				timeptr = gmtime(&tt);
@@ -125,7 +127,7 @@ int main()
 		}
 		else if (sscanf(line, 
 			"%lf;%lf;%lf;"
-			"%d;%d;%d;%d;%d;%d;"
+			"%d;%d;%d;%d;%d;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
@@ -137,9 +139,9 @@ int main()
 			&latitude, &longitude, &altitude,
 			&d11, &d12, &d13) == 26) 
 		{
-			if (i%10 == 0)
+			if (i%step == 0)
 			{
-				sprintf(timebuf, "%d-%d-%dT%d:%d:%dZ", UTC_Year,  UTC_Month,  UTC_Day,  UTC_Hour,  UTC_Minute,  UTC_Seconds);
+				sprintf(timebuf, "%04d-%02d-%02dT%02d:%02d:%02dZ", UTC_Year, UTC_Month, UTC_Day, UTC_Hour, UTC_Minute, (int)UTC_Seconds);
 				fprintf(kmlfile, "\t<Placemark>\n");
 				fprintf(kmlfile, "\t\t<visibility>0</visibility>\n");
 				fprintf(kmlfile, "\t\t<TimeStamp>\n\t\t\t<when>%.32s</when>\n\t\t</TimeStamp>\n", timebuf);

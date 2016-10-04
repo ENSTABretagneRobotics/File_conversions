@@ -1,2 +1,8 @@
+3
+Fixed time format problem in KML.
+
+2
+Changed UTC_Seconds from int to double for sbgCenter compatibility.
+
 1
 Initial version.
