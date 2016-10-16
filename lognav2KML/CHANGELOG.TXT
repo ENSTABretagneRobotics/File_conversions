@@ -1,3 +1,6 @@
+11
+Added ASLOGGER_MODE.
+
 10
 Added LOGSTATE_MODE.
 
@@ -16,7 +19,7 @@ utc is now in the first column.
 Added altitude, when available.
 
 5
-Version avec seulement 1 colonne latitude suivi d'une colonne longitude dans le fichier CSV.
+Version avec seulement une colonne latitude suivie d'une colonne longitude dans le fichier CSV.
 
 5
 Altitude mise en absolue partout.

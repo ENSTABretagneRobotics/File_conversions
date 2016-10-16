@@ -1,3 +1,11 @@
+Waypoints : Specific to display waypoints
+3D log : new logstate format
+2D log : t,lat,long,alt (AMSL?)
+
+Waypoints KML : Specific to display waypoints
+2D KML : Display trajectory in green, need lat,long,alt
+3D KML : Display a moving plane, need t,lat,long,alt,psi,theta,phi
+
 NMEA2CSV
 trouver exemple de fichier avec que du GLL pour tester (HTC-HD2?)...
 convertir utc en tv_sec decimal ou optionnellement en nb de s depuis le début du fichier?
