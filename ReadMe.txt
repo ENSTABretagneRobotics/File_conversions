@@ -1,7 +1,45 @@
-Waypoints.csv : Liste des lignes que doit suivre le robot. Il peut être ouvert et modifié dans Excel. La première colonne est la latitude des waypoints (maximum de 256 waypoints) formant les lignes que doit suivre le robot et la deuxième la longitude, en degrés décimaux (attention à bien utiliser le point '.' dans les nombres, et non la virgule ','). On peut aussi utiliser Google Earth en plaçant des Placemarks et en enregistrant My Places sous le fichier Waypoints.kml dans le dossier waypoints_conversions pour préparer un trajet. Il faut ensuite exécuter KML2Waypoints pour le convertir en Waypoints.csv. Waypoints2KML peut aussi être utilisé pour faire la conversion inverse. 
+Waypoints2KML : convert a waypoints file Waypoints.csv in the Excel compatible waypoints file format used in the other programs of this folder (maximum of 256 waypoints, in decimal degrees, first column is latitude and second is longitude, column separator is ';' character and decimal separator is '.' character) to a Google Earth KML file. The reverse operation can be done using KML2Waypoints. Google Earth can be used to prepare the waypoints by placing Placemarks and saving My Places as Waypoints.kml.
 
-lognav2KML génère un fichier lognav.kml permettant d'afficher un trajet dans Google Earth à partir d'un fichier lognav.csv contenant une liste des positions en degrés décimaux, la première colonne étant le temps, la seconde la latitude la troisième la longitude et les 2 dernières 2 types d'altitude GPS, le séparateur de colonne étant le caractère ';' et le séparateur de nombre décimaux le caractère '.'.
 
-NMEA2CSV génère un fichier compatible avec lognav2KML à partir d'un fichier lognav.txt de données brutes NMEA.
+Waypoints2mission : convert a waypoints file Waypoints.csv compatible with Waypoints2KML to a simple UxVCtrl mission file that would make the robot use line following to go through the waypoints.
+
+
+ArduPilot2Waypoints : convert a waypoints file Waypoints.txt from Mission Planner to a waypoints file Waypoints.csv compatible with Waypoints2KML. The reverse operation can be done using Waypoints2Ardupilot.
+
+
+GPSFileConverter : convert a waypoints file waypoints_deg_min.txt containting a list of waypoints expressed as
+
+48 23.473500 N  4 25.752420 W
+
+(latitude followed by longitude in decimal degrees and minutes each line, with a space between degrees and minutes and 2 spaces between latitude and longitude) to a waypoints file Waypoints.csv compatible with Waypoints2KML.
+ The reverse operation can be done using GPSFileConverterInv.
+
+
+LocalWaypoints2WGS/WGS2LocalWaypoints : need env.txt to convert waypoints expressed as 
+
+10 5.5
+
+(x,y position in m for each ligne, with a space between x and y) to a Waypoints.csv file compatible with Waypoints2KML, and conversely.
+
+
+lognav2KML : convert a log file containing
+_ data from lognav.csv from VAIMOS VCtrl program or
+_ data from logstate.csv from UxVCtrl program or 
+_ data from log.txt from ASLogger Android app or 
+_ a list of positions in decimal degrees, first column is time, second column is latitude, third column is longitude, fourth column is altitude (optional), column separator is ';' character and decimal separator is '.' character
+to a Google Earth KML file representing the trajectory. The input format and altitude mode need to be set in the defines in the beginning of the program.
+
+
+NMEA2CSV : convert a raw NMEA data file lognav.txt to a log file compatible with lognav2KML. A configuration file NMEA2CSV.txt can be used to change some parameters.
+
+
+MT2KML : convert a MT Manager log file (using the provided specific log exporter settings, see SBG2MT) to a Google Earth KML file.
+
+
+MT2NMEA : convert a MT Manager log file (using the provided specific log exporter settings, see SBG2MT) to a raw NMEA data file nmea.txt.
+
+
+SBG2MT : convert a sbgCenter log file to a MT Manager log file (using the provided specific log exporter settings).
+
 
 Mind the line endings in the configuration files depending on the OS (use e.g. the command dos2unix *.txt to convert line endings for Linux)!

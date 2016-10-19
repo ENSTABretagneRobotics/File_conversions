@@ -1,3 +1,5 @@
+Debug logvid2imgoverlay
+
 Waypoints : Specific to display waypoints
 3D log : new logstate format
 2D log : t,lat,long,alt (AMSL?)
@@ -11,23 +13,20 @@ trouver exemple de fichier avec que du GLL pour tester (HTC-HD2?)...
 convertir utc en tv_sec decimal ou optionnellement en nb de s depuis le début du fichier?
 
 display in google earth-like app a trajectory since the beginning or since a selectable time
-générer facilement un kml avec une photo a un bon endroit
 
 pouvoir dessiner facilement ellipse dans google earth
 
-glisser-deposer comme csv2v4log, alog2nmea (avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning) : faire GPSSMS2KML, waypoints conversions...
+glisser-deposer avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning : faire GPSSMS2KML, WGS2LocalWaypoints/LocalWaypoints2WGS(?), GPSFileConverterInv/GPSFileConverter(?)...
 
-mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...
-
-lognav2alldata pour avoir aussi le temps dans googleearth (replay...)
-
-code d'adaptation pour fusionner logs de razor et nmea pour générer alldata.txt
+code d'adaptation pour fusionner logs de razor et nmea pour générer alldata.txt?
 
 vibes3d-like avec googleearth? mais reset de la vue à chaque rechargement du fichier... par contre bon pour replay, mais est-ce possible de voir sous l'eau?
 
 
 
 OLD
+
+mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...
 
 l'inconvénient de la détection auto de trame qui a le plus de données est que si à un moment on a du fix 3D et qu'on n'a plus que du 2D à un autre moment, on ne va pas garder les infos de fix 2D, dans ce cas le fichier de config serait bien pour manuellement choisir...
 des fois on n'a pas la date complete aussi, essayer toujours de récupérer la date venant du dernier RMC
