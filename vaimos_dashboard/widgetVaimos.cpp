@@ -114,9 +114,9 @@ void widgetVaimos::LoadFile()
         Pitch.push_back(pitch);
         double yaw=mots[6].toDouble();                  // [6] yaw (in rad) : angle de cap du bateau calculé par la MTi-G exprimé dans le repère NWU (North-West-Up, 0: Nord, -1.57: Est, 3.14: Sud, 1.57: Ouest)
         Yaw.push_back(yaw);
-        double winddir=3*M_PI/2-mots[7].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
+        double winddir=3*M_PI/2-mots[9].toDouble();//3*M_PI/2-mots[7].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
         Winddir.push_back(winddir);
-        double windspeed=mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
+        double windspeed=10.0;//mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
         Windspeed.push_back(windspeed);
                                                             // [9] filteredwinddir (in rad) : winddir filtré
                                                             // [10] filteredwindspeed (in m/s) : windspeed filtré
