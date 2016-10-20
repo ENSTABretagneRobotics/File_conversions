@@ -1,3 +1,11 @@
+4
+Added scrollbars to be able to select only a part of the trajectory.
+
+3
+Added defines to choose between FILTEREDWINDDIR_MODE (for Patrick's boat) and VAIMOS_MODE (default).
+Text is now displayed on top of other drawings.
+Minor display changes.
+
 2
 Version modified for Patrick's boat.
 

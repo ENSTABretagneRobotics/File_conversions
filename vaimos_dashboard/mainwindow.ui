@@ -29,7 +29,7 @@
    <cursorShape>PointingHandCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>Interface pour Vaimos (luc.jaulin@ensta-bretagne.fr)</string>
+   <string>Interface pour VAIMOS (luc.jaulin@ensta-bretagne.fr)</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="widgetVaimos" name="widgetVaimos1" native="true">
@@ -101,8 +101,8 @@
    <widget class="QPushButton" name="pushButtonLoadFile">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>300</y>
+      <x>760</x>
+      <y>0</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -115,9 +115,9 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>150</y>
+      <y>60</y>
       <width>16</width>
-      <height>160</height>
+      <height>311</height>
      </rect>
     </property>
     <property name="minimum">
@@ -134,7 +134,7 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>50</y>
+      <y>70</y>
       <width>70</width>
       <height>17</height>
      </rect>
@@ -153,7 +153,7 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>80</y>
+      <y>100</y>
       <width>151</width>
       <height>17</height>
      </rect>
@@ -172,7 +172,7 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>110</y>
+      <y>130</y>
       <width>101</width>
       <height>17</height>
      </rect>
@@ -188,7 +188,7 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>20</y>
+      <y>40</y>
       <width>70</width>
       <height>17</height>
      </rect>
@@ -204,7 +204,7 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>140</y>
+      <y>160</y>
       <width>81</width>
       <height>17</height>
      </rect>
@@ -216,6 +216,84 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QScrollBar" name="ks0_verticalScrollBar">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>240</y>
+      <width>16</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="ks1_verticalScrollBar">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>240</y>
+      <width>16</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ks0_label">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>220</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ks0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ks1_label">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>220</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ks1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Echelle_label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Echelle</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Step_label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>40</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Step</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -223,7 +301,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>18</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -246,8 +324,12 @@
    <container>1</container>
    <slots>
     <signal>SetValue_kmax(int)</signal>
+    <signal>SetValue_ks0(int)</signal>
+    <signal>SetValue_ks1(int)</signal>
     <slot>VaimosStart()</slot>
     <slot>SetValue_k0(int)</slot>
+    <slot>SetValue_ks0(int)</slot>
+    <slot>SetValue_ks1(int)</slot>
     <slot>SetValue_Echelle(int)</slot>
     <slot>LoadFile()</slot>
    </slots>

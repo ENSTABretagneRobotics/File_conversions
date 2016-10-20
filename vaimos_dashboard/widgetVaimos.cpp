@@ -4,8 +4,10 @@
 #include "ui_mainwindow.h"
 
 extern int k0;
-extern int Echelle;
 extern int kmax;
+extern int ks0;
+extern int ks1;
+extern int Echelle;
 extern int step;
 extern bool wind;
 extern bool sail1;
@@ -16,6 +18,9 @@ extern bool text;
 //++++++++++++++++++++++++++++++++//
 #include <float.h>
 
+#define FILTEREDWINDDIR_MODE
+//#define VAIMOS_MODE
+
 #define EARTH_RADIUS 6371000.0
 
 void GPS2RefCoordSystem(double lat0, double long0, double latitude, double longitude, double* pX, double* pY)
@@ -24,18 +29,20 @@ void GPS2RefCoordSystem(double lat0, double long0, double latitude, double longi
 	*pY = (M_PI/180.0)*EARTH_RADIUS*(latitude-lat0);
 }
 
-/*
-Return an angle between -M_PI and M_PI.
-
-double theta : (IN) Value.
-
-Return : The converted angle.
-*/
 double fmod_2PI(double theta)
 {
 	return fmod(fmod(theta, 2*M_PI)+3*M_PI, 2*M_PI)-M_PI;
 }
-//--------------------------------//
+
+double fmod_360_pos_rad2deg(double theta)
+{
+	return fmod(fmod(theta*180.0/M_PI, 2*180.0)+2*180.0, 2*180.0);
+}
+
+double fmod_360_rad2deg(double theta)
+{
+	return fmod(fmod(theta*180.0/M_PI, 2*180.0)+3*180.0, 2*180.0)-180.0;
+}
 
 widgetVaimos::widgetVaimos(QWidget *parent) :
     QWidget(parent)
@@ -66,7 +73,7 @@ void widgetVaimos::addPolygon(vector<double>& X,vector<double>& Y,double a,doubl
 	if (X.size()==0) return;
     coloredPolygon P;
     P.color=col;
-    for (int i=0;i<X.size();i++)
+    for (unsigned int i=0;i<X.size();i++)
     {   double x,y;
         x=a+X[i]*cos(theta)-Y[i]*sin(theta);
         y=b+X[i]*sin(theta)+Y[i]*cos(theta);
@@ -91,7 +98,7 @@ void widgetVaimos::LoadFile()
 
     clear();
 
-    kmax=0;
+    kmax=0; ks0=0; ks1=0;
 
     Mode.clear(); K.clear(); 
 	T.clear(); Theta.clear(); Lat.clear(); Long.clear(); X.clear(); Y.clear(); Deltav_R0.clear();
@@ -114,12 +121,21 @@ void widgetVaimos::LoadFile()
         Pitch.push_back(pitch);
         double yaw=mots[6].toDouble();                  // [6] yaw (in rad) : angle de cap du bateau calculé par la MTi-G exprimé dans le repère NWU (North-West-Up, 0: Nord, -1.57: Est, 3.14: Sud, 1.57: Ouest)
         Yaw.push_back(yaw);
-        double winddir=3*M_PI/2-mots[9].toDouble();//3*M_PI/2-mots[7].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
+#ifdef FILTEREDWINDDIR_MODE
+        double winddir=3*M_PI/2-mots[9].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
         Winddir.push_back(winddir);
         double windspeed=10.0;//mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
         Windspeed.push_back(windspeed);
                                                             // [9] filteredwinddir (in rad) : winddir filtré
                                                             // [10] filteredwindspeed (in m/s) : windspeed filtré
+#else
+        double winddir=3*M_PI/2-mots[7].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
+        Winddir.push_back(winddir);
+        double windspeed=mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
+        Windspeed.push_back(windspeed);
+                                                            // [9] filteredwinddir (in rad) : winddir filtré
+                                                            // [10] filteredwindspeed (in m/s) : windspeed filtré
+#endif // FILTEREDWINDDIR_MODE
         double deltav_R0=3*M_PI/2-mots[11].toDouble();    // [11] heading (in rad) : angle de la voile par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
         Deltav_R0.push_back(deltav_R0);
         double theta=mots[12].toDouble();               // [12] theta (in rad) : angle de cap du bateau exprimé dans le repère de référence (voir article)
@@ -166,6 +182,8 @@ void widgetVaimos::LoadFile()
         Dir0.push_back(dir0);
         line1 = in.readLine();
    }
+	ks0=0;
+	ks1=kmax;
 	double dt=0;
     double vit=0;
     double longueur=0;
@@ -199,11 +217,13 @@ void widgetVaimos::LoadFile()
         Speed_gps.push_back(speed_gps);
 		distance_gps=Distance_gps[k-1]+sqrt(pow(X[k]-X[k-1],2)+pow(Y[k]-Y[k-1],2));
         Distance_gps.push_back(distance_gps);
+		// Filter with cos and sin...
 		if (Theta_gps[k]==0) filteredtheta_gps=Filteredtheta_gps[k-1];
 		else filteredtheta_gps=Theta_gps[k];
         Filteredtheta_gps.push_back(filteredtheta_gps);
-		if (Speed_gps[k]==0) filteredspeed_gps=Filteredspeed_gps[k-1];
-		else filteredspeed_gps=0.9*Filteredspeed_gps[k-1]+0.1*Speed_gps[k];
+		//if (Speed_gps[k]==0) filteredspeed_gps=Filteredspeed_gps[k-1];
+		//else filteredspeed_gps=0.9*Filteredspeed_gps[k-1]+0.1*Speed_gps[k];
+		filteredspeed_gps=0.9*Filteredspeed_gps[k-1]+0.1*Speed_gps[k];
 		//else filteredspeed_gps=Speed_gps[k];
         Filteredspeed_gps.push_back(filteredspeed_gps);
     }
@@ -222,7 +242,7 @@ void widgetVaimos::Draw()
     addPolygon(Xl,Yl,0,0,0,QColor("Green"));
 
 
-    for (int k=0; k<kmax; k=k+step)
+    for (int k=ks0; k<ks1; k=k+step)
         if ((X[k]<xmax)&&(X[k]>xmin)&&(Y[k]<ymax)&&(Y[k]>ymin))
             {   vector<double> Xw,Yw;                           // vent
                 double h=0.1*Windspeed[k];
@@ -339,41 +359,6 @@ void widgetVaimos::paintEvent(QPaintEvent *)
 	QPainter painter(this);
     painter.setPen(QPen(QColor("Red")));
     painter.drawRect(QRectF(0, 0, width()-1, height()-1));
-
-    painter.setPen(QPen(QColor("Black")));
-    int a=0;
-    if (text)
-    {
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("k=%1, t=%2 sec").arg(K[k0]).arg(T[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("x=%1, y=%2, theta=%3 deg").arg(X[k0]).arg(Y[k0]).arg(90-Theta[k0]*180/M_PI)); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("vitesse=%1 m.sec^-1 = %2 noeuds").
-                         arg(Vit[k0]).arg(Vit[k0]*1.94)); a++;
-                         //arg(Filteredspeed_gps[k0]).arg(Filteredspeed_gps[k0]*1.94)); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         //QString("longueur=%1 m").arg(Longueur[k0])); a++;
-                         QString("longueur=%1 m").arg(Distance_gps[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("angle voile =%1, angle gouv=%2 ").
-                         arg((Deltav_R0[k0]+M_PI-Theta[k0])*180/M_PI).arg(Deltag[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-    //                     QString("Vent : dir=%1 deg, vitesse=%2 m.s^-1 =%3  ").
-    //                     arg(Winddir[k0]*180/M_PI).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
-                         QString("Vent : dir=%1 deg =%2, vitesse=%3 m.s^-1 =%4 noeuds").
-                         arg(Winddir[k0]*180/M_PI).arg(-(Winddir[k0]-3.0*M_PI/2.0)*180/M_PI).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("ecart à la ligne = %1 ").
-                         arg(Ecart[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("||am||= %1, ||bm||= %2 ").
-                         arg(Norm_am[k0]).arg(Norm_bm[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("MTI(deg) : Roll %1, Pitch = %2, Yaw = %3 ").
-                         arg(Roll[k0]*180/M_PI).arg(Pitch[k0]*180/M_PI).arg(Yaw[k0]*180/M_PI)); a++;
-    }
-
     QList<coloredRect>::iterator i;
     for (i=this->listRect.begin(); i != this->listRect.end(); i=i+1)
     {   painter.fillRect(i->rect,i->color );
@@ -388,5 +373,31 @@ void widgetVaimos::paintEvent(QPaintEvent *)
     painter.setPen(QPen(QColor("Black")));
     painter.setBrush(Qt::Dense7Pattern);
     painter.drawEllipse(QPoint(0.5*width(),0.5*height()),20,20);
+    painter.setPen(QPen(QColor("Black")));
+    int a=0;
+    if (text)
+    {
+        painter.drawText(QRectF(3, a*20, 400,20),
+                         QString("k=%1, ks0=%2, ks1=%3 ").
+						 arg(K[k0]).arg(ks0).arg(ks1)); a++;
+        painter.drawText(QRectF(3, a*20, 400,20),
+                         QString("t=%1 s, x=%2, y=%3, theta=%4 deg ").
+						 arg(T[k0]).arg(X[k0]).arg(Y[k0]).arg(fmod_360_pos_rad2deg(M_PI/2.0-Theta[k0]))); a++;
+        painter.drawText(QRectF(3, a*20, 400,20),
+                         QString("SOG=%1 m.sec^-1 = %2 noeuds, COG=%3 deg ").
+                         arg(Filteredspeed_gps[k0]).arg(Filteredspeed_gps[k0]*1.94).arg(fmod_360_pos_rad2deg(M_PI/2.0-Filteredtheta_gps[k0]))); a++;
+        painter.drawText(QRectF(3, a*20, 400,20),
+                         QString("longueur=%1 m, angle voile =%2, angle gouv=%3 ").
+                         arg(Distance_gps[k0]).arg(fmod_360_pos_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(Deltag[k0])); a++;
+        painter.drawText(QRectF(3, a*20, 400,20),
+                         QString("Vent : dir=%1 deg =%2 deg, vitesse=%3 m.s^-1 =%4 noeuds ").
+                         arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
+        painter.drawText(QRectF(3, a*20, 400,20),
+                         QString("ecart à la ligne = %1, ||am||= %2, ||bm||= %3 ").
+                         arg(Ecart[k0]).arg(Norm_am[k0]).arg(Norm_bm[k0])); a++;
+        painter.drawText(QRectF(3, a*20, 400,20),
+                         QString("MTi(deg) : Roll %1, Pitch = %2, Yaw = %3 ").
+                         arg(Roll[k0]*180/M_PI).arg(Pitch[k0]*180/M_PI).arg(Yaw[k0]*180/M_PI)); a++;
+    }
     painter.end();
 }
