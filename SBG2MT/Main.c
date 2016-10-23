@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
 				PacketCounter, SampleTimeFine, 
 				UTC_Nano, UTC_Year, UTC_Month, UTC_Day, UTC_Hour, UTC_Minute, UTC_Seconds, 
 				UTC_Valid, StatusWord, Acc_X, -Acc_Y, -Acc_Z, Gyr_X, -Gyr_Y, -Gyr_Z, 
-				-Roll, Pitch, -Yaw, 
+				fmod_360(-Roll), fmod_360(Pitch), fmod_360(-Yaw), 
 				Latitude, Longitude, Altitude,
 				Vel_X, -Vel_Y, -Vel_Z,
 				tv.tv_sec, tv.tv_usec);
@@ -174,7 +174,7 @@ int main(int argc, char* argv[])
 				PacketCounter, SampleTimeFine, 
 				UTC_Nano, UTC_Year, UTC_Month, UTC_Day, UTC_Hour, UTC_Minute, UTC_Seconds, 
 				UTC_Valid, StatusWord, Acc_X, -Acc_Y, -Acc_Z, Gyr_X, -Gyr_Y, -Gyr_Z, 
-				-Roll, Pitch, -Yaw, 
+				fmod_360(-Roll), fmod_360(Pitch), fmod_360(-Yaw), 
 				Latitude, Longitude, Altitude,
 				Vel_X, -Vel_Y, -Vel_Z);
 

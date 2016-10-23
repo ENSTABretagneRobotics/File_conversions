@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
 	filein = fopen(szFileInPath, "r");
 	if (filein == NULL)
 	{
-		printf("Unable to open kml file.\n");
+		printf("Unable to open KML file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 	fileout = fopen(szFileOutPath, "w");
 	if (fileout == NULL)
 	{
-		printf("Unable to create csv file.\n");
+		printf("Unable to create CSV file.\n");
 		fclose(filein);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 			}
 			else
 			{
-				printf("Error reading kml file.\n");
+				printf("Error reading KML file.\n");
 			}
 		}
 		memset(line, 0, sizeof(line));
@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 
 	if (fclose(fileout) != EXIT_SUCCESS) 
 	{
-		printf("Error closing csv file.\n");
+		printf("Error closing CSV file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
 
 	if (fclose(filein) != EXIT_SUCCESS) 
 	{
-		printf("Error closing kml file.\n");
+		printf("Error closing KML file.\n");
 		fclose(fileout);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");

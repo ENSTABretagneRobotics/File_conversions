@@ -1,2 +1,5 @@
+2
+Corrected roll, pitch, yaw range.
+
 1
 Initial version.

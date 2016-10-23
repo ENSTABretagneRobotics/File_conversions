@@ -1,212 +1,211 @@
 /***************************************************************************************************************:')
 
-CoordSystem2Img.h
+OSTime.c
 
-Coordinate system handling in images.
+Functions related to the time.
 
 Fabrice Le Bars
+GetTickCount() from the file ue9.c provided by www.labjack.com
+strtime_m() and strtime_fns() are based on a part of an example in the MSDN library
 
-Created: 2009-01-07
+Created : 2009-01-28
 
-Version status: To test and validate
+Version status : Tested some parts
 
 ***************************************************************************************************************:)*/
 
-#ifndef COORDSYSTEM2IMG_H
-#define COORDSYSTEM2IMG_H
+// Prevent Visual Studio Intellisense from defining _WIN32 and _MSC_VER when we use 
+// Visual Studio to edit Linux or Borland C++ code.
+#ifdef __linux__
+#	undef _WIN32
+#endif // __linux__
+#if defined(__GNUC__) || defined(__BORLANDC__)
+#	undef _MSC_VER
+#endif // defined(__GNUC__) || defined(__BORLANDC__)
 
-#include "CoordSystem.h"
+#include "OSTime.h"
 
-#define KEEP_X_RATIO_COORDSYSTEM2IMG 0x00000001
-#define KEEP_Y_RATIO_COORDSYSTEM2IMG 0x00000002
-#define BEST_RATIO_COORDSYSTEM2IMG 0x00000004
-
-/*
-Structure that enables the use of a coordinate system in an image instead of 
-using its lines and rows.
-*/
-struct _COORDSYSTEM2IMG
-{
-	COORDSYSTEM cs;
-	UINT width;
-	UINT height;
-	double XJRatio;
-	double YIRatio;
-	double JXRatio;
-	double IYRatio;
-};
-typedef struct _COORDSYSTEM2IMG COORDSYSTEM2IMG;
+char strftime_m_tmpbuf[64]; // Used to store the string returned by strtime_m().
+char strftime_fns_tmpbuf[64]; // Used to store the string returned by strtime_fns().
 
 /*
-Initialize a structure COORDSYSTEM2IMG.
-See the description of the COORDSYSTEM2IMG structure for more information.
+Return a string like ctime() but in this format :
 
-COORDSYSTEM2IMG* pCS2Img : (INOUT) Valid pointer to the structure.
-COORDSYSTEM* pCS : (IN) Coordinate system to use.
-UINT width : (IN) Width of the picture.
-UINT height : (IN) Height of the picture.
+2007-08-27 19:28:04\0
 
-Return : EXIT_SUCCESS or EXIT_FAILURE if there is an error.
+(without the "\n" of ctime()).
+Should not be used in concurrent threads as the string value returned might 
+be changed by another thread.
+
+Return : This string.
 */
-inline int InitCS2Img(COORDSYSTEM2IMG* pCS2Img, COORDSYSTEM* pCS, UINT width, UINT height)
+char* strtime_m(void)
 {
-	// x = xMin -> j = 0
-	// x = xMax -> j = width-1
-	// y = yMin -> i = height-1
-	// y = yMax -> i = 0
+#ifndef WINCE
+	time_t t;
+	struct tm *timeptr = NULL;
 
-	pCS2Img->cs = *pCS;
-	pCS2Img->width = width;
-	pCS2Img->height = height;
+	memset(strftime_m_tmpbuf, 0, sizeof(strftime_m_tmpbuf));
 
-	pCS2Img->XJRatio = (pCS2Img->cs.xMax - pCS2Img->cs.xMin) / (double)(pCS2Img->width - 1);
-	pCS2Img->YIRatio = (pCS2Img->cs.yMax - pCS2Img->cs.yMin) / (double)(pCS2Img->height - 1);
+	time(&t);
+	timeptr = localtime(&t);
 
-	pCS2Img->JXRatio = 1.0/pCS2Img->XJRatio;
-	pCS2Img->IYRatio = 1.0/pCS2Img->YIRatio;
-
-	return EXIT_SUCCESS;
-}
-
-/*
-Initialize a structure COORDSYSTEM2IMG.
-See the description of the COORDSYSTEM2IMG structure for more information.
-
-COORDSYSTEM2IMG* pCS2Img : (INOUT) Valid pointer to the structure.
-COORDSYSTEM* pCS : (IN) Coordinate system to use. //Can be modified to keep ratios.//
-UINT width : (IN) Width of the picture.
-UINT height : (IN) Height of the picture.
-int flags : (IN) KEEP_X_RATIO_COORDSYSTEM2IMG to set the y ratio from x ratio, 
-KEEP_Y_RATIO_COORDSYSTEM2IMG to set the x ratio from y ratio, BEST_RATIO_COORDSYSTEM2IMG 
-to keep the best to avoid loosing any part of the image, 0 for free ratios.
-
-Return : EXIT_SUCCESS or EXIT_FAILURE if there is an error.
-*/
-inline int InitCS2ImgEx(COORDSYSTEM2IMG* pCS2Img, COORDSYSTEM* pCS, UINT width, UINT height, int flags)
-{
-	// x = xMin -> j = 0
-	// x = xMax -> j = width-1
-	// y = yMin -> i = height-1
-	// y = yMax -> i = 0
-
-	double val = 0, temp = 0;
-
-	pCS2Img->cs = *pCS;
-	pCS2Img->width = width;
-	pCS2Img->height = height;
-
-	switch (flags)
+	if (timeptr == NULL)
 	{
-	case KEEP_X_RATIO_COORDSYSTEM2IMG:
-		{
-			pCS2Img->XJRatio = (pCS2Img->cs.xMax - pCS2Img->cs.xMin) / (double)(pCS2Img->width - 1);
-			pCS2Img->YIRatio = pCS2Img->XJRatio;
-			val = pCS2Img->YIRatio * (pCS2Img->height - 1);
-			temp = (pCS2Img->cs.yMin + pCS2Img->cs.yMax);
-			pCS2Img->cs.yMin = (temp-val)/2.0;
-			pCS2Img->cs.yMax = (temp+val)/2.0;
-			break;
-		}
-	case KEEP_Y_RATIO_COORDSYSTEM2IMG:
-		{
-			pCS2Img->YIRatio = (pCS2Img->cs.yMax - pCS2Img->cs.yMin) / (double)(pCS2Img->height - 1);
-			pCS2Img->XJRatio = pCS2Img->YIRatio;
-			val = pCS2Img->XJRatio * (pCS2Img->width - 1);
-			temp = (pCS2Img->cs.xMin + pCS2Img->cs.xMax);
-			pCS2Img->cs.xMin = (temp-val)/2.0;
-			pCS2Img->cs.xMax = (temp+val)/2.0;
-			break;
-		}
-	case BEST_RATIO_COORDSYSTEM2IMG:
-		{
-			pCS2Img->XJRatio = (pCS2Img->cs.xMax - pCS2Img->cs.xMin) / (double)(pCS2Img->width - 1);
-			pCS2Img->YIRatio = (pCS2Img->cs.yMax - pCS2Img->cs.yMin) / (double)(pCS2Img->height - 1);
-
-			if (pCS2Img->XJRatio < pCS2Img->YIRatio)
-			{
-				pCS2Img->XJRatio = pCS2Img->YIRatio;
-				val = pCS2Img->XJRatio * (pCS2Img->width - 1);
-				temp = (pCS2Img->cs.xMin + pCS2Img->cs.xMax);
-				pCS2Img->cs.xMin = (temp-val)/2.0;
-				pCS2Img->cs.xMax = (temp+val)/2.0;
-			}
-			else if (pCS2Img->XJRatio > pCS2Img->YIRatio)
-			{
-				pCS2Img->YIRatio = pCS2Img->XJRatio;
-				val = pCS2Img->YIRatio * (pCS2Img->height - 1);
-				temp = (pCS2Img->cs.yMin + pCS2Img->cs.yMax);
-				pCS2Img->cs.yMin = (temp-val)/2.0;
-				pCS2Img->cs.yMax = (temp+val)/2.0;
-			}
-			break;
-		}
-	default:
-		{
-			pCS2Img->XJRatio = (pCS2Img->cs.xMax - pCS2Img->cs.xMin) / (double)(pCS2Img->width - 1);
-			pCS2Img->YIRatio = (pCS2Img->cs.yMax - pCS2Img->cs.yMin) / (double)(pCS2Img->height - 1);
-			break;
-		}
+		return strftime_m_tmpbuf;
 	}
 
-	pCS2Img->JXRatio = 1.0/pCS2Img->XJRatio;
-	pCS2Img->IYRatio = 1.0/pCS2Img->YIRatio;
-	//*pCS = pCS2Img->cs;
+	// Use strftime to build a customized time string. 
+	if (strftime(
+		strftime_m_tmpbuf,
+		sizeof(strftime_m_tmpbuf),
+		"%Y-%m-%d %H:%M:%S",
+		timeptr
+		) <= 0)
+	{
+		memset(strftime_m_tmpbuf, 0, sizeof(strftime_m_tmpbuf));
+		return strftime_m_tmpbuf;
+	}
+#else
+	int nb = 0;
+	TCHAR* tstr = (TCHAR*)calloc(sizeof(strftime_m_tmpbuf), sizeof(TCHAR));
 
-	return EXIT_SUCCESS;
+	memset(strftime_m_tmpbuf, 0, sizeof(strftime_m_tmpbuf));
+
+	if (tstr == NULL)
+	{
+		return strftime_m_tmpbuf;
+	}
+
+	memset(tstr, 0, sizeof(strftime_m_tmpbuf)*sizeof(TCHAR));
+
+	// Use GetDateFormat() and GetTimeFormat() to build a customized time string. 
+	nb = GetDateFormat(
+		MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT), // Locale.
+		0, // Flags.
+		NULL, // Current local system date.
+		_T("yyyy'-'MM'-'dd' '"), // Format the string. 
+		tstr, 
+		sizeof(strftime_m_tmpbuf)
+		);
+	if (nb <= 0)
+	{
+		free(tstr); tstr = NULL;
+		return strftime_m_tmpbuf;
+	}
+
+	if (GetTimeFormat(
+		MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT), // Locale.
+		0, // Flags.
+		NULL, // Current local system time.
+		_T("HH':'mm':'ss"), // Format the string. 
+		tstr+(nb-1), 
+		sizeof(strftime_m_tmpbuf)-(nb-1)
+		) <= 0)
+	{
+		free(tstr); tstr = NULL;
+		return strftime_m_tmpbuf;
+	}
+
+#ifdef UNICODE
+	wcstombs(strftime_m_tmpbuf, tstr, sizeof(strftime_m_tmpbuf));
+#else
+	memcpy(strftime_m_tmpbuf, tstr, sizeof(strftime_m_tmpbuf));
+#endif // UNICODE
+	strftime_m_tmpbuf[sizeof(strftime_m_tmpbuf)-1] = 0;
+	free(tstr); tstr = NULL;
+#endif // WINCE
+
+	return strftime_m_tmpbuf;
 }
 
-inline int XYCS2IJImg(COORDSYSTEM2IMG* pCS2Img, double x, double y, int* pI, int* pJ)
+/*
+Return a string like ctime() but in this format :
+
+2007-08-27_19h28min04s\0
+
+(without the "\n", ":", " " of ctime() in order to be safely used in file names).
+Should not be used in concurrent threads as the string value returned might 
+be changed by another thread.
+
+Return : This string.
+*/
+char* strtime_fns(void)	
 {
-	*pI = (int)((pCS2Img->cs.yMax - y) * pCS2Img->IYRatio);
-	*pJ = (int)((x - pCS2Img->cs.xMin) * pCS2Img->JXRatio);
+#ifndef WINCE
+	time_t t;
+	struct tm *timeptr = NULL;
 
-	return EXIT_SUCCESS;
+	memset(strftime_fns_tmpbuf, 0, sizeof(strftime_fns_tmpbuf));
+
+	time(&t);
+	timeptr = localtime(&t);
+
+	if (timeptr == NULL)
+	{
+		return strftime_fns_tmpbuf;
+	}
+
+	// Use strftime to build a customized time string. 
+	if (strftime(
+		strftime_fns_tmpbuf,
+		sizeof(strftime_fns_tmpbuf),
+		"%Y-%m-%d_%Hh%Mmin%Ss",
+		timeptr
+		) <= 0)
+	{
+		memset(strftime_fns_tmpbuf, 0, sizeof(strftime_fns_tmpbuf));
+		return strftime_fns_tmpbuf;
+	}
+#else
+	int nb = 0;
+	TCHAR* tstr = (TCHAR*)calloc(sizeof(strftime_fns_tmpbuf), sizeof(TCHAR));
+
+	memset(strftime_fns_tmpbuf, 0, sizeof(strftime_fns_tmpbuf));
+
+	if (tstr == NULL)
+	{
+		return strftime_fns_tmpbuf;
+	}
+
+	memset(tstr, 0, sizeof(strftime_fns_tmpbuf)*sizeof(TCHAR));
+
+	// Use GetDateFormat() and GetTimeFormat() to build a customized time string. 
+	nb = GetDateFormat(
+		MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT), // Locale.
+		0, // Flags.
+		NULL, // Current local system date.
+		_T("yyyy'-'MM'-'dd'_'"), // Format the string. 
+		tstr, 
+		sizeof(strftime_fns_tmpbuf)
+		);
+	if (nb <= 0)
+	{
+		free(tstr); tstr = NULL;
+		return strftime_fns_tmpbuf;
+	}
+
+	if (GetTimeFormat(
+		MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT), // Locale.
+		0, // Flags.
+		NULL, // Current local system time.
+		_T("HH'h'mm'min'ss's'"), // Format the string. 
+		tstr+(nb-1), 
+		sizeof(strftime_fns_tmpbuf)-(nb-1)
+		) <= 0)
+	{
+		free(tstr); tstr = NULL;
+		return strftime_fns_tmpbuf;
+	}
+
+#ifdef UNICODE
+	wcstombs(strftime_fns_tmpbuf, tstr, sizeof(strftime_fns_tmpbuf));
+#else
+	memcpy(strftime_fns_tmpbuf, tstr, sizeof(strftime_fns_tmpbuf));
+#endif // UNICODE
+	strftime_fns_tmpbuf[sizeof(strftime_fns_tmpbuf)-1] = 0;
+	free(tstr); tstr = NULL;
+#endif // WINCE
+
+	return strftime_fns_tmpbuf;
 }
-
-inline int IJImg2XYCS(COORDSYSTEM2IMG* pCS2Img, int i, int j, double* pX, double* pY)
-{
-	*pX = pCS2Img->XJRatio * j + pCS2Img->cs.xMin;
-	*pY = pCS2Img->cs.yMax - pCS2Img->YIRatio * i;
-
-	return EXIT_SUCCESS;
-}
-
-inline int XCS2JImg(COORDSYSTEM2IMG* pCS2Img, double x)
-{
-	return (int)((x - pCS2Img->cs.xMin) * pCS2Img->JXRatio);
-}
-
-inline int YCS2IImg(COORDSYSTEM2IMG* pCS2Img, double y)
-{
-	return (int)((pCS2Img->cs.yMax - y) * pCS2Img->IYRatio);
-}
-
-inline double IImg2YCS(COORDSYSTEM2IMG* pCS2Img, int i)
-{
-	return pCS2Img->cs.yMax - pCS2Img->YIRatio * i;
-}
-
-inline double JImg2XCS(COORDSYSTEM2IMG* pCS2Img, int j)
-{
-	return pCS2Img->XJRatio * j + pCS2Img->cs.xMin;
-}
-
-inline int GetCSPixelSize(COORDSYSTEM2IMG* pCS2Img, double* pSizeX, double* pSizeY)
-{
-	*pSizeX = pCS2Img->XJRatio;
-	*pSizeY = pCS2Img->YIRatio;
-
-	return EXIT_SUCCESS;
-}
-
-inline double GetCSPixelSizeX(COORDSYSTEM2IMG* pCS2Img)
-{
-	return pCS2Img->XJRatio;
-}
-
-inline double GetCSPixelSizeY(COORDSYSTEM2IMG* pCS2Img)
-{
-	return pCS2Img->YIRatio;
-}
-
-#endif // COORDSYSTEM2IMG_H

@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			printf("Skipping an invalid line in the alog file.\n");
+			printf("Skipping an invalid line in the ALOG file.\n");
 		}
 		memset(line, 0, sizeof(line));
 	}

@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
 	fileout = fopen(szFileOutPath, "w");
 	if (fileout == NULL)
 	{
-		printf("Unable to create kml file.\n");
+		printf("Unable to create KML file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -156,7 +156,7 @@ int main(int argc, char* argv[])
 
 	if (fclose(fileout) != EXIT_SUCCESS) 
 	{
-		printf("Error closing kml file.\n");
+		printf("Error closing KML file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();

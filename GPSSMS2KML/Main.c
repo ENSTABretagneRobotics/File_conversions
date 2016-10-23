@@ -25,7 +25,7 @@ int main()
 	xmlfile = fopen("sms.xml", "r");
 	if (xmlfile == NULL)
 	{
-		printf("Unable to open xml file.\n");
+		printf("Unable to open XML file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -36,7 +36,7 @@ int main()
 	kmlfile = fopen("lognav.kml", "w");
 	if (kmlfile == NULL)
 	{
-		printf("Unable to create kml file.\n");
+		printf("Unable to create KML file.\n");
 		fclose(xmlfile);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
@@ -79,7 +79,7 @@ int main()
 		}
 		else
 		{
-			printf("Skipping an invalid line in the xml file.\n");
+			printf("Skipping an invalid line in the XML file.\n");
 		}
 		memset(line, 0, sizeof(line));
 	}
@@ -93,7 +93,7 @@ int main()
 
 	if (fclose(kmlfile) != EXIT_SUCCESS) 
 	{
-		printf("Error closing kml file.\n");
+		printf("Error closing KML file.\n");
 		fclose(xmlfile);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
@@ -104,7 +104,7 @@ int main()
 
 	if (fclose(xmlfile) != EXIT_SUCCESS) 
 	{
-		printf("Error closing xml file.\n");
+		printf("Error closing XML file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();

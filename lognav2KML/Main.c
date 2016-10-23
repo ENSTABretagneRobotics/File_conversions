@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 	filein = fopen(szFileInPath, "r");
 	if (filein == NULL)
 	{
-		printf("Unable to open csv file.\n");
+		printf("Unable to open CSV file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 	fileout = fopen(szFileOutPath, "w");
 	if (fileout == NULL)
 	{
-		printf("Unable to create kml file.\n");
+		printf("Unable to create KML file.\n");
 		fclose(filein);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
 #endif // VAIMOS_MODE
 		else
 		{
-			printf("Skipping an invalid line in the csv file.\n");
+			printf("Skipping an invalid line in the CSV file.\n");
 		}
 		memset(line, 0, sizeof(line));
 	}
@@ -186,7 +186,7 @@ int main(int argc, char* argv[])
 
 	if (fclose(fileout) != EXIT_SUCCESS) 
 	{
-		printf("Error closing kml file.\n");
+		printf("Error closing KML file.\n");
 		fclose(filein);
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
@@ -197,7 +197,7 @@ int main(int argc, char* argv[])
 
 	if (fclose(filein) != EXIT_SUCCESS) 
 	{
-		printf("Error closing csv file.\n");
+		printf("Error closing CSV file.\n");
 #ifdef _DEBUG
 		fprintf(stdout, "Press ENTER to continue . . . ");
 		(void)getchar();

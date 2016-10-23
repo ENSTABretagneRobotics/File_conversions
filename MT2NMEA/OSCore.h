@@ -323,13 +323,13 @@ typedef unsigned int uint32; // Might be unsigned long...
 // Conflict with OpenCV...
 #ifdef ENABLE_INT64_TYPEDEF
 // Note that the long long type is not accepted by Borland C++ Builder 5.
-#ifdef __GNUC__
-typedef int64_t int64;
-typedef uint64_t uint64;
-#else
+#if defined(_MSC_VER) || defined(__BORLANDC__)
 typedef __int64 int64;
 typedef unsigned __int64 uint64;
-#endif // __GNUC__
+#else
+typedef int64_t int64;
+typedef uint64_t uint64;
+#endif // defined(_MSC_VER) || defined(__BORLANDC__)
 #endif // ENABLE_INT64_TYPEDEF
 
 // Might vary also and should be moved elsewhere...
