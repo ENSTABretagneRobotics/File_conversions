@@ -1,5 +1,7 @@
 Debug logvid2imgoverlay
 
+gérer le z dans les waypoints...
+
 Waypoints : Specific to display waypoints
 3D log : new logstate format
 2D log : t,lat,long,alt (AMSL?)

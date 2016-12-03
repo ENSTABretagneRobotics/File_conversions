@@ -160,6 +160,8 @@ $RECYCLE.BIN/
 # Other
 # =========================
 
+*/__pycache__/
+*/*.pyc
 !*/Release*/
 */Release*/*
 !*/Release*/*.exe

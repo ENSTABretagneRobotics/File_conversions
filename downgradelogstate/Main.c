@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 	char szName[256];
 	char line[4096];
 	unsigned int i = 0;
-	double t = 0, latitude = 0, longitude = 0, altitude = 0, heading = 0, COG = 0, SOG = 0, utc = 0;
+	double t = 0, latitude = 0, longitude = 0, altitude = 0, heading = 0, COG = 0, SOG = 0, pressure = 0, utc = 0;
 	double t_app = 0, xhat = 0, yhat = 0, zhat = 0, phihat = 0, thetahat = 0, psihat = 0;
 	double vrxhat = 0, vryhat = 0, vrzhat = 0, phidothat = 0, thetadothat = 0, psidothat = 0;
 	double xhat_err = 0, yhat_err = 0, zhat_err = 0, phihat_err = 0, thetahat_err = 0, psihat_err = 0;
@@ -83,18 +83,18 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if ((sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+		if ((sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf", 
-			&t, &latitude, &longitude, &altitude, &heading, &COG, &SOG, &utc,
+			&t, &latitude, &longitude, &altitude, &heading, &COG, &SOG, &pressure, &utc,
 			&t_app, &xhat, &yhat, &zhat, &phihat, &thetahat, &psihat,
 			&vrxhat, &vryhat, &vrzhat, &phidothat, &thetadothat, &psidothat,
 			&xhat_err, &yhat_err, &zhat_err, &phihat_err, &thetahat_err, &psihat_err,
 			&vrxhat_err, &vryhat_err, &vrzhat_err, &phidothat_err, &thetadothat_err, &psidothat_err,
-			&u1, &u2, &u3, &u4, &u5, &u6, &u, &uw, &uv, &ul, &up, &ur) == 45))
+			&u1, &u2, &u3, &u4, &u5, &u6, &u, &uw, &uv, &ul, &up, &ur) == 46))
 		{
 			vxyhat = sqrt(sqr(vrxhat)+sqr(vryhat));
 			vxyhat_err = sqrt(sqr(vrxhat_err)+sqr(vryhat_err));
