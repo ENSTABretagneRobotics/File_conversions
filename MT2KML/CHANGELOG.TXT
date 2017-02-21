@@ -1,3 +1,6 @@
+4
+Added magnetometers data.
+
 3
 Fixed time format problem in KML.
 

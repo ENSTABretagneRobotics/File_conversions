@@ -1,3 +1,6 @@
+3
+Added magnetometers data.
+
 2
 Corrected roll, pitch, yaw range.
 

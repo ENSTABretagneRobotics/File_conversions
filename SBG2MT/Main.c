@@ -28,6 +28,7 @@ int main(int argc, char* argv[])
 		StatusWord = 0,
 		Acc_X = 0, Acc_Y = 0, Acc_Z = 0, 
 		Gyr_X = 0, Gyr_Y = 0, Gyr_Z = 0, 
+		Mag_X = 0, Mag_Y = 0, Mag_Z = 0, 
 		Roll = 0, Pitch = 0, Yaw = 0, 
 		Latitude = 0, Longitude = 0, Altitude = 0, 
 		Vel_X = 0, Vel_Y = 0, Vel_Z = 0;
@@ -87,6 +88,7 @@ int main(int argc, char* argv[])
 		"StatusWord;"
 		"Acc_X;Acc_Y;Acc_Z;"
 		"Gyr_X;Gyr_Y;Gyr_Z;"
+		"Mag_X;Mag_Y;Mag_Z;"
 		"Roll;Pitch;Yaw;"
 		"Latitude;Longitude;Altitude;"
 		"Vel_X;Vel_Y;Vel_Z;"
@@ -109,14 +111,15 @@ int main(int argc, char* argv[])
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
+			"%lf;%lf;%lf;"
 			"%d;%d",
 			&PacketCounter, &SampleTimeFine, 
 			&UTC_Nano, &UTC_Year, &UTC_Month, &UTC_Day, &UTC_Hour, &UTC_Minute, &UTC_Seconds, 
-			&UTC_Valid, &StatusWord, &Acc_X, &Acc_Y, &Acc_Z, &Gyr_X, &Gyr_Y, &Gyr_Z, 
+			&UTC_Valid, &StatusWord, &Acc_X, &Acc_Y, &Acc_Z, &Gyr_X, &Gyr_Y, &Gyr_Z, &Mag_X, &Mag_Y, &Mag_Z, 
 			&Roll, &Pitch, &Yaw, 
 			&Latitude, &Longitude, &Altitude,
 			&Vel_X, &Vel_Y, &Vel_Z,
-			&tv.tv_sec, &tv.tv_usec) == 28)
+			&tv.tv_sec, &tv.tv_usec) == 31)
 		{
 			fprintf(fileout, "%f;%f;"
 				"%f;%d;%d;%d;%d;%d;%f;"
@@ -124,10 +127,11 @@ int main(int argc, char* argv[])
 				"%f;%f;%f;"
 				"%f;%f;%f;"
 				"%f;%f;%f;"
+				"%f;%f;%f;"
 				"%d;%d;\n", 
 				PacketCounter, SampleTimeFine, 
 				UTC_Nano, UTC_Year, UTC_Month, UTC_Day, UTC_Hour, UTC_Minute, UTC_Seconds, 
-				UTC_Valid, StatusWord, Acc_X, -Acc_Y, -Acc_Z, Gyr_X, -Gyr_Y, -Gyr_Z, 
+				UTC_Valid, StatusWord, Acc_X, -Acc_Y, -Acc_Z, Gyr_X, -Gyr_Y, -Gyr_Z, Mag_X, -Mag_Y, -Mag_Z, 
 				fmod_360(-Roll), fmod_360(Pitch), fmod_360(-Yaw), 
 				Latitude, Longitude, Altitude,
 				Vel_X, -Vel_Y, -Vel_Z,
@@ -141,26 +145,28 @@ int main(int argc, char* argv[])
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
+			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf",
 			&PacketCounter, &SampleTimeFine, 
 			&UTC_Nano, &UTC_Year, &UTC_Month, &UTC_Day, &UTC_Hour, &UTC_Minute, &UTC_Seconds, 
-			&UTC_Valid, &StatusWord, &Acc_X, &Acc_Y, &Acc_Z, &Gyr_X, &Gyr_Y, &Gyr_Z, 
+			&UTC_Valid, &StatusWord, &Acc_X, &Acc_Y, &Acc_Z, &Gyr_X, &Gyr_Y, &Gyr_Z, &Mag_X, &Mag_Y, &Mag_Z, 
 			&Roll, &Pitch, &Yaw, 
 			&Latitude, &Longitude, &Altitude,
-			&Vel_X, &Vel_Y, &Vel_Z) == 26)||
+			&Vel_X, &Vel_Y, &Vel_Z) == 29)||
 			(sscanf(line, 
 			"%lf;%lf;"
 			"%lf;%d-%d-%d;%d;%d;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
+			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf",
 			&PacketCounter, &SampleTimeFine, 
 			&UTC_Nano, &UTC_Year, &UTC_Month, &UTC_Day, &UTC_Hour, &UTC_Minute, &UTC_Seconds, 
-			&UTC_Valid, &StatusWord, &Acc_X, &Acc_Y, &Acc_Z, &Gyr_X, &Gyr_Y, &Gyr_Z, 
+			&UTC_Valid, &StatusWord, &Acc_X, &Acc_Y, &Acc_Z, &Gyr_X, &Gyr_Y, &Gyr_Z, &Mag_X, &Mag_Y, &Mag_Z, 
 			&Roll, &Pitch, &Yaw, 
 			&Latitude, &Longitude, &Altitude,
-			&Vel_X, &Vel_Y, &Vel_Z) == 26))
+			&Vel_X, &Vel_Y, &Vel_Z) == 29))
 		{
 
 			// Should check which data give the best info on date/time...
@@ -170,10 +176,11 @@ int main(int argc, char* argv[])
 				"%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;"
 				"%f;%f;%f;"
+				"%f;%f;%f;"
 				"%f;%f;%f;\n", 
 				PacketCounter, SampleTimeFine, 
 				UTC_Nano, UTC_Year, UTC_Month, UTC_Day, UTC_Hour, UTC_Minute, UTC_Seconds, 
-				UTC_Valid, StatusWord, Acc_X, -Acc_Y, -Acc_Z, Gyr_X, -Gyr_Y, -Gyr_Z, 
+				UTC_Valid, StatusWord, Acc_X, -Acc_Y, -Acc_Z, Gyr_X, -Gyr_Y, -Gyr_Z, Mag_X, -Mag_Y, -Mag_Z, 
 				fmod_360(-Roll), fmod_360(Pitch), fmod_360(-Yaw), 
 				Latitude, Longitude, Altitude,
 				Vel_X, -Vel_Y, -Vel_Z);

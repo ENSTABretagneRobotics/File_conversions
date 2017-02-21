@@ -17,7 +17,7 @@ int main()
 	unsigned int i = 0;
 	unsigned int step = 50; // To change if too many data...
 	double d0 = 0, d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0, d7 = 0, d8 = 0, 
-		d9 = 0, d10 = 0, d11 = 0, d12 = 0, d13 = 0, 
+		d9 = 0, d10 = 0, d11 = 0, d12 = 0, d13 = 0, d14 = 0, d15 = 0, d16 = 0, 
 		roll = 0, pitch = 0, yaw = 0, latitude = 0, longitude = 0, altitude = 0;
 	int UTC_Year = 0, UTC_Month = 0, UTC_Day = 0, UTC_Hour = 0, UTC_Minute = 0; 
 	double UTC_Seconds = 0;
@@ -83,14 +83,15 @@ int main()
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
+			"%lf;%lf;%lf;"
 			"%d;%d",
 			&d0, &d1, &d2, 
 			&UTC_Year, &UTC_Month, &UTC_Day, &UTC_Hour, &UTC_Minute, &UTC_Seconds, 
-			&d3, &d4, &d5, &d6, &d7, &d8, &d9, &d10, 
+			&d3, &d4, &d5, &d6, &d7, &d8, &d9, &d10, &d11, &d12, &d13, 
 			&roll, &pitch, &yaw, 
 			&latitude, &longitude, &altitude,
-			&d11, &d12, &d13, 
-			&tv.tv_sec, &tv.tv_usec) == 28) 
+			&d14, &d15, &d16, 
+			&tv.tv_sec, &tv.tv_usec) == 31) 
 		{
 			if (i%step == 0)
 			{
@@ -131,13 +132,14 @@ int main()
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
+			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf",
 			&d0, &d1, &d2, 
 			&UTC_Year, &UTC_Month, &UTC_Day, &UTC_Hour, &UTC_Minute, &UTC_Seconds, 
-			&d3, &d4, &d5, &d6, &d7, &d8, &d9, &d10, 
+			&d3, &d4, &d5, &d6, &d7, &d8, &d9, &d10, &d11, &d12, &d13, 
 			&roll, &pitch, &yaw, 
 			&latitude, &longitude, &altitude,
-			&d11, &d12, &d13) == 26) 
+			&d14, &d15, &d16) == 29) 
 		{
 			if (i%step == 0)
 			{
