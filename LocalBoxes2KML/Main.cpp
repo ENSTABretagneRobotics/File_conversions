@@ -138,11 +138,11 @@ int main(int argc, char* argv[])
 					"\t\t\t<tessellate>1</tessellate>\n\t\t\t<outerBoundaryIs>\n\t\t\t\t<LinearRing>\n", timebuf, i);
 
 				fprintf(fileout, "\t\t\t\t\t<coordinates>"
-					"%f,%f,%f "
-					"%f,%f,%f "
-					"%f,%f,%f "
-					"%f,%f,%f "
-					"%f,%f,%f "
+					"%.8f,%.8f,%.3f "
+					"%.8f,%.8f,%.3f "
+					"%.8f,%.8f,%.3f "
+					"%.8f,%.8f,%.3f "
+					"%.8f,%.8f,%.3f "
 					"</coordinates>\n", 
 					longmin, latmin, altitude, 
 					longmin, latmax, altitude, 

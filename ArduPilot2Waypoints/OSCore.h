@@ -9,8 +9,6 @@ Fabrice Le Bars
 
 Created : 2007
 
-Version status : Tested some parts
-
 ***************************************************************************************************************:)*/
 
 // Prevent Visual Studio Intellisense from defining _WIN32 and _MSC_VER when we use 
@@ -242,14 +240,15 @@ _ Windows CE : WINCE
 #endif // inline
 #endif // __cplusplus
 
-#if !defined(NOMINMAX) || defined(FORCE_MINMAX_DEFINITION)
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif // max
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif // min
-#endif // !defined(NOMINMAX) || defined(FORCE_MINMAX_DEFINITION)
+// Too many incompatibilities on Linux...
+//#if !defined(NOMINMAX)
+//#ifndef max
+//#define max(a,b) (((a) > (b)) ? (a) : (b))
+//#endif // max
+//#ifndef min
+//#define min(a,b) (((a) < (b)) ? (a) : (b))
+//#endif // min
+//#endif // !defined(NOMINMAX)
 
 #ifndef _WIN32
 typedef char CHAR;

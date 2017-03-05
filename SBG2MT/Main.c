@@ -126,7 +126,7 @@ int main(int argc, char* argv[])
 				"%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;"
 				"%f;%f;%f;"
-				"%f;%f;%f;"
+				"%.8f;%.8f;%f;"
 				"%f;%f;%f;"
 				"%d;%d;\n", 
 				PacketCounter, SampleTimeFine, 
@@ -176,7 +176,7 @@ int main(int argc, char* argv[])
 				"%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;"
 				"%f;%f;%f;"
-				"%f;%f;%f;"
+				"%.8f;%.8f;%f;"
 				"%f;%f;%f;\n", 
 				PacketCounter, SampleTimeFine, 
 				UTC_Nano, UTC_Year, UTC_Month, UTC_Day, UTC_Hour, UTC_Minute, UTC_Seconds, 

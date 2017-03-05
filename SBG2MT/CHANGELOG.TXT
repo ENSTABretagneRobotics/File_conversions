@@ -1,3 +1,6 @@
+4
+Changed accuracy of latitude and longitude.
+
 3
 Added magnetometers data.
 

@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 		{
 			if ((latitude != 0)&&(longitude != 0))
 			{
-				fprintf(fileout, "%f;%f;%f;%f;\n", t, latitude, longitude, distance);
+				fprintf(fileout, "%f;%.8f;%.8f;%f;\n", t, latitude, longitude, distance);
 				i++;
 			}
 		}

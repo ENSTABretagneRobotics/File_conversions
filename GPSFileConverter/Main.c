@@ -42,7 +42,7 @@ int main()
 		}
 		GPSLatitudeDegDecMin2DecDeg(latdeg, latdecmin, NorthOrSouth, &latitude);
 		GPSLongitudeDegDecMin2DecDeg(longdeg, longdecmin, EastOrWest, &longitude);
-		fprintf(fileout, "%f;%f;\n", latitude, longitude);
+		fprintf(fileout, "%.8f;%.8f;\n", latitude, longitude);
 		i++;
 		memset(line, 0, sizeof(line));
 	}

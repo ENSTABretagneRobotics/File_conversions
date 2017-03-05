@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
 			psihat_err = (psihat_sup-psihat_inf)/2.0;
 			psidothat_err = (psidothat_sup-psidothat_inf)/2.0;
 			fprintf(fileout, 			
-				"%f;%f;%f;%f;%f;%f;%f;%f;%f;"
+				"%f;%.8f;%.8f;%.3f;%.1f;%f;%f;%f;%f;"
 				"%f;%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;%f;%f;%f;"

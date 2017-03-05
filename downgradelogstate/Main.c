@@ -98,13 +98,18 @@ int main(int argc, char* argv[])
 		{
 			vxyhat = sqrt(sqr(vrxhat)+sqr(vryhat));
 			vxyhat_err = sqrt(sqr(vrxhat_err)+sqr(vryhat_err));
-			fprintf(fileout, 			
-				"%f;%f;%f;%f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;%d;%d;%f;%f;%f;%f;\n", 
-				t_app, xhat, yhat, zhat, psihat, vxyhat, psidothat, 
-				u1, u2, u3, u, uw,
+			fprintf(fileout, "%f;"
+				"%.3f;%.3f;%.3f;%f;"
+				"%f;%f;"
+				"%f;%f;%f;"
+				"%f;%f;"
+				"%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%f;%f;"
+				"%f;%f;%f;%f;"
+				"%d;%d;%.8f;%.8f;%.3f;%.1f;\n", 
+				t_app, xhat, yhat, zhat, psihat, 
+				vxyhat, psidothat, 
+				u1, u2, u3, 
+				u, uw,
 				xhat-xhat_err, xhat+xhat_err, yhat-yhat_err, yhat+yhat_err, zhat-zhat_err, zhat+zhat_err, psihat-psihat_err, psihat+psihat_err, 
 				vxyhat-vxyhat_err, vxyhat+vxyhat_err, psidothat-psidothat_err, psidothat+psidothat_err,
 				(int)t, (int)((t-(int)t)*1000000.0), latitude, longitude, altitude, heading);

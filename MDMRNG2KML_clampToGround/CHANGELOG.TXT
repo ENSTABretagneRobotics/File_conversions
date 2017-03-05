@@ -1,3 +1,6 @@
+3
+Changed accuracy of latitude and longitude.
+
 2
 Added time in KML file.
 

@@ -1,3 +1,6 @@
+4
+Changed accuracy of latitude and longitude.
+
 3
 Added possibility to have a space separator instead of a semicolon in Waypoints.csv.
 

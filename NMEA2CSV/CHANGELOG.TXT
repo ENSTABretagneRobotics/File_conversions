@@ -1,3 +1,6 @@
+8
+Changed accuracy of some values.
+
 7
 Removed message indicating skipped lines to improve performance.
 

@@ -53,7 +53,7 @@ int main()
 			return EXIT_FAILURE;
 		}
 		EnvCoordSystem2GPS(lat_env, long_env, alt_env, angle_env, x, y, z, &latitude, &longitude, &altitude);
-		fprintf(fileout, "%f;%f;\n", latitude, longitude);
+		fprintf(fileout, "%.8f;%.8f;\n", latitude, longitude);
 		i++;
 		memset(line, 0, sizeof(line));
 	}

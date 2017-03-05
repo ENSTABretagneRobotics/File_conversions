@@ -10,8 +10,6 @@ fgets2() by Luc Jaulin
 
 Created : 2009-01-28
 
-Version status : Tested some parts
-
 ***************************************************************************************************************:)*/
 
 // Prevent Visual Studio Intellisense from defining _WIN32 and _MSC_VER when we use 
@@ -87,6 +85,19 @@ Debug macros specific to OSMisc.
 //#define strnicmp _strnicmp
 //#endif // __GNUC__
 
+// Need to be undefined at the end of the file...
+// min and max might cause incompatibilities on Linux...
+#ifndef _WIN32
+#if !defined(NOMINMAX)
+#ifndef max
+#define max(a,b) (((a) > (b)) ? (a) : (b))
+#endif // max
+#ifndef min
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+#endif // min
+#endif // !defined(NOMINMAX)
+#endif // _WIN32
+
 #define MAX_BUF_LEN 256
 
 #define MAX_TIMEOUT_PROMPTGETUSERINPUTTIMEOUT 25500
@@ -95,12 +106,28 @@ Debug macros specific to OSMisc.
 #define KELVIN2CELSIUS(temperature) ((temperature)-273.15)
 #define CELSIUS2KELVIN(temperature) ((temperature)+273.15)
 
+#define STANDARD_GRAVITY 9.80665
+
 // Earth radius in m.
 #define EARTH_RADIUS 6371000
 
 #define EAST_NORTH_UP_COORDINATE_SYSTEM 0
 #define NORTH_EAST_DOWN_COORDINATE_SYSTEM 1
 #define NORTH_WEST_UP_COORDINATE_SYSTEM 2
+
+/*
+Get the depth from the pressure (pressure difference = density x g x height).
+
+double pressure : (IN) Pressure in bar.
+double pressureref : (IN) Pressure at the surface in bar, used as reference (e.g. 1).
+double density : (IN) Water density in kg/m3 (e.g. 1000).
+
+Return : The depth in m.
+*/
+inline double Pressure2Height(double pressure, double pressureref, double density)
+{
+	return -(pressure-pressureref)*1e5/(density*STANDARD_GRAVITY);
+}
 
 /*
 Return an angle between 0 and 2*M_PI.
@@ -238,6 +265,8 @@ inline double sign(double x, double epsilon)
 		return 1;
 	else if (x <= -epsilon) 
 		return -1;
+	else if (epsilon == 0) 
+		return 0;
 	else 
 		return x/epsilon;
 }
@@ -1329,5 +1358,15 @@ inline void useless_function(int useless_param)
 	UNREFERENCED_PARAMETER(useless_param);
 	printf("This function is not so useless!\n");
 }
+
+// min and max might cause incompatibilities on Linux...
+#ifndef _WIN32
+#ifdef max
+#undef max
+#endif // max
+#ifdef min
+#undef min
+#endif // min
+#endif // _WIN32
 
 #endif // OSMISC_H

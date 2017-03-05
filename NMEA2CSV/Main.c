@@ -240,7 +240,7 @@ int main(int argc, char* argv[])
 			bFound_altitude = TRUE;
 			bFound_height_geoid = TRUE;
 
-			fprintf(fileout, "%f;%f;%f;%f;%f;\n", t, latitude, longitude, altitude, height_geoid);
+			fprintf(fileout, "%f;%.8f;%.8f;%.3f;%.3f;\n", t, latitude, longitude, altitude, height_geoid);
 			i++;
 		}
 		else if ((bForce_GPGGA_altitude||(bAutoSelection&&!bFound_height_geoid))
@@ -285,7 +285,7 @@ int main(int argc, char* argv[])
 			bFound_GPGGA = TRUE;
 			bFound_altitude = TRUE;
 
-			fprintf(fileout, "%f;%f;%f;%f;\n", t, latitude, longitude, altitude);
+			fprintf(fileout, "%f;%.8f;%.8f;%.3f;\n", t, latitude, longitude, altitude);
 			i++;
 		}
 		else if ((bForce_GPGGA||(bAutoSelection&&!bFound_altitude))
@@ -329,7 +329,7 @@ int main(int argc, char* argv[])
 
 			bFound_GPGGA = TRUE;
 
-			fprintf(fileout, "%f;%f;%f;\n", t, latitude, longitude);
+			fprintf(fileout, "%f;%.8f;%.8f;\n", t, latitude, longitude);
 			i++;
 		}
 		// In case of no GPGGA...
@@ -387,7 +387,7 @@ int main(int argc, char* argv[])
 
 			bFound_GPRMC = TRUE;
 
-			fprintf(fileout, "%f;%f;%f;\n", t, latitude, longitude);
+			fprintf(fileout, "%f;%.8f;%.8f;\n", t, latitude, longitude);
 			i++;
 		}
 		// In case of no GPGGA nor GPRMC...
@@ -429,7 +429,7 @@ int main(int argc, char* argv[])
 
 			bFound_GPGLL = TRUE;
 
-			fprintf(fileout, "%f;%f;%f;\n", t, latitude, longitude);
+			fprintf(fileout, "%f;%.8f;%.8f;\n", t, latitude, longitude);
 			i++;
 		}
 		else

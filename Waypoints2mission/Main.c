@@ -124,7 +124,7 @@ int main(int argc, char* argv[])
 	for (i = 1; i < nbWPs; i++)
 	{
 		fprintf(fileout, "setmissionaction l%d\n", i-1);
-		fprintf(fileout, "linefollowingtwgs %f %f %f %f %f\n", wpslat[i-1], wpslong[i-1], wpslat[i], wpslong[i], 31557600.0);
+		fprintf(fileout, "linefollowingtwgs %.8f %.8f %.8f %.8f %f\n", wpslat[i-1], wpslong[i-1], wpslat[i], wpslong[i], 31557600.0);
 	}
 
 	printf("Found %d lines.\n", nbWPs-1);

@@ -134,19 +134,19 @@ int main(int argc, char* argv[])
 	if (nbWPs >= 1)
 	{
 		fprintf(fileout, "\t<Placemark>\n\t\t<name>%d</name>\n\t\t<Point>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n", 0);
-		fprintf(fileout, "\t\t\t<coordinates>%f,%f,%f</coordinates>\n", wpslong[0], wpslat[0], DEFAULT_ALTITUDE);
+		fprintf(fileout, "\t\t\t<coordinates>%.8f,%.8f,%f</coordinates>\n", wpslong[0], wpslat[0], DEFAULT_ALTITUDE);
 		fprintf(fileout, "\t\t</Point>\n\t</Placemark>\n");
 	}
 	printf("Converting...\n");
 	for (i = 1; i < nbWPs; i++)
 	{
 		fprintf(fileout, "\t<Placemark>\n\t\t<name>%d</name>\n\t\t<Point>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n", i);
-		fprintf(fileout, "\t\t\t<coordinates>%f,%f,%f</coordinates>\n", wpslong[i], wpslat[i], DEFAULT_ALTITUDE);
+		fprintf(fileout, "\t\t\t<coordinates>%.8f,%.8f,%f</coordinates>\n", wpslong[i], wpslat[i], DEFAULT_ALTITUDE);
 		fprintf(fileout, "\t\t</Point>\n\t</Placemark>\n");
 
 		fprintf(fileout, "\t<Placemark>\n\t\t<name>%d-%d</name>\n", i-1, i);
 		fprintf(fileout, "\t\t<styleUrl>#sn_ylw-pushpin</styleUrl>\n\t\t<LineString>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>"ALTITUDE_MODE"</altitudeMode>\n\t\t\t<coordinates>\n");
-		fprintf(fileout, "\t\t\t\t%f,%f,%f %f,%f,%f\n", wpslong[i-1], wpslat[i-1], DEFAULT_ALTITUDE, wpslong[i], wpslat[i], DEFAULT_ALTITUDE);
+		fprintf(fileout, "\t\t\t\t%.8f,%.8f,%f %.8f,%.8f,%f\n", wpslong[i-1], wpslat[i-1], DEFAULT_ALTITUDE, wpslong[i], wpslat[i], DEFAULT_ALTITUDE);
 		fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
 	}
 

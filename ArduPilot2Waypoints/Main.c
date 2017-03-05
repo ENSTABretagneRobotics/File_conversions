@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
 			&i0, &i1, &i2, &i3, &d0, &d1, &d2, &d3, &latitude, &longitude) == 10)&&
 			(latitude != 0)&&(longitude != 0))
 		{
-			fprintf(fileout, "%f;%f;\n", latitude, longitude);
+			fprintf(fileout, "%.8f;%.8f;\n", latitude, longitude);
 			i++;
 		}
 		else

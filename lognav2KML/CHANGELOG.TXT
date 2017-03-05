@@ -1,3 +1,6 @@
+12
+Changed accuracy of some values.
+
 11
 Added ASLOGGER_MODE.
 

@@ -102,8 +102,8 @@ int main()
 				fprintf(kmlfile, "\t\t<visibility>0</visibility>\n");
 				fprintf(kmlfile, "\t\t<TimeStamp>\n\t\t\t<when>%.32s</when>\n\t\t</TimeStamp>\n", timebuf);
 				fprintf(kmlfile, "\t\t<Model>\n\t\t\t<altitudeMode>clampToGround</altitudeMode>\n\t\t\t<Location>\n");
-				fprintf(kmlfile, "\t\t\t\t<longitude>%f</longitude>\n", longitude);
-				fprintf(kmlfile, "\t\t\t\t<latitude>%f</latitude>\n", latitude);
+				fprintf(kmlfile, "\t\t\t\t<longitude>%.8f</longitude>\n", longitude);
+				fprintf(kmlfile, "\t\t\t\t<latitude>%.8f</latitude>\n", latitude);
 				fprintf(kmlfile, "\t\t\t\t<altitude>%d</altitude>\n", (int)altitude*0);
 				fprintf(kmlfile, "\t\t\t</Location>\n\t\t\t<Orientation>\n");
 				fprintf(kmlfile, "\t\t\t\t<heading>%d</heading>\n", ((int)-yaw+720)%360);
@@ -148,8 +148,8 @@ int main()
 				fprintf(kmlfile, "\t\t<visibility>0</visibility>\n");
 				fprintf(kmlfile, "\t\t<TimeStamp>\n\t\t\t<when>%.32s</when>\n\t\t</TimeStamp>\n", timebuf);
 				fprintf(kmlfile, "\t\t<Model>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<Location>\n");
-				fprintf(kmlfile, "\t\t\t\t<longitude>%f</longitude>\n", longitude);
-				fprintf(kmlfile, "\t\t\t\t<latitude>%f</latitude>\n", latitude);
+				fprintf(kmlfile, "\t\t\t\t<longitude>%.8f</longitude>\n", longitude);
+				fprintf(kmlfile, "\t\t\t\t<latitude>%.8f</latitude>\n", latitude);
 				fprintf(kmlfile, "\t\t\t\t<altitude>%d</altitude>\n", (int)altitude);
 				fprintf(kmlfile, "\t\t\t</Location>\n\t\t\t<Orientation>\n");
 				fprintf(kmlfile, "\t\t\t\t<heading>%d</heading>\n", ((int)-yaw+720)%360);

@@ -1,3 +1,6 @@
+7
+Changed accuracy of latitude and longitude.
+
 6
 Added check of <gx:drawOrder>.
 

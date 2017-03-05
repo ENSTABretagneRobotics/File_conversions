@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
 			fprintf(fileout, "\t<Placemark>\n\t\t<name>t=%.2f,d=%.1f</name>\n", t_raw, distance);
 			fprintf(fileout, "\t\t<TimeStamp>\n\t\t\t<when>%.32s</when>\n\t\t</TimeStamp>\n", timebuf);
 			fprintf(fileout, "\t\t<styleUrl>#sn_ylw-pushpin</styleUrl>\n\t\t<LineString>\n\t\t\t<tessellate>1</tessellate>\n\t\t\t<altitudeMode>clampToGround</altitudeMode>\n\t\t\t<coordinates>\n");
-			fprintf(fileout, "\t\t\t\t%f,%f,%f %f,%f,%f\n", longitude2, latitude2, 0.0, longitude, latitude, 0.0);
+			fprintf(fileout, "\t\t\t\t%.8f,%.8f,%f %.8f,%.8f,%f\n", longitude2, latitude2, 0.0, longitude, latitude, 0.0);
 			fprintf(fileout, "\t\t\t</coordinates>\n\t\t</LineString>\n\t</Placemark>\n");
 			i++;
 		}

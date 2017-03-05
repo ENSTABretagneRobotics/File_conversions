@@ -1,3 +1,6 @@
+4
+Changed accuracy of some values.
+
 3
 Added configuration file.
 

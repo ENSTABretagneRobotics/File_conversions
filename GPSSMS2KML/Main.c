@@ -74,7 +74,7 @@ int main()
 				fprintf(kmlfile, "\t\t<Style>\n\t\t\t<LineStyle>\n\t\t\t\t<color>ff00ff00</color>\n\t\t\t\t<width>2</width>\n\t\t\t</LineStyle>\n\t\t</Style>\n");
 				fprintf(kmlfile, "\t\t<LineString>\n\t\t\t<extrude>0</extrude>\n\t\t\t<tessellate>0</tessellate>\n\t\t\t<altitudeMode>absolute</altitudeMode>\n\t\t\t<coordinates>\n");
 			}
-			fprintf(kmlfile, "%f,%f,%f ", longitude, latitude, altitude);
+			fprintf(kmlfile, "%.8f,%.8f,%.3f ", longitude, latitude, altitude);
 			i++;
 		}
 		else

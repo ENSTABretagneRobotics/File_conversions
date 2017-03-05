@@ -1,2 +1,5 @@
+2
+Changed accuracy of latitude and longitude.
+
 1
 Initial version.

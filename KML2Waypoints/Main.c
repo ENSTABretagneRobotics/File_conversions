@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
 				sscanf(substr, "<coordinates>%lf,%lf,%lf</coordinates>", 
 				&longitude, &latitude, &altitude) == 3) 
 			{
-				fprintf(fileout, "%f;%f;\n", latitude, longitude);
+				fprintf(fileout, "%.8f;%.8f;\n", latitude, longitude);
 				i++;
 			}
 			else
