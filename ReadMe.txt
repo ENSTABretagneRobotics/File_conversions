@@ -30,7 +30,7 @@ _ a list of positions in decimal degrees, first column is time, second column is
 to a Google Earth KML file representing the trajectory. The input format and altitude mode need to be set in the defines in the beginning of the program.
 
 
-NMEA2CSV : convert a raw NMEA data file lognav.txt to a log file compatible with lognav2KML. A configuration file NMEA2CSV.txt can be used to change some parameters.
+NMEA2CSV : convert a raw NMEA data file lognav.txt to a log file compatible with lognav2KML. Before use, remove binary data with Notepad++ regex [^\x1F-\x7F]+ and replace with \r\n. A configuration file NMEA2CSV.txt can be used to change some parameters.
 
 
 MT2KML : convert a MT Manager log file (using the provided specific log exporter settings, see SBG2MT) to a Google Earth KML file.

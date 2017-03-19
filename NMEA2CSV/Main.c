@@ -11,11 +11,11 @@
 
 // Parameters.
 BOOL bDisableAutoDateDetection = FALSE;
-BOOL bForce_GPGGA_height_geoid = FALSE;
-BOOL bForce_GPGGA_altitude = FALSE;
-BOOL bForce_GPGGA = FALSE;
-BOOL bForce_GPRMC = FALSE;
-BOOL bForce_GPGLL = FALSE;
+BOOL bForce_GGA_height_geoid = FALSE;
+BOOL bForce_GGA_altitude = FALSE;
+BOOL bForce_GGA = FALSE;
+BOOL bForce_RMC = FALSE;
+BOOL bForce_GLL = FALSE;
 
 // Other.
 BOOL bAutoSelection = FALSE;
@@ -29,11 +29,11 @@ inline int LoadConfig()
 
 	// Default values.
 	bDisableAutoDateDetection = 0;
-	bForce_GPGGA_height_geoid = 0;
-	bForce_GPGGA_altitude = 0;
-	bForce_GPGGA = 0; 
-	bForce_GPRMC = 0;
-	bForce_GPGLL = 0;
+	bForce_GGA_height_geoid = 0;
+	bForce_GGA_altitude = 0;
+	bForce_GGA = 0; 
+	bForce_RMC = 0;
+	bForce_GLL = 0;
 
 	file = fopen("NMEA2CSV.txt", "r");
 	if (file != NULL)
@@ -41,15 +41,15 @@ inline int LoadConfig()
 		if (fgets3(file, line, sizeof(line)) == NULL) printf("Invalid configuration file.\n");
 		if (sscanf(line, "%d", &bDisableAutoDateDetection) != 1) printf("Invalid configuration file.\n");
 		if (fgets3(file, line, sizeof(line)) == NULL) printf("Invalid configuration file.\n");
-		if (sscanf(line, "%d", &bForce_GPGGA_height_geoid) != 1) printf("Invalid configuration file.\n");
+		if (sscanf(line, "%d", &bForce_GGA_height_geoid) != 1) printf("Invalid configuration file.\n");
 		if (fgets3(file, line, sizeof(line)) == NULL) printf("Invalid configuration file.\n");
-		if (sscanf(line, "%d", &bForce_GPGGA_altitude) != 1) printf("Invalid configuration file.\n");
+		if (sscanf(line, "%d", &bForce_GGA_altitude) != 1) printf("Invalid configuration file.\n");
 		if (fgets3(file, line, sizeof(line)) == NULL) printf("Invalid configuration file.\n");
-		if (sscanf(line, "%d", &bForce_GPGGA) != 1) printf("Invalid configuration file.\n");
+		if (sscanf(line, "%d", &bForce_GGA) != 1) printf("Invalid configuration file.\n");
 		if (fgets3(file, line, sizeof(line)) == NULL) printf("Invalid configuration file.\n");
-		if (sscanf(line, "%d", &bForce_GPRMC) != 1) printf("Invalid configuration file.\n");
+		if (sscanf(line, "%d", &bForce_RMC) != 1) printf("Invalid configuration file.\n");
 		if (fgets3(file, line, sizeof(line)) == NULL) printf("Invalid configuration file.\n");
-		if (sscanf(line, "%d", &bForce_GPGLL) != 1) printf("Invalid configuration file.\n");
+		if (sscanf(line, "%d", &bForce_GLL) != 1) printf("Invalid configuration file.\n");
 		if (fclose(file) != EXIT_SUCCESS) printf("fclose() failed.\n");
 	}
 	else
@@ -58,7 +58,7 @@ inline int LoadConfig()
 	}
 
 	// Manual or auto selection of the best NMEA sentence...
-	bAutoSelection = !(bForce_GPGGA_height_geoid|bForce_GPGGA_altitude|bForce_GPGGA|bForce_GPRMC|bForce_GPGLL);
+	bAutoSelection = !(bForce_GGA_height_geoid|bForce_GGA_altitude|bForce_GGA|bForce_RMC|bForce_GLL);
 
 	return EXIT_SUCCESS;
 }
@@ -77,8 +77,9 @@ int main(int argc, char* argv[])
 	struct tm ts;
 	double t = 0;
 	BOOL bFound_height_geoid = FALSE, bFound_altitude = FALSE, 
-		bFound_GPGGA = FALSE, bFound_GPRMC = FALSE, bFound_GPGLL = FALSE;
+		bFound_GGA = FALSE, bFound_RMC = FALSE, bFound_GLL = FALSE;
 	// Temporary buffers for sscanf().
+	char talkerid0 = 0, talkerid1 = 0;
 	double utc = 0, date = 0;
 	int latdeg = 0, longdeg = 0;
 	double latmin = 0, longmin = 0;
@@ -152,10 +153,10 @@ int main(int argc, char* argv[])
 		if (!bDisableAutoDateDetection)
 		{
 			// Allways try to get the full date...
-			if (sscanf(line, "$GPRMC,%lf,A,%c%c%lf,%c,%c%c%c%lf,%c,%lf,%lf,%lf", &utc, 
+			if (sscanf(line, "$%c%cRMC,%lf,A,%c%c%lf,%c,%c%c%c%lf,%c,%lf,%lf,%lf", &talkerid0, &talkerid1, &utc, 
 				&szlatdeg[0], &szlatdeg[1], &latmin, &north, 
 				&szlongdeg[0], &szlongdeg[1], &szlongdeg[2], &longmin, &east, 
-				&sog, &cog, &date) == 13)
+				&sog, &cog, &date) == 15)
 			{
 				if (utc > 0)
 				{
@@ -197,12 +198,12 @@ int main(int argc, char* argv[])
 		utc = 0;
 		memset(szlatdeg, 0, sizeof(szlatdeg));
 		memset(szlongdeg, 0, sizeof(szlongdeg));
-		if ((bForce_GPGGA_height_geoid||bAutoSelection)
+		if ((bForce_GGA_height_geoid||bAutoSelection)
 			&&		
-			(sscanf(line, "$GPGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d,%d,%lf,%lf,M,%lf,M", &utc, 
+			(sscanf(line, "$%c%cGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d,%d,%lf,%lf,M,%lf,M", &talkerid0, &talkerid1, &utc, 
 			&szlatdeg[0], &szlatdeg[1], &latmin, &north, 
 			&szlongdeg[0], &szlongdeg[1], &szlongdeg[2], &longmin, &east,
-			&GPS_quality_indicator, &nbsat, &hdop, &altitude, &height_geoid) == 15)
+			&GPS_quality_indicator, &nbsat, &hdop, &altitude, &height_geoid) == 17)
 			&&
 			(GPS_quality_indicator > 0)) 
 		{
@@ -236,19 +237,19 @@ int main(int argc, char* argv[])
 				}
 			}
 
-			bFound_GPGGA = TRUE;
+			bFound_GGA = TRUE;
 			bFound_altitude = TRUE;
 			bFound_height_geoid = TRUE;
 
 			fprintf(fileout, "%f;%.8f;%.8f;%.3f;%.3f;\n", t, latitude, longitude, altitude, height_geoid);
 			i++;
 		}
-		else if ((bForce_GPGGA_altitude||(bAutoSelection&&!bFound_height_geoid))
+		else if ((bForce_GGA_altitude||(bAutoSelection&&!bFound_height_geoid))
 			&&
-			(sscanf(line, "$GPGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d,%d,%lf,%lf,M", &utc, 
+			(sscanf(line, "$%c%cGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d,%d,%lf,%lf,M", &talkerid0, &talkerid1, &utc, 
 			&szlatdeg[0], &szlatdeg[1], &latmin, &north, 
 			&szlongdeg[0], &szlongdeg[1], &szlongdeg[2], &longmin, &east,
-			&GPS_quality_indicator, &nbsat, &hdop, &altitude) == 14)
+			&GPS_quality_indicator, &nbsat, &hdop, &altitude) == 16)
 			&&
 			(GPS_quality_indicator > 0)) 
 		{
@@ -282,18 +283,18 @@ int main(int argc, char* argv[])
 				}
 			}
 
-			bFound_GPGGA = TRUE;
+			bFound_GGA = TRUE;
 			bFound_altitude = TRUE;
 
 			fprintf(fileout, "%f;%.8f;%.8f;%.3f;\n", t, latitude, longitude, altitude);
 			i++;
 		}
-		else if ((bForce_GPGGA||(bAutoSelection&&!bFound_altitude))
+		else if ((bForce_GGA||(bAutoSelection&&!bFound_altitude))
 			&&
-			(sscanf(line, "$GPGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d", &utc, 
+			(sscanf(line, "$%c%cGGA,%lf,%c%c%lf,%c,%c%c%c%lf,%c,%d", &talkerid0, &talkerid1, &utc, 
 			&szlatdeg[0], &szlatdeg[1], &latmin, &north, 
 			&szlongdeg[0], &szlongdeg[1], &szlongdeg[2], &longmin, &east,
-			&GPS_quality_indicator) == 11)
+			&GPS_quality_indicator) == 13)
 			&&
 			(GPS_quality_indicator > 0))
 		{
@@ -327,18 +328,18 @@ int main(int argc, char* argv[])
 				}
 			}
 
-			bFound_GPGGA = TRUE;
+			bFound_GGA = TRUE;
 
 			fprintf(fileout, "%f;%.8f;%.8f;\n", t, latitude, longitude);
 			i++;
 		}
 		// In case of no GPGGA...
-		else if ((bForce_GPRMC||(bAutoSelection&&!bFound_GPGGA))
+		else if ((bForce_RMC||(bAutoSelection&&!bFound_GGA))
 			&&
-			(sscanf(line, "$GPRMC,%lf,A,%c%c%lf,%c,%c%c%c%lf,%c,%lf,%lf,%lf", &utc, 
+			(sscanf(line, "$%c%cRMC,%lf,A,%c%c%lf,%c,%c%c%c%lf,%c,%lf,%lf,%lf", &talkerid0, &talkerid1, &utc, 
 			&szlatdeg[0], &szlatdeg[1], &latmin, &north, 
 			&szlongdeg[0], &szlongdeg[1], &szlongdeg[2], &longmin, &east, 
-			&sog, &cog, &date) == 13)) 
+			&sog, &cog, &date) == 15)) 
 		{
 			if (utc > 0)
 			{
@@ -385,17 +386,17 @@ int main(int argc, char* argv[])
 				}
 			}
 
-			bFound_GPRMC = TRUE;
+			bFound_RMC = TRUE;
 
 			fprintf(fileout, "%f;%.8f;%.8f;\n", t, latitude, longitude);
 			i++;
 		}
 		// In case of no GPGGA nor GPRMC...
-		else if ((bForce_GPGLL||(bAutoSelection&&!bFound_GPGGA&&!bFound_GPRMC))
+		else if ((bForce_GLL||(bAutoSelection&&!bFound_GGA&&!bFound_RMC))
 			&&
-			(sscanf(line, "$GPGLL,%c%c%lf,%c,%c%c%c%lf,%c,%lf,A", 
+			(sscanf(line, "$%c%cGLL,%c%c%lf,%c,%c%c%c%lf,%c,%lf,A", &talkerid0, &talkerid1, 
 			&szlatdeg[0], &szlatdeg[1], &latmin, &north, 
-			&szlongdeg[0], &szlongdeg[1], &szlongdeg[2], &longmin, &east, &utc) == 10)) 
+			&szlongdeg[0], &szlongdeg[1], &szlongdeg[2], &longmin, &east, &utc) == 12)) 
 		{
 			if ((strlen(szlatdeg) > 0)&&(strlen(szlongdeg) > 0))
 			{
@@ -427,7 +428,7 @@ int main(int argc, char* argv[])
 				}
 			}
 
-			bFound_GPGLL = TRUE;
+			bFound_GLL = TRUE;
 
 			fprintf(fileout, "%f;%.8f;%.8f;\n", t, latitude, longitude);
 			i++;

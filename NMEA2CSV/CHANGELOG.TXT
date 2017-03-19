@@ -1,3 +1,6 @@
+9
+Talker ID is now ignored.
+
 8
 Changed accuracy of some values.
 
