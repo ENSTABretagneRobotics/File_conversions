@@ -1,3 +1,6 @@
+3
+Changed dependencies.
+
 2
 Changed accuracy of some values.
 

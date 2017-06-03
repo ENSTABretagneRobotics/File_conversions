@@ -1,3 +1,6 @@
+4
+Added Makefile for Linux.
+
 3
 Changed accuracy of latitude and longitude.
 

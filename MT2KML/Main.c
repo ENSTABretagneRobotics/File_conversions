@@ -7,7 +7,7 @@
 #	undef _MSC_VER
 #endif // defined(__GNUC__) || defined(__BORLANDC__)
 
-#include "Globals.h"
+#include "OSMisc.h"
 
 int main()
 {

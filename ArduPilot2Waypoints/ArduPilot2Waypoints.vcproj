@@ -246,6 +246,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Makefile"
+			>
+		</File>
+		<File
 			RelativePath=".\Waypoints.txt"
 			>
 		</File>

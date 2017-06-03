@@ -1,10 +1,14 @@
 PROGS = LocalBoxes2KML
 
-CC = g++
-CFLAGS += -g -fpermissive
-#CFLAGS += -O3 -fpermissive
+CC = gcc
+CXX = g++
+
+CFLAGS += -g
+#CFLAGS += -O3
 CFLAGS += -Wall
 #CFLAGS += -Wextra -Winline
+
+CXXFLAGS += $(CFLAGS) -fpermissive
 
 # For Windows/MinGW
 #LDFLAGS += -lws2_32
@@ -23,16 +27,16 @@ OSMisc.o: OSMisc.c OSMisc.h OSTime.o
 	$(CC) $(CFLAGS) -c $<
 
 Globals.o: Globals.cpp OSMisc.o
-	$(CC) $(CFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 Env.o: Env.cpp Globals.o
-	$(CC) $(CFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 Main.o: Main.cpp Env.o
-	$(CC) $(CFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 LocalBoxes2KML: Main.o Env.o Globals.o OSMisc.o OSTime.o OSCore.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
 	rm -f $(PROGS) $(PROGS:%=%.elf) $(PROGS:%=%.exe) *.o *.obj core *.gch

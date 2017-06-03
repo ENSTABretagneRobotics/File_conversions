@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
 			"%lf;%lf;%lf;"
-			"%d;%d",
+			"%ld;%ld",
 			&PacketCounter, &SampleTimeFine, 
 			&UTC_Nano, &UTC_Year, &UTC_Month, &UTC_Day, &UTC_Hour, &UTC_Minute, &UTC_Seconds, 
 			&UTC_Valid, &StatusWord, &Acc_X, &Acc_Y, &Acc_Z, &Gyr_X, &Gyr_Y, &Gyr_Z, &Mag_X, &Mag_Y, &Mag_Z, 
@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
 				"%f;%f;%f;"
 				"%.8f;%.8f;%f;"
 				"%f;%f;%f;"
-				"%d;%d;\n", 
+				"%ld;%ld;\n", 
 				PacketCounter, SampleTimeFine, 
 				UTC_Nano, UTC_Year, UTC_Month, UTC_Day, UTC_Hour, UTC_Minute, UTC_Seconds, 
 				UTC_Valid, StatusWord, Acc_X, -Acc_Y, -Acc_Z, Gyr_X, -Gyr_Y, -Gyr_Z, Mag_X, -Mag_Y, -Mag_Z, 

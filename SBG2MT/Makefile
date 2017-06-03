@@ -1,15 +1,16 @@
 PROGS = SBG2MT
 
 CC = gcc
-CFLAGS += -g -fpermissive
-#CFLAGS += -O3 -fpermissive
+
+CFLAGS += -g
+#CFLAGS += -O3
 CFLAGS += -Wall
 #CFLAGS += -Wextra -Winline
 
 # For Windows/MinGW
 #LDFLAGS += -lws2_32
-# For Linux
-#LDFLAGS += -lrt -lm
+
+LDFLAGS += -lm
 
 default: $(PROGS)
 

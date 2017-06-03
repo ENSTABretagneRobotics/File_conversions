@@ -67,9 +67,9 @@ int main(int argc, char* argv[])
 
 			Bearing = ((int)(bearing/0.05625+6400))%6400; // Angle of the transducer (0..6399 in 1/16 Gradian units, 0.05625 = (1/16)*(9/10)).
 
-			fprintf(fileout, "%DIG,%02d:%02d:%06.3f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%.*s", 
+			fprintf(fileout, "DIG,%02d:%02d:%06.3f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%.*s", 
 				Hour, Min, Seconds, 2, 16, 8967, Rangescale, 21,100,9,79,0,0, 
-				Steps, Bearing, dbytes, strlen(data)-1, data
+				Steps, Bearing, dbytes, (int)strlen(data)-1, data
 				);
 			fprintf(fileout, "\n");
 

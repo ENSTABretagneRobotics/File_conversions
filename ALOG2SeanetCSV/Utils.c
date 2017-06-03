@@ -1352,30 +1352,6 @@ char* FindLatestNMEASentence(char sentencebegin[7], char* str)
 	return foundstr;
 }
 
-void ComputeNMEAchecksum(char* sentence, char checksum[4])
-{
-	int i = 0;
-	char res = 0;
-
-	memset(checksum, 0, sizeof(checksum));
-	while (sentence[i])
-	{
-		if (sentence[i] == '$')
-		{
-			i++;
-			continue;
-		}
-		if (sentence[i] == '*')
-		{
-			break;
-		}
-		res ^= sentence[i];
-		i++;
-	}
-
-	sprintf(checksum, "*%02x", (int)res);
-}
-
 /*
 Wait some time...
 

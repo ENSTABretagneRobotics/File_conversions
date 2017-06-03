@@ -1,3 +1,4 @@
+
 Debug logvid2imgoverlay
 
 gérer le z dans les waypoints...
@@ -27,6 +28,8 @@ vibes3d-like avec googleearth? mais reset de la vue à chaque rechargement du fic
 
 
 OLD
+
+dans makefile séparer CC et CXX, CFLAGS et CXXFLAGS à cause de -fpermissive, voir remotewebcam…
 
 mieux harmoniser toutes les versions parallèles des programmes de conversion de logs avec par exemple des define (une version spéciale lognav avec param en option avec define pour rester compatible avec les autres, éventuellement faire plusieurs config dans vs) ou fichier de config comme CSV2V4LOG avec warning s'il trouve pas les fichiers de config...
 

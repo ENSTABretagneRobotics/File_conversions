@@ -1,8 +1,9 @@
 PROGS = MDMRNG2KML
 
-CC = g++
-CFLAGS += -g -fpermissive
-#CFLAGS += -O3 -fpermissive
+CC = gcc
+
+CFLAGS += -g
+#CFLAGS += -O3
 CFLAGS += -Wall
 #CFLAGS += -Wextra -Winline
 

@@ -175,9 +175,10 @@ int LaunchSingleCliTCPSrv(char* port, int (*handlecli)(SOCKET, void*), void* pPa
 // Maximum number of characters of a NMEA sentence (excluding the line terminators CR and LF).
 #define MAX_NB_BYTES_NMEA_SENTENCE 80
 
+#define MAX_NB_BYTES_CHECKSUM_NMEA 3
+
 char* FindNMEASentence(char sentencebegin[7], char* str);
 char* FindLatestNMEASentence(char sentencebegin[7], char* str);
-void ComputeNMEAchecksum(char* sentence, char checksum[4]);
 
 void mSleep(long Milliseconds);
 

@@ -1,34 +1,33 @@
-PROGS = LocalWaypoints2WGS
+PROGS = ArduPilot2Waypoints
 
-CC = g++
-CFLAGS += -g -fpermissive
-#CFLAGS += -O3 -fpermissive
+CC = gcc
+
+CFLAGS += -g
+#CFLAGS += -O3
 CFLAGS += -Wall
 #CFLAGS += -Wextra -Winline
 
 # For Windows/MinGW
+#CFLAGS += ENABLE_GETTIMEOFDAY_WIN32
 #LDFLAGS += -lws2_32
 # For Linux
 #LDFLAGS += -lrt -lm
 
 default: $(PROGS)
 
-Utils.o: Utils.cpp Utils.h
+OSCore.o: OSCore.c OSCore.h
 	$(CC) $(CFLAGS) -c $<
 
-Waypoints.o: Waypoints.cpp Utils.o
+OSTime.o: OSTime.c OSTime.h OSCore.o
 	$(CC) $(CFLAGS) -c $<
 
-Globals.o: Globals.cpp Waypoints.o
+OSMisc.o: OSMisc.c OSMisc.h OSTime.o
 	$(CC) $(CFLAGS) -c $<
 
-Env.o: Env.cpp Globals.o
+Main.o: Main.c OSMisc.o
 	$(CC) $(CFLAGS) -c $<
 
-Main.o: Main.cpp Env.o
-	$(CC) $(CFLAGS) -c $<
-
-LocalWaypoints2WGS: Main.o Env.o Globals.o Waypoints.o Utils.o
+ArduPilot2Waypoints: Main.o OSMisc.o OSTime.o OSCore.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:

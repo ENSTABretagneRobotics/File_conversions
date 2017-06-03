@@ -172,7 +172,6 @@ int LaunchSingleCliTCPSrv(char* port, int (*handlecli)(SOCKET, void*), void* pPa
 
 char* FindNMEASentence(char sentencebegin[7], char* str);
 char* FindLatestNMEASentence(char sentencebegin[7], char* str);
-void ComputeNMEAchecksum(char* sentence, char checksum[4]);
 
 void mSleep(long Milliseconds);
 

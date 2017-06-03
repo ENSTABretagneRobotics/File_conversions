@@ -1,3 +1,6 @@
+6
+Changed dependencies.
+
 5
 Changed accuracy of latitude and longitude.
 

@@ -1,8 +1,9 @@
 PROGS = MT2NMEA
 
 CC = gcc
-CFLAGS += -g -fpermissive
-#CFLAGS += -O3 -fpermissive
+
+CFLAGS += -g
+#CFLAGS += -O3
 CFLAGS += -Wall
 #CFLAGS += -Wextra -Winline
 
