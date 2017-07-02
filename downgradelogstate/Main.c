@@ -21,9 +21,9 @@ int main(int argc, char* argv[])
 	unsigned int i = 0;
 	double t = 0, latitude = 0, longitude = 0, altitude = 0, heading = 0, COG = 0, SOG = 0, pressure = 0, utc = 0;
 	double t_app = 0, xhat = 0, yhat = 0, zhat = 0, phihat = 0, thetahat = 0, psihat = 0;
-	double vrxhat = 0, vryhat = 0, vrzhat = 0, phidothat = 0, thetadothat = 0, psidothat = 0;
+	double vrxhat = 0, vryhat = 0, vrzhat = 0, omegaxhat = 0, omegayhat = 0, omegazhat = 0;
 	double xhat_err = 0, yhat_err = 0, zhat_err = 0, phihat_err = 0, thetahat_err = 0, psihat_err = 0;
-	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, phidothat_err = 0, thetadothat_err = 0, psidothat_err = 0;
+	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, omegaxhat_err = 0, omegayhat_err = 0, omegazhat_err = 0;
 	double u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u = 0, uw = 0, uv = 0, ul = 0, up = 0, ur = 0;
 	double vxyhat = 0, vxyhat_err = 0;
 
@@ -91,9 +91,9 @@ int main(int argc, char* argv[])
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf", 
 			&t, &latitude, &longitude, &altitude, &heading, &COG, &SOG, &pressure, &utc,
 			&t_app, &xhat, &yhat, &zhat, &phihat, &thetahat, &psihat,
-			&vrxhat, &vryhat, &vrzhat, &phidothat, &thetadothat, &psidothat,
+			&vrxhat, &vryhat, &vrzhat, &omegaxhat, &omegayhat, &omegazhat,
 			&xhat_err, &yhat_err, &zhat_err, &phihat_err, &thetahat_err, &psihat_err,
-			&vrxhat_err, &vryhat_err, &vrzhat_err, &phidothat_err, &thetadothat_err, &psidothat_err,
+			&vrxhat_err, &vryhat_err, &vrzhat_err, &omegaxhat_err, &omegayhat_err, &omegazhat_err,
 			&u1, &u2, &u3, &u4, &u5, &u6, &u, &uw, &uv, &ul, &up, &ur) == 46))
 		{
 			vxyhat = sqrt(sqr(vrxhat)+sqr(vryhat));
@@ -107,11 +107,11 @@ int main(int argc, char* argv[])
 				"%f;%f;%f;%f;"
 				"%d;%d;%.8f;%.8f;%.3f;%.1f;\n", 
 				t_app, xhat, yhat, zhat, psihat, 
-				vxyhat, psidothat, 
+				vxyhat, omegazhat, 
 				u1, u2, u3, 
 				u, uw,
 				xhat-xhat_err, xhat+xhat_err, yhat-yhat_err, yhat+yhat_err, zhat-zhat_err, zhat+zhat_err, psihat-psihat_err, psihat+psihat_err, 
-				vxyhat-vxyhat_err, vxyhat+vxyhat_err, psidothat-psidothat_err, psidothat+psidothat_err,
+				vxyhat-vxyhat_err, vxyhat+vxyhat_err, omegazhat-omegazhat_err, omegazhat+omegazhat_err,
 				(int)t, (int)((t-(int)t)*1000000.0), latitude, longitude, altitude, heading);
 			i++;
 		}

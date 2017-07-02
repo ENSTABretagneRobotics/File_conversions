@@ -1,3 +1,6 @@
+3
+Replaced phidot, thetadot, psidot by omegax, omegay, omegaz.
+
 2
 Changed accuracy of some values.
 
