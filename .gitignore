@@ -268,5 +268,5 @@ $RECYCLE.BIN/
 !*/Release*/
 */Release*/*
 !*/Release*/*.exe
-TODO/
+**/TODO/
 !*ReadMe.txt

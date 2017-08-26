@@ -7,6 +7,9 @@ Waypoints2mission : convert a waypoints file Waypoints.csv compatible with Waypo
 ArduPilot2Waypoints : convert a waypoints file Waypoints.txt from Mission Planner to a waypoints file Waypoints.csv compatible with Waypoints2KML. The reverse operation can be done using Waypoints2Ardupilot.
 
 
+log2tlog : convert an ArduPilot DataFlash log from Mission Planner to a binary MAVLink .tlog file for easy replay in Mission Planner.
+
+
 GPSFileConverter : convert a waypoints file waypoints_deg_min.txt containting a list of waypoints expressed as
 
 48 23.473500 N  4 25.752420 W

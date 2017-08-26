@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if ((sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+		if (sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
 			&vrxhat, &vryhat, &vrzhat, &omegaxhat, &omegayhat, &omegazhat,
 			&xhat_err, &yhat_err, &zhat_err, &phihat_err, &thetahat_err, &psihat_err,
 			&vrxhat_err, &vryhat_err, &vrzhat_err, &omegaxhat_err, &omegayhat_err, &omegazhat_err,
-			&u1, &u2, &u3, &u4, &u5, &u6, &u, &uw, &uv, &ul, &up, &ur) == 46))
+			&u1, &u2, &u3, &u4, &u5, &u6, &u, &uw, &uv, &ul, &up, &ur) == 46)
 		{
 			vxyhat = sqrt(sqr(vrxhat)+sqr(vryhat));
 			vxyhat_err = sqrt(sqr(vrxhat_err)+sqr(vryhat_err));

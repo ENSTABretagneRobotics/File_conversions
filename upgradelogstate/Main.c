@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if ((sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+		if (sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 			&u1, &u2, &u3, &u, &uw, 
 			&xhat_inf, &xhat_sup, &yhat_inf, &yhat_sup, &zhat_inf, &zhat_sup, 
 			&psihat_inf, &psihat_sup, &vxyhat_inf, &vxyhat_sup, &omegazhat_inf, &omegazhat_sup,
-			&tv_sec, &tv_usec, &latitude, &longitude, &altitude, &heading) == 30))
+			&tv_sec, &tv_usec, &latitude, &longitude, &altitude, &heading) == 30)
 		{
 			t = tv_sec+0.000001*tv_usec;
 			COG = 0;
