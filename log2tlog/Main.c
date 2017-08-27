@@ -27,6 +27,9 @@
 #pragma warning(default : 4201) 
 #endif // _MSC_VER
 
+#define MAX_PACKET_LEN_MAVLINK 263
+#define MIN_PACKET_LEN_MAVLINK 8
+
 /*
 	// From Mission Planner...
 	// Should be nb us since 1970...?
@@ -78,15 +81,15 @@ inline uint64_t GPSTOW2UNIX(unsigned int GMS, unsigned int GWk)
 inline size_t fwrite_tlog(unsigned int GMS, unsigned int GWk, mavlink_message_t msg, FILE* file)
 {
 	size_t res = 0;
-	unsigned char sendbuf[256];
+	unsigned char sendbuf[MAX_PACKET_LEN_MAVLINK];
 	int sendbuflen = 0;
 	uint64_t datearray = 0;
 
 	memset(sendbuf, 0, sizeof(sendbuf));
 	sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
 	datearray = GPSTOW2UNIX(GMS, GWk);
-	SwapBytes((unsigned char*)&datearray, 8);
-	res += fwrite(&datearray, 1, 8, file);
+	SwapBytes((unsigned char*)&datearray, sizeof(datearray));
+	res += fwrite(&datearray, 1, sizeof(datearray), file);
 	if (res <= 0) return res;
 	res += fwrite(sendbuf, 1, sendbuflen, file);
 	return res;
@@ -102,16 +105,15 @@ int main(int argc, char* argv[])
 	char szName[256];
 	char line[4096];
 	unsigned int i = 0, j = 0;
-	unsigned char sendbuf[256];
-	int sendbuflen = 0;
 	mavlink_message_t msg;
 	//uint8_t target_system = 1, target_component = 0;
 	uint8_t system_id = 1, component_id = 1;
-	uint64_t TimeUS = 0, datearray = 0;
-	unsigned int Id = 0;
-	BOOL bArmed = FALSE;
+	uint64_t TimeUS = 0;
 	unsigned int Status = 0, GMS = 0, GWk = 0, NSats = 0, U = 0;
 	double HDop = 0, Lat = 0, Lng = 0, Alt_AMSL_GPS = 0, Spd = 0, GCrs = 0, VZ = 0;
+	unsigned int Subsys = 0,ECode = 0;
+	unsigned int Id = 0;
+	BOOL bArmed = FALSE;
 	int ModeNum = 0, Rsn = 0;
 	double ThI = 0, ABst = 0, ThO = 0, ThH = 0, DAlt = 0, Alt = 0, BAlt = 0, DSAlt = 0, SAlt = 0, TAlt = 0, DCRt = 0, CRt = 0;
 	double DPosX = 0, DPosY = 0, PosX = 0, PosY = 0, DVelX = 0, DVelY = 0, VelX = 0, VelY = 0, DAccX = 0, DAccY = 0;
@@ -220,7 +222,6 @@ mavlink_ekf_status_report_t
 mavlink_ahrs2_t/mavlink_ahrs3_t???
 */
 
-
 		//GPS, 380997198, 3, 141473400, 1961, 10, 0.89, 48.4762186, -4.5440161, 119.53, 1.108, 198.187, -0.49, 1
 		if (sscanf(line, "GPS, %I64u, %u, %u, %u, %u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %u", &TimeUS, &Status, &GMS, &GWk, &NSats, &HDop, &Lat, &Lng, &Alt_AMSL_GPS, &Spd, &GCrs, &VZ, &U) == 13)
 		{
@@ -238,24 +239,14 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			gps_raw_int.cog = (uint16_t)(GCrs*100.0);
 			gps_raw_int.vel = (uint16_t)(Spd*100.0);
 			mavlink_msg_gps_raw_int_encode(system_id, component_id, &msg, &gps_raw_int);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 			mavlink_system_time_t system_time;
 			memset(&system_time, 0, sizeof(system_time));
 			system_time.time_boot_ms = (uint32_t)(TimeUS/1000);
 			system_time.time_unix_usec = (uint64_t)GPSTOW2UNIX(GMS, GWk);
 			mavlink_msg_system_time_encode(system_id, component_id, &msg, &system_time);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//CMD, 325675152, 15, 2, 16, 10, 0, 0, 0, 48.47622, -4.544042, 25
@@ -276,14 +267,15 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			command_long.target_component = target_component;
 			command_long.target_system = target_system;
 			mavlink_msg_command_long_encode(system_id, component_id, &msg, &command_long);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 */		}
+		//ERR, 441502700, 24, 0
+		else if (sscanf(line, "ERR, %I64u, %u, %u", &TimeUS, &Subsys, &ECode) == 3)
+		{
+			j++;
+			// Check more ERR and EV to get "Bad LIDAR Health", "Error Compass Variance" messages...? Or maybe it is inferred from mavlink_ekf_status_report_t...? 
+		}
 		//EV, 563550628, 18
 		else if (sscanf(line, "EV, %I64u, %u", &TimeUS, &Id) == 2)
 		{
@@ -355,12 +347,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 
 			heartbeat.custom_mode = ModeNum;
 			mavlink_msg_heartbeat_encode(system_id, component_id, &msg, &heartbeat);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//CTUN, 63730420, 0, 0, 0, 0.2366303, 0, 0.04648887, 0.08, 0.00, 0.03, 0, 0, 1
@@ -407,12 +394,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 
 			heartbeat.custom_mode = ModeNum;
 			mavlink_msg_heartbeat_encode(system_id, component_id, &msg, &heartbeat);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 			mavlink_vfr_hud_t vfr_hud;
 			memset(&vfr_hud, 0, sizeof(vfr_hud));
@@ -422,12 +404,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			vfr_hud.groundspeed = (float)Spd;
 			vfr_hud.throttle = (uint16_t)ThO;
 			mavlink_msg_vfr_hud_encode(system_id, component_id, &msg, &vfr_hud);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//NTUN, 549071374, -206.6111, -76.6899, -235.0755, -81.34146, 27.78842, 4.615891, -64.85806, -10.16781, 322.2938, 6.05488
@@ -451,12 +428,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			global_position_int.vy = (int16_t)VelY;
 			global_position_int.vz = (int16_t)(-VZ*100.0);
 			mavlink_msg_global_position_int_encode(system_id, component_id, &msg, &global_position_int);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//ATT, 380979385, 3.39, 4.97, -3.56, 0.41, 263.21, 268.16, 0.08, 0.05
@@ -470,12 +442,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			attitude.pitch = (float)fmod_2PI_deg2rad(Pitch);
 			attitude.yaw = (float)fmod_2PI_deg2rad(Yaw);
 			mavlink_msg_attitude_encode(system_id, component_id, &msg, &attitude);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//AHR2, 380979746, 6.23, 4.26, 269.02, 120.72, 48.4762206, -4.544015, 0.6980689, 0.064643, -0.01272105, -0.7129932
@@ -491,12 +458,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			memcpy(statustext.text, Message, sizeof(statustext.text)); // Not always NULL-terminated...
 			statustext.severity = MAV_SEVERITY_INFO;
 			mavlink_msg_statustext_encode(system_id, component_id, &msg, &statustext);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//PARM, 63455498, SYSID_SW_MREV, 120
@@ -508,12 +470,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			memcpy(param_value.param_id, Name, sizeof(param_value.param_id)); // Not always NULL-terminated...
 			param_value.param_value = (float)Value;
 			mavlink_msg_param_value_encode(system_id, component_id, &msg, &param_value);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//BARO, 411727952, 17.52584, 100579.2, 25.55, -0.127921, 411727, 0, 32.89091
@@ -523,16 +480,11 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			mavlink_scaled_pressure_t scaled_pressure;
 			memset(&scaled_pressure, 0, sizeof(scaled_pressure));
 			scaled_pressure.time_boot_ms = (uint32_t)(TimeUS/1000);
-			scaled_pressure.press_abs = (float)Press;
+			scaled_pressure.press_abs = (float)(Press/100.0);
 			//scaled_pressure.press_diff = (float)Alt_BARO;
 			scaled_pressure.temperature = (int16_t)(Temp_BARO*100.0);
 			mavlink_msg_scaled_pressure_encode(system_id, component_id, &msg, &scaled_pressure);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//RFND, 381027073, 26.59, 25, 0.00, 0
@@ -544,12 +496,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			rangefinder.distance = (float)Dist1;
 			rangefinder.voltage = (float)Dist1;
 			mavlink_msg_rangefinder_encode(system_id, component_id, &msg, &rangefinder);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//VIBE, 380979906, 25.80228, 38.46054, 44.74593, 0, 90, 0
@@ -566,21 +513,16 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			vibration.clipping_1 = Clip1;
 			vibration.clipping_2 = Clip2;
 			mavlink_msg_vibration_encode(system_id, component_id, &msg, &vibration);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
-		//CURR, 63828429, 24.26848, 0.001611489, 0.07378419, 0.00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		//CURR, 563347566, 23.06225, 2.736309, 218.271, 0.00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		else if (sscanf(line, "CURR, %I64u, %lf, %lf, %lf, %lf", &TimeUS, &Volt, &Curr, &CurrTot, &Temp) == 5)
 		{
 			j++;
 			mavlink_battery_status_t battery_status;
 			memset(&battery_status, 0, sizeof(battery_status));
-			battery_status.current_consumed = (int32_t)(CurrTot*1000.0);
+			battery_status.current_consumed = (int32_t)CurrTot;
 			battery_status.energy_consumed = -1;
 			battery_status.temperature =  INT16_MAX;
 			memset(&battery_status.voltages, UINT16_MAX, sizeof(battery_status.voltages));
@@ -597,12 +539,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			battery_status.type = 0;
 			battery_status.battery_remaining = -1;
 			mavlink_msg_battery_status_encode(system_id, component_id, &msg, &battery_status);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 			mavlink_sys_status_t sys_status;
 			memset(&sys_status, 0, sizeof(sys_status));
@@ -613,12 +550,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			sys_status.onboard_control_sensors_enabled = 56753455; // Temp...
 			sys_status.onboard_control_sensors_health = 56753455; // Temp...
 			mavlink_msg_sys_status_encode(system_id, component_id, &msg, &sys_status);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//POWR, 63727810, 5.15625, 5.092, 3
@@ -631,23 +563,13 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			power_status.Vservo = (uint16_t)(VServo*1000.0);
 			power_status.flags = (uint16_t)Flags;
 			mavlink_msg_power_status_encode(system_id, component_id, &msg, &power_status);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 			mavlink_hwstatus_t hwstatus;
 			memset(&hwstatus, 0, sizeof(hwstatus));
 			hwstatus.Vcc = (uint16_t)(Vcc*1000.0);
 			mavlink_msg_hwstatus_encode(system_id, component_id, &msg, &hwstatus);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//RCIN, 64030866, 1493, 1502, 988, 2011, 1499, 1499, 1499, 1500, 0, 0, 0, 0, 0, 0
@@ -676,12 +598,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			rc_channels.chan16_raw = 0;
 			rc_channels.rssi = 255;
 			mavlink_msg_rc_channels_encode(system_id, component_id, &msg, &rc_channels);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 			mavlink_rc_channels_raw_t rc_channels_raw;
 			memset(&rc_channels_raw, 0, sizeof(rc_channels_raw));
@@ -697,12 +614,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			rc_channels_raw.chan8_raw = (uint16_t)C8;
 			rc_channels_raw.rssi = 255;
 			mavlink_msg_rc_channels_raw_encode(system_id, component_id, &msg, &rc_channels_raw);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//RCOU, 64030938, 987, 987, 987, 987, 987, 987, 0, 0, 0, 0, 0, 0, 0, 0
@@ -722,12 +634,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			servo_output_raw.servo7_raw = (uint16_t)C7;
 			servo_output_raw.servo8_raw = (uint16_t)C8;
 			mavlink_msg_servo_output_raw_encode(system_id, component_id, &msg, &servo_output_raw);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		//MAG, 411625728, -53, 150, 369, 1, 17, -77, 0, 0, 0, 1, 411625723
@@ -760,12 +667,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			raw_imu.ymag = (int16_t)MagY;
 			raw_imu.zmag = (int16_t)MagZ;
 			mavlink_msg_raw_imu_encode(system_id, component_id, &msg, &raw_imu);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		else if (sscanf(line, "IMU2, %I64u, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &Gyr2X, &Gyr2Y, &Gyr2Z, &Acc2X, &Acc2Y, &Acc2Z) == 7)
@@ -784,12 +686,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			scaled_imu2.ymag = (int16_t)Mag2Y;
 			scaled_imu2.zmag = (int16_t)Mag2Z;
 			mavlink_msg_scaled_imu2_encode(system_id, component_id, &msg, &scaled_imu2);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		else if (sscanf(line, "IMU3, %I64u, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &Gyr3X, &Gyr3Y, &Gyr3Z, &Acc3X, &Acc3Y, &Acc3Z) == 7)
@@ -808,12 +705,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			scaled_imu3.ymag = (int16_t)Mag3Y;
 			scaled_imu3.zmag = (int16_t)Mag3Z;
 			mavlink_msg_scaled_imu3_encode(system_id, component_id, &msg, &scaled_imu3);
-			memset(sendbuf, 0, sizeof(sendbuf));
-			sendbuflen = mavlink_msg_to_send_buffer(sendbuf, &msg);
-			datearray = GPSTOW2UNIX(GMS, GWk);
-			SwapBytes((unsigned char*)&datearray, 8);
-			fwrite(&datearray, 1, 8, fileout);
-			fwrite(sendbuf, 1, sendbuflen, fileout);
+			fwrite_tlog(GMS, GWk, msg, fileout);
 			i++;
 		}
 		else
