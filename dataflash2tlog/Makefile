@@ -1,4 +1,4 @@
-PROGS = log2tlog
+PROGS = dataflash2tlog
 
 CC = gcc
 
@@ -23,7 +23,7 @@ OSMisc.o: OSMisc.c OSMisc.h OSTime.o
 OSTime.o: OSTime.c OSTime.h OSCore.o
 	$(CC) $(CFLAGS) -c $<
 
-Main.o: Main.c OSMisc.o OSTime.o OSCore.o 
+Main.o: Main.c MAVLinkProtocol.h OSMisc.o OSTime.o OSCore.o
 	$(CC) $(CFLAGS) -c $<
 
 log2tlog: Main.o OSMisc.o OSTime.o OSCore.o

@@ -38,6 +38,9 @@
     <ClInclude Include="OSTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MAVLinkProtocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />

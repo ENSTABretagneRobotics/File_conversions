@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{91891A29-3BB8-4201-A1AC-A9889A52389E}</ProjectGuid>
-    <RootNamespace>log2tlog</RootNamespace>
+    <RootNamespace>dataflash2tlog</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -103,6 +103,7 @@
     <ClCompile Include="OSTime.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MAVLinkProtocol.h" />
     <ClInclude Include="OSCore.h" />
     <ClInclude Include="OSMisc.h" />
     <ClInclude Include="OSTime.h" />
