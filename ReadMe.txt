@@ -4,10 +4,13 @@ Waypoints2KML : convert a waypoints file Waypoints.csv in the Excel compatible w
 Waypoints2mission : convert a waypoints file Waypoints.csv compatible with Waypoints2KML to a simple UxVCtrl mission file that would make the robot use line following to go through the waypoints.
 
 
+mission2Waypoints : convert an UxVCtrl mission file containing waypoints-related commands to a waypoints file Waypoints.csv compatible with Waypoints2KML. Warning : no distinction is made for local waypoints, they should be converted manually...
+
+
 ArduPilot2Waypoints : convert a waypoints file Waypoints.txt from Mission Planner to a waypoints file Waypoints.csv compatible with Waypoints2KML. The reverse operation can be done using Waypoints2Ardupilot.
 
 
-log2tlog : convert an ArduPilot DataFlash log from Mission Planner to a binary MAVLink .tlog file for easy replay in Mission Planner. Warning : some information are missing or extrapolated and there might be some confusion about the type of attitude and position (e.g. whether it comes from GPS, baro, IMU, or the result of a data fusion, whether it is relative to Home, etc.)...
+dataflash2tlog : convert an ArduPilot DataFlash log from Mission Planner to a binary MAVLink .tlog file for easy replay in Mission Planner. Warning : some information are missing or extrapolated and there might be some confusion about the type of attitude and position (e.g. whether it comes from GPS, baro, IMU, or the result of a data fusion, whether it is relative to Home, etc.)...
 
 
 GPSFileConverter : convert a waypoints file waypoints_deg_min.txt containting a list of waypoints expressed as
@@ -22,7 +25,7 @@ LocalWaypoints2WGS/WGS2LocalWaypoints : need env.txt to convert waypoints expres
 
 10 5.5
 
-(x,y position in m for each ligne, with a space between x and y) to a Waypoints.csv file compatible with Waypoints2KML, and conversely.
+(x,y position in m for each ligne, with a space between x and y) from a wplocal.txt file to a Waypoints.csv file compatible with Waypoints2KML, and conversely.
 
 
 lognav2KML : convert a log file containing
