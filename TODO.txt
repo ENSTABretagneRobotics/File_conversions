@@ -5,11 +5,11 @@ gérer le z dans les waypoints...
 
 Waypoints : Specific to display waypoints
 3D log : new logstate format
-2D log : t,lat,long,alt (AMSL?)
+2D log : t,lat,long,alt (AMSL?), compatible with new logstate format
 
 Waypoints KML : Specific to display waypoints
 2D KML : Display trajectory in green, need lat,long,alt
-3D KML : Display a moving plane, need t,lat,long,alt,psi,theta,phi
+3D KML : Display a moving plane, need t,lat,long,alt,psi,theta,phi, see also Mission Planner...
 
 NMEA2CSV
 trouver exemple de fichier avec que du GLL pour tester (HTC-HD2?)...

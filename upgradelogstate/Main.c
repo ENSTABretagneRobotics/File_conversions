@@ -19,12 +19,14 @@ int main(int argc, char* argv[])
 	char szName[256];
 	char line[4096];
 	unsigned int i = 0;
-	double t = 0, latitude = 0, longitude = 0, altitude = 0, heading = 0, COG = 0, SOG = 0, pressure = 0, utc = 0;
+	double t_epoch = 0, latitude = 0, longitude = 0, altitude = 0, heading = 0, COG = 0, SOG = 0, pressure = 0, fluiddir = 0, fluidspeed = 0, range = 0, bearing = 0, utc = 0;
 	double t_app = 0, xhat = 0, yhat = 0, zhat = 0, phihat = 0, thetahat = 0, psihat = 0;
 	double vrxhat = 0, vryhat = 0, vrzhat = 0, omegaxhat = 0, omegayhat = 0, omegazhat = 0;
 	double xhat_err = 0, yhat_err = 0, zhat_err = 0, phihat_err = 0, thetahat_err = 0, psihat_err = 0;
 	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, omegaxhat_err = 0, omegayhat_err = 0, omegazhat_err = 0;
-	double u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u = 0, uw = 0, uv = 0, ul = 0, up = 0, ur = 0;
+	double wx = 0, wy = 0, wz = 0, wpsi = 0, wd = 0, wu = 0, wa_f = 0;
+	double u = 0, uw = 0, uv = 0, ul = 0, up = 0, ur = 0, u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u7 = 0, u8 = 0, u9 = 0, u10 = 0, u11 = 0, u12 = 0, u13 = 0, u14 = 0;
+	double Energy_electronics = 0, Energy_actuators = 0;
 	double vxyhat = 0, vxyhat_err = 0;
 	double xhat_inf = 0, xhat_sup = 0, yhat_inf = 0, yhat_sup = 0, zhat_inf = 0, zhat_sup = 0, psihat_inf = 0, psihat_sup = 0, vxyhat_inf = 0, vxyhat_sup = 0, omegazhat_inf = 0, omegazhat_sup = 0;
 	int tv_sec = 0, tv_usec = 0;
@@ -76,10 +78,12 @@ int main(int argc, char* argv[])
 	}
 
 	fprintf(fileout, 
-		"t (in s);lat;lon;alt;hdg;cog;sog;pressure (in bar);utc (in ms);"
+		"t_epoch (in s);lat;lon;alt;hdg;cog;sog;pressure (in bar);fluiddir;fluidspeed;range;bearing;utc (in ms);"
 		"t_app (in s);xhat;yhat;zhat;phihat;thetahat;psihat;vrxhat;vryhat;vrzhat;omegaxhat;omegayhat;omegazhat;"
 		"xhat_err;yhat_err;zhat_err;phihat_err;thetahat_err;psihat_err;vrxhat_err;vryhat_err;vrzhat_err;omegaxhat_err;omegayhat_err;omegazhat_err;"
-		"u1;u2;u3;u4;u5;u6;u;uw;uv;ul;up;ur;\n"
+		"wx;wy;wz;wpsi;wd;wu;wa_f;"
+		"u;uw;uv;ul;up;ur;u1;u2;u3;u4;u5;u6;u7;u8;u9;u10;u11;u12;u13;u14;"
+		"Energy_electronics;Energy_actuators;\n"
 		); 
 
 	printf("Converting...\n");
@@ -88,7 +92,19 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if (sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+		if ((sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+			"%lf;%lf;%lf;%lf;%lf;"
+			"%lf;%lf;%lf;%lf;%lf;%lf;"
+			"%lf;%lf;%lf;%lf;%lf;%lf;"
+			"%d;%d;%lf;%lf;%lf;%lf;"
+			"%lf;%lf", 
+			&t_app, &xhat, &yhat, &zhat, &psihat, &vxyhat, &omegazhat,
+			&u1, &u2, &u3, &u, &uw, 
+			&xhat_inf, &xhat_sup, &yhat_inf, &yhat_sup, &zhat_inf, &zhat_sup, 
+			&psihat_inf, &psihat_sup, &vxyhat_inf, &vxyhat_sup, &omegazhat_inf, &omegazhat_sup,
+			&tv_sec, &tv_usec, &latitude, &longitude, &altitude, &heading, 
+			&Energy_electronics, &Energy_actuators) == 32)||
+			(sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
@@ -97,9 +113,9 @@ int main(int argc, char* argv[])
 			&u1, &u2, &u3, &u, &uw, 
 			&xhat_inf, &xhat_sup, &yhat_inf, &yhat_sup, &zhat_inf, &zhat_sup, 
 			&psihat_inf, &psihat_sup, &vxyhat_inf, &vxyhat_sup, &omegazhat_inf, &omegazhat_sup,
-			&tv_sec, &tv_usec, &latitude, &longitude, &altitude, &heading) == 30)
+			&tv_sec, &tv_usec, &latitude, &longitude, &altitude, &heading) == 30))
 		{
-			t = tv_sec+0.000001*tv_usec;
+			t_epoch = tv_sec+0.000001*tv_usec;
 			COG = 0;
 			SOG = 0;
 			pressure = 0;
@@ -115,18 +131,22 @@ int main(int argc, char* argv[])
 			psihat_err = (psihat_sup-psihat_inf)/2.0;
 			omegazhat_err = (omegazhat_sup-omegazhat_inf)/2.0;
 			fprintf(fileout, 			
-				"%f;%.8f;%.8f;%.3f;%.1f;%f;%f;%f;%f;"
+				"%f;%.8f;%.8f;%.3f;%.2f;%f;%f;%f;%f;%f;%f;%f;%f;"
+				"%f;%.3f;%.3f;%.3f;%f;%f;%f;"
+				"%f;%f;%f;%f;%f;%f;"
+				"%.3f;%.3f;%.3f;%f;%f;%f;"
+				"%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;%f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;\n", 
-				t, latitude, longitude, altitude, heading, COG, SOG, pressure, utc,
+				"%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;"
+				"%.3f;%.3f;\n", 
+				t_epoch, latitude, longitude, altitude, heading, COG, SOG, pressure, fluiddir, fluidspeed, range, bearing, utc,
 				t_app, xhat, yhat, zhat, phihat, thetahat, psihat,
 				vrxhat, vryhat, vrzhat, omegaxhat, omegayhat, omegazhat,
 				xhat_err, yhat_err, zhat_err, phihat_err, thetahat_err, psihat_err,
 				vrxhat_err, vryhat_err, vrzhat_err, omegaxhat_err, omegayhat_err, omegazhat_err,
-				u1, u2, u3, u4, u5, u6, u, uw, uv, ul, up, ur);
+				wx, wy, wz, wpsi, wd, wu, wa_f, 
+				u, uw, uv, ul, up, ur, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, 
+				Energy_electronics, Energy_actuators);
 			i++;
 		}
 		else

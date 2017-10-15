@@ -19,12 +19,14 @@ int main(int argc, char* argv[])
 	char szName[256];
 	char line[4096];
 	unsigned int i = 0;
-	double t = 0, latitude = 0, longitude = 0, altitude = 0, heading = 0, COG = 0, SOG = 0, pressure = 0, utc = 0;
+	double t_epoch = 0, latitude = 0, longitude = 0, altitude = 0, heading = 0, COG = 0, SOG = 0, pressure = 0, fluiddir = 0, fluidspeed = 0, range = 0, bearing = 0, utc = 0;
 	double t_app = 0, xhat = 0, yhat = 0, zhat = 0, phihat = 0, thetahat = 0, psihat = 0;
 	double vrxhat = 0, vryhat = 0, vrzhat = 0, omegaxhat = 0, omegayhat = 0, omegazhat = 0;
 	double xhat_err = 0, yhat_err = 0, zhat_err = 0, phihat_err = 0, thetahat_err = 0, psihat_err = 0;
 	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, omegaxhat_err = 0, omegayhat_err = 0, omegazhat_err = 0;
-	double u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u = 0, uw = 0, uv = 0, ul = 0, up = 0, ur = 0;
+	double wx = 0, wy = 0, wz = 0, wpsi = 0, wd = 0, wu = 0, wa_f = 0;
+	double u = 0, uw = 0, uv = 0, ul = 0, up = 0, ur = 0, u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u7 = 0, u8 = 0, u9 = 0, u10 = 0, u11 = 0, u12 = 0, u13 = 0, u14 = 0;
+	double Energy_electronics = 0, Energy_actuators = 0;
 	double vxyhat = 0, vxyhat_err = 0;
 
 	if (argc != 2)
@@ -74,7 +76,7 @@ int main(int argc, char* argv[])
 	}
 
 	fprintf(fileout, 
-		"t (in s);xhat;yhat;zhat;thetahat;vxyhat;omegahat;u1;u2;u3;u;uw;xhat-;xhat+;yhat-;yhat+;zhat-;zhat+;thetahat-;thetahat+;vxyhat-;vxyhat+;omegahat-;omegahat+;tv_sec;tv_usec;lathat;longhat;althat;headinghat;\n"
+		"t (in s);xhat;yhat;zhat;thetahat;vxyhat;omegahat;u1;u2;u3;u;uw;xhat-;xhat+;yhat-;yhat+;zhat-;zhat+;thetahat-;thetahat+;vxyhat-;vxyhat+;omegahat-;omegahat+;tv_sec;tv_usec;lathat;longhat;althat;headinghat;Energy_electronics;Energy_actuators;\n"
 		); 
 
 	printf("Converting...\n");
@@ -83,36 +85,43 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if (sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+		if (sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
-			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf", 
-			&t, &latitude, &longitude, &altitude, &heading, &COG, &SOG, &pressure, &utc,
+			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+			"%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
+			"%lf;%lf", 
+			&t_epoch, &latitude, &longitude, &altitude, &heading, &COG, &SOG, &pressure, &fluiddir, &fluidspeed, &range, &bearing, &utc,
 			&t_app, &xhat, &yhat, &zhat, &phihat, &thetahat, &psihat,
 			&vrxhat, &vryhat, &vrzhat, &omegaxhat, &omegayhat, &omegazhat,
 			&xhat_err, &yhat_err, &zhat_err, &phihat_err, &thetahat_err, &psihat_err,
 			&vrxhat_err, &vryhat_err, &vrzhat_err, &omegaxhat_err, &omegayhat_err, &omegazhat_err,
-			&u1, &u2, &u3, &u4, &u5, &u6, &u, &uw, &uv, &ul, &up, &ur) == 46)
+			&wx, &wy, &wz, &wpsi, &wd, &wu, &wa_f, 
+			&u, &uw, &uv, &ul, &up, &ur, &u1, &u2, &u3, &u4, &u5, &u6, &u7, &u8, &u9, &u10, &u11, &u12, &u13, &u14, 
+			&Energy_electronics, &Energy_actuators) == 67)
 		{
 			vxyhat = sqrt(sqr(vrxhat)+sqr(vryhat));
 			vxyhat_err = sqrt(sqr(vrxhat_err)+sqr(vryhat_err));
-			fprintf(fileout, "%f;"
+			fprintf(fileout, 
+				"%f;"
 				"%.3f;%.3f;%.3f;%f;"
 				"%f;%f;"
 				"%f;%f;%f;"
 				"%f;%f;"
 				"%.3f;%.3f;%.3f;%.3f;%.3f;%.3f;%f;%f;"
 				"%f;%f;%f;%f;"
-				"%d;%d;%.8f;%.8f;%.3f;%.1f;\n", 
+				"%d;%d;%.8f;%.8f;%.3f;%.2f;"
+				"%.3f;%.3f;\n", 
 				t_app, xhat, yhat, zhat, psihat, 
 				vxyhat, omegazhat, 
 				u1, u2, u3, 
 				u, uw,
 				xhat-xhat_err, xhat+xhat_err, yhat-yhat_err, yhat+yhat_err, zhat-zhat_err, zhat+zhat_err, psihat-psihat_err, psihat+psihat_err, 
 				vxyhat-vxyhat_err, vxyhat+vxyhat_err, omegazhat-omegazhat_err, omegazhat+omegazhat_err,
-				(int)t, (int)((t-(int)t)*1000000.0), latitude, longitude, altitude, heading);
+				(int)t_epoch, (int)((t_epoch-(int)t_epoch)*1000000.0), latitude, longitude, altitude, heading, 
+				Energy_electronics, Energy_actuators);
 			i++;
 		}
 		else
