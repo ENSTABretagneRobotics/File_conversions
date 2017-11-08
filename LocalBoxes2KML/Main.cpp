@@ -43,7 +43,6 @@ int main(int argc, char* argv[])
 	char szFileOutPath[256];
 	FILE* filein = NULL;
 	FILE* fileout = NULL;
-	char szTemp[256];
 	char szName[256];
 	double d0 = 0, d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0, d7 = 0, d8 = 0, d9 = 0, d10 = 0; 
 	double dt = 0, t0 = 0, t = 0, latmin = 0, longmin = 0, latmax = 0, longmax = 0, altitude = 0;
@@ -66,11 +65,7 @@ int main(int argc, char* argv[])
 		sprintf(szFileInPath, "%.249s", argv[1]);
 	}
 
-	strcpy(szTemp, szFileInPath);
-	RemoveExtensionInFilePath(szTemp);
-	sprintf(szFileOutPath, "%.249s.kml", szTemp);
-	strcpy(szName, szTemp);
-	RemovePathInFilePath(szName);
+	GetFileNameAndFilePathAndChangeExtension(szFileInPath, ".kml", szFileOutPath, szName);
 
 	printf("Check and change if needed\n\n");
 	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");

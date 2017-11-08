@@ -17,6 +17,8 @@ convertir utc en tv_sec decimal ou optionnellement en nb de s depuis le début du
 
 display in google earth-like app a trajectory since the beginning or since a selectable time
 
+Rajouter csv2v4log, kinect2depth, mosaiquing... dans file conversions?
+
 pouvoir dessiner facilement ellipse dans google earth
 
 glisser-deposer avec paramètres, et si pas de paramètres faire avec les noms par défauts actuels en affichant warning : faire GPSSMS2KML, WGS2LocalWaypoints/LocalWaypoints2WGS(?), GPSFileConverterInv/GPSFileConverter(?)...
@@ -28,6 +30,10 @@ vibes3d-like avec googleearth? mais reset de la vue à chaque rechargement du fic
 
 
 OLD
+
+Removed XP support...
+
+Regrouper les file_conversions en une ou plusieurs solutions, voir pour les fichiers communs (OSUtils...)...?
 
 dans makefile séparer CC et CXX, CFLAGS et CXXFLAGS à cause de -fpermissive, voir remotewebcam…
 

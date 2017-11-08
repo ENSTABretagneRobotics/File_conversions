@@ -18,7 +18,8 @@ int main(int argc, char* argv[])
 	char szTemp[256];
 	char line[4096];
 	unsigned int i = 0;
-	double lat0 = 0, long0 = 0, alt0 = 0, lat1 = 0, long1 = 0, alt1 = 0;
+	double lat0 = 0, long0 = 0, lat1 = 0, long1 = 0;
+	double alt = 0;
 
 	if (argc != 2)
 	{
@@ -69,31 +70,37 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL)
 	{
-		if (sscanf(line, "linefollowingwgs %lf %lf %lf %lf", &lat0, &long0, &lat1, &long1) == 4)
+		if (sscanf(line, "depthreg %lf", &alt) == 1)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
-			fprintf(fileout, "%.8f;%.8f;\n", lat1, long1);
+		}
+		
+		// WGS waypoints...
+
+		else if (sscanf(line, "linefollowingwgs %lf %lf %lf %lf", &lat0, &long0, &lat1, &long1) == 4)
+		{
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat1, long1, alt);
 			i += 2;
 		}
 		else if (sscanf(line, "linefollowingtwgs %lf %lf %lf %lf", &lat0, &long0, &lat1, &long1) == 4)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
-			fprintf(fileout, "%.8f;%.8f;\n", lat1, long1);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat1, long1, alt);
 			i += 2;
 		}
 		else if (sscanf(line, "linefollowingwgsstation %lf %lf", &lat0, &long0) == 2)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
 			i++;
 		}
 		else if (sscanf(line, "gotoxywgs %lf %lf", &lat0, &long0) == 2)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
 			i++;
 		}
 		else if (sscanf(line, "gotoxytwgs %lf %lf", &lat0, &long0) == 2)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
 			i++;
 		}
 
@@ -101,29 +108,29 @@ int main(int argc, char* argv[])
 
 		else if (sscanf(line, "linefollowing %lf %lf %lf %lf", &lat0, &long0, &lat1, &long1) == 4)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
-			fprintf(fileout, "%.8f;%.8f;\n", lat1, long1);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat1, long1, alt);
 			i += 2;
 		}
 		else if (sscanf(line, "linefollowingt %lf %lf %lf %lf", &lat0, &long0, &lat1, &long1) == 4)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
-			fprintf(fileout, "%.8f;%.8f;\n", lat1, long1);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat1, long1, alt);
 			i += 2;
 		}
 		else if (sscanf(line, "linefollowingstation %lf %lf", &lat0, &long0) == 2)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
 			i++;
 		}
 		else if (sscanf(line, "gotoxy %lf %lf", &lat0, &long0) == 2)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
 			i++;
 		}
 		else if (sscanf(line, "gotoxyt %lf %lf", &lat0, &long0) == 2)
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", lat0, long0);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", lat0, long0, alt);
 			i++;
 		}
 		else

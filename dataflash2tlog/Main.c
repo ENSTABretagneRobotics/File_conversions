@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
 	char szFileOutPath[256];
 	FILE* filein = NULL;
 	FILE* fileout = NULL;
-	char szTemp[256];
 	char szName[256];
 	char line[4096];
 	unsigned int i = 0, j = 0;
@@ -85,11 +84,7 @@ Format characters in the format string for binary log messages
 		sprintf(szFileInPath, "%.249s", argv[1]);
 	}
 
-	strcpy(szTemp, szFileInPath);
-	RemoveExtensionInFilePath(szTemp);
-	sprintf(szFileOutPath, "%.249s.tlog", szTemp);
-	strcpy(szName, szTemp);
-	RemovePathInFilePath(szName);
+	GetFileNameAndFilePathAndChangeExtension(szFileInPath, ".tlog", szFileOutPath, szName);
 
 	printf("Check and change if needed\n\n");
 	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");

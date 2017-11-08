@@ -18,9 +18,9 @@ int main(int argc, char* argv[])
 	char szTemp[256];
 	char line[4096];
 	int i = 0;
-	int i0, i1, i2, i3;
-	double d0, d1, d2, d3;
-	double latitude = 0, longitude = 0;
+	int i0 = 0, i1 = 0, i2 = 0, i3 = 0;
+	double d0 = 0, d1 = 0, d2 = 0, d3 = 0;
+	double latitude = 0, longitude = 0, altitude = 0;
 
 	if (argc != 2)
 	{
@@ -72,11 +72,11 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL) 
 	{
-		if ((sscanf(line, "%d %d %d %d %lf %lf %lf %lf %lf %lf", 
-			&i0, &i1, &i2, &i3, &d0, &d1, &d2, &d3, &latitude, &longitude) == 10)&&
-			(latitude != 0)&&(longitude != 0))
+		if ((sscanf(line, "%d %d %d %d %lf %lf %lf %lf %lf %lf %lf", 
+			&i0, &i1, &i2, &i3, &d0, &d1, &d2, &d3, &latitude, &longitude, &altitude) == 11)&&
+			(i3 == 16))
 		{
-			fprintf(fileout, "%.8f;%.8f;\n", latitude, longitude);
+			fprintf(fileout, "%.8f;%.8f;%.3f;\n", latitude, longitude, altitude);
 			i++;
 		}
 		else

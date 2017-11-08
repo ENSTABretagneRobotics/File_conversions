@@ -1,3 +1,6 @@
+4
+Updated altitude and range values.
+
 3
 Replaced phidot, thetadot, psidot by omegax, omegay, omegaz.
 

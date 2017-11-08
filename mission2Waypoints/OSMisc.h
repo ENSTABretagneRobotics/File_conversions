@@ -724,6 +724,15 @@ inline void RemovePathInFilePath(char* szFilePath)
 	if ((bFound)&&(idx >= 0)&&(idx < (int)strlen(szFilePath)-1)) memmove(szFilePath, szFilePath+idx+1, strlen(szFilePath)-idx);
 }
 
+inline void GetFileNameAndFilePathAndChangeExtension(char* szFileInPath, char* szNewExtension, char* szFileOutPath, char* szFileOutName)
+{
+	strcpy(szFileOutPath, szFileInPath);
+	RemoveExtensionInFilePath(szFileOutPath);
+	strcpy(szFileOutName, szFileOutPath);
+	strcat(szFileOutPath, szNewExtension);
+	RemovePathInFilePath(szFileOutName);
+}
+
 inline double sensor_err(double bias_err, double max_rand_err)
 {
 	return bias_err+max_rand_err*(2.0*rand()/(double)RAND_MAX-1.0);

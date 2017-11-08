@@ -1,2 +1,5 @@
+2
+Added altitude.
+
 1
 Initial version.
