@@ -20,9 +20,9 @@ int main(int argc, char* argv[])
 	unsigned int i = 0;
 	double t_epoch = 0, latitude = 0, longitude = 0, altitude_AMSL = 0, heading = 0, COG = 0, SOG = 0, altitude_AGL = 0, pressure = 0, fluiddira = 0, fluidspeeda = 0, fluiddir = 0, fluidspeed = 0, range = 0, bearing = 0, elevation = 0, utc = 0;
 	double t_app = 0, xhat = 0, yhat = 0, zhat = 0, phihat = 0, thetahat = 0, psihat = 0;
-	double vrxhat = 0, vryhat = 0, vrzhat = 0, omegaxhat = 0, omegayhat = 0, omegazhat = 0;
+	double vrxhat = 0, vryhat = 0, vrzhat = 0, omegaxhat = 0, omegayhat = 0, omegazhat = 0, accrxhat = 0, accryhat = 0, accrzhat = 0;
 	double xhat_err = 0, yhat_err = 0, zhat_err = 0, phihat_err = 0, thetahat_err = 0, psihat_err = 0;
-	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, omegaxhat_err = 0, omegayhat_err = 0, omegazhat_err = 0;
+	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, omegaxhat_err = 0, omegayhat_err = 0, omegazhat_err = 0, accrxhat_err = 0, accryhat_err = 0, accrzhat_err = 0;
 	double wx = 0, wy = 0, wz = 0, wphi = 0, wtheta = 0, wpsi = 0, wd = 0, wu = 0, wagl = 0;
 	double uvx = 0, uvy = 0, uvz = 0, uwx = 0, uwy = 0, uwz = 0, u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u7 = 0, u8 = 0, u9 = 0, u10 = 0, u11 = 0, u12 = 0, u13 = 0, u14 = 0;
 	double Energy_electronics = 0, Energy_actuators = 0;
@@ -74,8 +74,8 @@ int main(int argc, char* argv[])
 
 	fprintf(fileout,
 		"t_epoch (in s);lat;lon;alt_amsl;hdg;cog;sog;alt_agl;pressure (in bar);fluiddira (in deg);fluidspeeda;fluiddir (in deg);fluidspeed;range;bearing (in deg);elevation (in deg);utc (in ms);"
-		"t_app (in s);xhat;yhat;zhat;phihat;thetahat;psihat;vrxhat;vryhat;vrzhat;omegaxhat;omegayhat;omegazhat;"
-		"xhat_err;yhat_err;zhat_err;phihat_err;thetahat_err;psihat_err;vrxhat_err;vryhat_err;vrzhat_err;omegaxhat_err;omegayhat_err;omegazhat_err;"
+		"t_app (in s);xhat;yhat;zhat;phihat;thetahat;psihat;vrxhat;vryhat;vrzhat;omegaxhat;omegayhat;omegazhat;accrxhat;accryhat;accrzhat;"
+		"xhat_err;yhat_err;zhat_err;phihat_err;thetahat_err;psihat_err;vrxhat_err;vryhat_err;vrzhat_err;omegaxhat_err;omegayhat_err;omegazhat_err;accrxhat_err;accryhat_err;accrzhat_err;"
 		"wx;wy;wz;wphi;wtheta;wpsi;wd;wu;wagl;"
 		"uvx;uvy;uvz;uwx;uwy;uwz;u1;u2;u3;u4;u5;u6;u7;u8;u9;u10;u11;u12;u13;u14;"
 		"Energy_electronics;Energy_actuators;\n"
@@ -128,17 +128,17 @@ int main(int argc, char* argv[])
 			fprintf(fileout, 			
 				"%f;%.8f;%.8f;%.3f;%.2f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%f;%.3f;%.3f;%.3f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;"
+				"%f;%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%.3f;%.3f;%.3f;%f;%f;%f;"
-				"%f;%f;%f;%f;%f;%f;"
+				"%f;%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f;"
 				"%.3f;%.3f;\n", 
 				t_epoch, latitude, longitude, altitude_AMSL, heading, COG, SOG, altitude_AGL, pressure, fluiddira, fluidspeeda, fluiddir, fluidspeed, range, bearing, elevation, utc,
 				t_app, xhat, yhat, zhat, phihat, thetahat, psihat,
-				vrxhat, vryhat, vrzhat, omegaxhat, omegayhat, omegazhat,
+				vrxhat, vryhat, vrzhat, omegaxhat, omegayhat, omegazhat, accrxhat, accryhat, accrzhat,
 				xhat_err, yhat_err, zhat_err, phihat_err, thetahat_err, psihat_err,
-				vrxhat_err, vryhat_err, vrzhat_err, omegaxhat_err, omegayhat_err, omegazhat_err,
+				vrxhat_err, vryhat_err, vrzhat_err, omegaxhat_err, omegayhat_err, omegazhat_err, accrxhat_err, accryhat_err, accrzhat_err,
 				wx, wy, wz, wphi, wtheta, wpsi, wd, wu, wagl, 
 				uvx, uvy, uvz, uwx, uwy, uwz, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, 
 				Energy_electronics, Energy_actuators);
