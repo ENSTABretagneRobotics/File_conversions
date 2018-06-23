@@ -1,3 +1,6 @@
+7
+Use now calculateSignedDistanceToLine2ref() for "dist to the line (recalculated)".
+
 6
 Added some options and minor display updates.
 

@@ -450,7 +450,10 @@ void widgetVaimos::paintEvent(QPaintEvent *)
 			RefCoordSystem2GPS(Lat0[k0], Long0[k0], X[k0], Y[k0], &Lati, &Longi);
 			painter.drawText(QRectF(3, a*20, 400,20),
 							 QString("dist to the line (recalculated) = %1 ").
-							 arg(calculateSignedDistanceToLine2(Longb, Latb, Longa, Lata, Long[k0], Lat[k0]))); a++;
+							 arg(calculateSignedDistanceToLine2ref(Ax[k0], Ay[k0], Bx[k0], By[k0], X[k0], Y[k0]))); a++;
+			//painter.drawText(QRectF(3, a*20, 400,20),
+			//				 QString("dist to the line (recalculated from LLA) = %1 ").
+			//				 arg(calculateSignedDistanceToLine2(Longb, Latb, Longa, Lata, Long[k0], Lat[k0]))); a++;
 		}
         painter.drawText(QRectF(3, a*20, 400,20),
                          QString("AHRS (deg) : Roll %1, Pitch = %2, Yaw = %3 ").
