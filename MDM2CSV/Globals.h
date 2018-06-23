@@ -16,4 +16,4 @@
 // Environment parameters.
 extern double angle_env, lat_env, long_env, alt_env;
 
-#endif // GLOBALS_H
+#endif // !GLOBALS_H

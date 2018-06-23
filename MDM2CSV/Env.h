@@ -50,4 +50,4 @@ inline int LoadEnv()
 	return EXIT_SUCCESS;
 }
 
-#endif // ENV_H
+#endif // !ENV_H
