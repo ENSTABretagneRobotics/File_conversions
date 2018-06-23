@@ -17,8 +17,8 @@ int LoadWaypointsEx(char* szFileInPath, double wpslat[], double wpslong[], int* 
 	char line[MAX_BUF_LEN];
 	int i = 0;
 
-	memset(wpslat, 0, MAX_NB_WP);
-	memset(wpslong, 0, MAX_NB_WP);
+	memset(wpslat, 0, MAX_NB_WP*sizeof(double));
+	memset(wpslong, 0, MAX_NB_WP*sizeof(double));
 	*pNbWPs = 0;
 
 	file = fopen(szFileInPath, "r");

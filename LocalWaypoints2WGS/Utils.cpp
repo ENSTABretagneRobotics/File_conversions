@@ -1357,7 +1357,7 @@ void ComputeNMEAchecksum(char* sentence, char checksum[4])
 	int i = 0;
 	char res = 0;
 
-	memset(checksum, 0, sizeof(checksum));
+	memset(checksum, 0, 4);
 	while (sentence[i])
 	{
 		if (sentence[i] == '$')
