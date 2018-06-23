@@ -141,9 +141,9 @@ void widgetVaimos::LoadFile()
         double theta=mots[12].toDouble();               // [12] theta (in rad) : angle de cap du bateau exprimé dans le repère de référence (voir article)
         Theta.push_back(theta);
                                                             // [13] psi (in rad) : angle vers où va le vent exprimé dans le repère de référence (voir article)
-        double lat=mots[2].toDouble();                  // [14] latitude (in decimal degrees) : latitude actuelle du robot donnée par la station météo
+        double lat=mots[14].toDouble();                  // [14] latitude (in decimal degrees) : latitude actuelle du robot donnée par la station météo
         Lat.push_back(lat);
-        double longi=mots[2].toDouble();                 // [15] longitude (in decimal degrees) : longitude actuelle du robot donnée par la station météo
+        double longi=mots[15].toDouble();                 // [15] longitude (in decimal degrees) : longitude actuelle du robot donnée par la station météo
         Long.push_back(longi);
         //++++++++++++++++++++++++++++++++//
         double x=mots[16].toDouble();                   // [16] x (in m) : position x du robot exprimée dans le repère de référence (voir article) et calculée à partir de latitude et longitude
@@ -393,7 +393,7 @@ void widgetVaimos::paintEvent(QPaintEvent *)
                          QString("Vent : dir=%1 deg =%2 deg, vitesse=%3 m.s^-1 =%4 noeuds ").
                          arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
         painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("ecart à la ligne = %1, ||am||= %2, ||bm||= %3 ").
+                         QString("ecart a la ligne = %1, ||am||= %2, ||bm||= %3 ").
                          arg(Ecart[k0]).arg(Norm_am[k0]).arg(Norm_bm[k0])); a++;
         painter.drawText(QRectF(3, a*20, 400,20),
                          QString("MTi(deg) : Roll %1, Pitch = %2, Yaw = %3 ").

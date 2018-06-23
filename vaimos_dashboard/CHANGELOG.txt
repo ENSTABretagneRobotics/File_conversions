@@ -1,3 +1,7 @@
+5
+Improved compatibility with Qt 5.
+Corrected silent bug in latitude and longitude parsing.
+
 4
 Added scrollbars to be able to select only a part of the trajectory.
 
