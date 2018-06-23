@@ -27,6 +27,7 @@ public:
 	vector<double> Winddir,Windspeed,Deltag,Deltavmax,Ax,Ay,Bx,By;
 	vector<double> Ecart,Norm_am,Norm_bm,Roll,Pitch,Yaw,Dir0,Vit,Longueur;
 	vector<double> Theta_gps,Speed_gps,Distance_gps,Filteredtheta_gps,Filteredspeed_gps,Dt;
+	vector<double> Lat0, Long0;
 
 	double xmin,xmax,ymin,ymax;
 

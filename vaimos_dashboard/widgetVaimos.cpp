@@ -13,13 +13,15 @@ extern bool wind;
 extern bool sail1;
 extern bool sail2;
 extern bool go;
+extern bool thickline;
 extern bool text;
+extern bool filteredwinddirmode;
+extern bool motorboatmode;
+extern bool recalce;
+extern bool resetorigin;
 
 //++++++++++++++++++++++++++++++++//
 #include <float.h>
-
-#define FILTEREDWINDDIR_MODE
-//#define VAIMOS_MODE
 
 #define EARTH_RADIUS 6371000.0
 
@@ -27,6 +29,19 @@ void GPS2RefCoordSystem(double lat0, double long0, double latitude, double longi
 {
 	*pX = (M_PI/180.0)*EARTH_RADIUS*(longitude-long0)*cos((M_PI/180.0)*latitude);
 	*pY = (M_PI/180.0)*EARTH_RADIUS*(latitude-lat0);
+}
+
+void RefCoordSystem2GPS(double lat0, double long0, double x, double y, double* pLatitude, double* pLongitude)
+{
+    *pLatitude = (y/(double)EARTH_RADIUS)*(180.0/M_PI)+lat0;
+    if ((fabs(*pLatitude-90.0) < DBL_EPSILON)||(fabs(*pLatitude+90.0) < DBL_EPSILON))
+    {
+        *pLongitude = 0;
+    }
+    else
+    {
+        *pLongitude = (x/(double)EARTH_RADIUS)*(180.0/M_PI)/cos((M_PI/180.0)*(*pLatitude))+long0;
+    }
 }
 
 double fmod_2PI(double theta)
@@ -42,6 +57,51 @@ double fmod_360_pos_rad2deg(double theta)
 double fmod_360_rad2deg(double theta)
 {
 	return fmod(fmod(theta*180.0/M_PI, 2*180.0)+3*180.0, 2*180.0)-180.0;
+}
+
+double calculateSignedDistanceToLine2(const double nextLon, const double nextLat, const double prevLon, const double prevLat,
+    const double gpsLon, const double gpsLat)
+{
+    double sinalpha = 0, wxa = 0, wya = 0, wxb = 0, wyb = 0, x = 0, y = 0;
+
+    GPS2RefCoordSystem(prevLat, prevLon, prevLat, prevLon, &wxa, &wya); // GPS coordinates of a.
+    GPS2RefCoordSystem(prevLat, prevLon, nextLat, nextLon, &wxb, &wyb); // GPS coordinates of b.
+    GPS2RefCoordSystem(prevLat, prevLon, gpsLat, gpsLon, &x, &y); // GPS coordinates of m.
+
+    double norm_ba = sqrt(pow(wxb-wxa, 2)+pow(wyb-wya, 2)); // Length of the line (norm of b-a).
+    //double phi = atan2(wyb-wya, wxb-wxa); // Angle of the line.
+
+    double norm_ma = sqrt(pow(x-wxa, 2)+pow(y-wya, 2)); // Distance from the beginning of the line (norm of m-a).
+    //double norm_bm = sqrt(pow(wxb-x, 2)+pow(wyb-y, 2)); // Distance to the destination waypoint of the line (norm of b-m).
+
+    if ((norm_ma != 0)&&(norm_ba != 0))
+        sinalpha = ((wxb-wxa)*(y-wya)-(wyb-wya)*(x-wxa))/(norm_ma*norm_ba);
+    else
+        sinalpha = 0;
+
+    double e = norm_ma*sinalpha; // Distance to the line (signed).
+
+    return e;
+}
+
+double calculateSignedDistanceToLine2ref(double wxa, double wya, double wxb, double wyb, double x, double y)
+{
+    double sinalpha = 0;
+
+    double norm_ba = sqrt(pow(wxb-wxa, 2)+pow(wyb-wya, 2)); // Length of the line (norm of b-a).
+    //double phi = atan2(wyb-wya, wxb-wxa); // Angle of the line.
+
+    double norm_ma = sqrt(pow(x-wxa, 2)+pow(y-wya, 2)); // Distance from the beginning of the line (norm of m-a).
+    //double norm_bm = sqrt(pow(wxb-x, 2)+pow(wyb-y, 2)); // Distance to the destination waypoint of the line (norm of b-m).
+
+    if ((norm_ma != 0)&&(norm_ba != 0))
+            sinalpha = ((wxb-wxa)*(y-wya)-(wyb-wya)*(x-wxa))/(norm_ma*norm_ba);
+    else
+            sinalpha = 0;
+
+    double e = norm_ma*sinalpha; // Distance to the line (signed).
+
+    return e;
 }
 
 widgetVaimos::widgetVaimos(QWidget *parent) :
@@ -104,7 +164,8 @@ void widgetVaimos::LoadFile()
 	T.clear(); Theta.clear(); Lat.clear(); Long.clear(); X.clear(); Y.clear(); Deltav_R0.clear();
     Winddir.clear(); Windspeed.clear(); Deltag.clear(); Deltavmax.clear(); Ax.clear(); Ay.clear(); Bx.clear(); By.clear();    
     Ecart.clear(); Norm_am.clear(); Norm_bm.clear(); Roll.clear(); Pitch.clear(); Yaw.clear(); Dir0.clear(); Vit.clear(); Longueur.clear();
-    Theta_gps.clear(); Speed_gps.clear(); Distance_gps.clear(); Filteredtheta_gps.clear(); Filteredspeed_gps.clear(); Dt.clear();   
+    Theta_gps.clear(); Speed_gps.clear(); Distance_gps.clear(); Filteredtheta_gps.clear(); Filteredspeed_gps.clear(); Dt.clear();
+	Lat0.clear(); Long0.clear();
 
     while (line1 != NULL)
     {
@@ -113,29 +174,36 @@ void widgetVaimos::LoadFile()
         K.push_back(k);
         double t=mots[1].toDouble();                    // [1] temps en seconde
         T.push_back(t);
-        double lat0=mots[2].toDouble();                 // [2] lat0 (en degres): latitude de début de mission (convention axe x vers l'est, axe y vers le nord et axe z vers le haut) dans lequel sont exprimés x, y, theta, psi (qui correspondent à ceux utilisés dans l'article)
-        double long0=mots[3].toDouble();                // [3] long0 (en degres) : longitude de début de mission
-        double roll=mots[4].toDouble();                 // [4] roll (in rad) : angle de roulis du bateau calculé par la MTi-G
+		double lat0=mots[2].toDouble();                 // [2] lat0 (en degres): latitude de début de mission (convention axe x vers l'est, axe y vers le nord et axe z vers le haut) dans lequel sont exprimés x, y, theta, psi (qui correspondent à ceux utilisés dans l'article)
+		Lat0.push_back(lat0);
+		double long0=mots[3].toDouble();                // [3] long0 (en degres) : longitude de début de mission
+		Long0.push_back(long0);
+		double roll=mots[4].toDouble();                 // [4] roll (in rad) : angle de roulis du bateau calculé par la MTi-G
         Roll.push_back(roll);
         double pitch=mots[5].toDouble();                // [5] pitch (in rad) : angle de tangage du bateau calculé par la MTi-G
         Pitch.push_back(pitch);
         double yaw=mots[6].toDouble();                  // [6] yaw (in rad) : angle de cap du bateau calculé par la MTi-G exprimé dans le repère NWU (North-West-Up, 0: Nord, -1.57: Est, 3.14: Sud, 1.57: Ouest)
         Yaw.push_back(yaw);
-#ifdef FILTEREDWINDDIR_MODE
-        double winddir=3*M_PI/2-mots[9].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
-        Winddir.push_back(winddir);
-        double windspeed=10.0;//mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
-        Windspeed.push_back(windspeed);
-                                                            // [9] filteredwinddir (in rad) : winddir filtré
-                                                            // [10] filteredwindspeed (in m/s) : windspeed filtré
-#else
-        double winddir=3*M_PI/2-mots[7].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
-        Winddir.push_back(winddir);
-        double windspeed=mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
-        Windspeed.push_back(windspeed);
-                                                            // [9] filteredwinddir (in rad) : winddir filtré
-                                                            // [10] filteredwindspeed (in m/s) : windspeed filtré
-#endif // FILTEREDWINDDIR_MODE
+		double winddir=0;
+		double windspeed=0.0;
+		if (filteredwinddirmode)
+		{
+			winddir=3*M_PI/2-mots[9].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
+			Winddir.push_back(winddir);
+			windspeed=10.0;//mots[10].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
+			Windspeed.push_back(windspeed);
+			// [9] filteredwinddir (in rad) : winddir filtré
+			// [10] filteredwindspeed (in m/s) : windspeed filtré
+		}
+		else
+		{
+			winddir=3*M_PI/2-mots[7].toDouble();       // [7] winddir=%pi/2-(m(:,8)-%pi); winddir (in rad) : angle d'où vient le vent réel par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
+			Winddir.push_back(winddir);
+			windspeed=mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
+			Windspeed.push_back(windspeed);
+			// [9] filteredwinddir (in rad) : winddir filtré
+			// [10] filteredwindspeed (in m/s) : windspeed filtré
+		}
         double deltav_R0=3*M_PI/2-mots[11].toDouble();    // [11] heading (in rad) : angle de la voile par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
         Deltav_R0.push_back(deltav_R0);
         double theta=mots[12].toDouble();               // [12] theta (in rad) : angle de cap du bateau exprimé dans le repère de référence (voir article)
@@ -150,7 +218,7 @@ void widgetVaimos::LoadFile()
         double y=mots[17].toDouble();                   // [17] y (in m) : position y du robot exprimée dans le repère de référence (voir article) et calculée à partir de latitude et longitude
 
         double x0=0;double y0=0;
-        GPS2RefCoordSystem(48.39, -4.425, lat0, long0, &x0, &y0);
+        if (resetorigin) GPS2RefCoordSystem(48.39, -4.425, lat0, long0, &x0, &y0);
         X.push_back(x+x0);
         Y.push_back(y+y0);
 
@@ -237,8 +305,18 @@ void widgetVaimos::Draw()
     ymax=Y[k0]+Echelle;
 
     vector<double> Xl,Yl;  // ligne courante
-    Xl.push_back(Ax[k0]);  Yl.push_back(Ay[k0]);
-    Xl.push_back(Bx[k0]);  Yl.push_back(By[k0]);
+	if (thickline)
+	{ 
+		double phi = atan2(By[k0]-Ay[k0], Bx[k0]-Ax[k0]); // Angle of the line.
+		Xl.push_back(Ax[k0]+0.5*sin(phi));  Yl.push_back(Ay[k0]-0.5*cos(phi));
+		Xl.push_back(Bx[k0]);  Yl.push_back(By[k0]);
+		Xl.push_back(Ax[k0]-0.5*sin(phi));  Yl.push_back(Ay[k0]+0.5*cos(phi)); 
+	}
+	else
+	{ 
+		Xl.push_back(Ax[k0]);  Yl.push_back(Ay[k0]);
+		Xl.push_back(Bx[k0]);  Yl.push_back(By[k0]);
+	}
     addPolygon(Xl,Yl,0,0,0,QColor("Green"));
 
 
@@ -271,9 +349,12 @@ void widgetVaimos::Draw()
                 }
                 vector<double> Xl;                                 // autres lignes
                 vector<double> Yl;
-                Xl.push_back(Ax[k]);  Yl.push_back(Ay[k]);
-                Xl.push_back(Bx[k]);  Yl.push_back(By[k]);
-                addPolygon(Xl,Yl,0,0,0,QColor("Gray"));
+				if (k != k0)
+				{
+					Xl.push_back(Ax[k]);  Yl.push_back(Ay[k]);
+					Xl.push_back(Bx[k]);  Yl.push_back(By[k]);
+					addPolygon(Xl,Yl,0,0,0,QColor("Red"));
+				}
 
                 double a=0.5;
                 vector<double> Xr;  //gouvernail
@@ -291,7 +372,7 @@ void widgetVaimos::Draw()
                 if (sin(thetamoinspsi)>0)  deltav=Deltavmax[k];
                     else deltav=-Deltavmax[k];
 
-                qDebug()<<"deltav="<<deltav;
+                //qDebug()<<"deltav="<<deltav;
                 if (sail1)  addPolygon(Xv,Yv,X[k]+3*a*cos(Theta[k]),Y[k]+3*a*sin(Theta[k]),Deltav_R0[k]+M_PI,QColor("Purple"));
                 if (sail2)  addPolygon(Xv,Yv,X[k]+3*a*cos(Theta[k]),Y[k]+3*a*sin(Theta[k]),Theta[k]+deltav,QColor("Magenta"));
 
@@ -307,49 +388,6 @@ void widgetVaimos::Draw()
                 addPolygon(Xc,Yc,X[k],Y[k],Theta[k],col);
 
             }
-
-
-
-                                            /*
-                                        function [x,y]=GPS2RefCoordSystem(lat0, long0, latitude, longitude)
-                                         x = (%pi/180.0)*EARTH_RADIUS*(longitude-long0)*cos((%pi/180.0)*latitude);
-                                         y = (%pi/180.0)*EARTH_RADIUS*(latitude-lat0);
-                                        endfunction
-                                        function [latitude,longitude]=RefCoordSystem2GPS(lat0, long0, x, y)
-                                         latitude = (y/EARTH_RADIUS)*(180.0/%pi)+lat0;
-                                         if ((abs(latitude-90.0) < 0.000000001)|(abs(latitude+90.0) < 0.000000001))
-                                          longitude = 0;
-                                         else
-                                          longitude = (x/EARTH_RADIUS)*(180.0/%pi)/cos((M_PI/180.0)*latitude)+long0;
-                                         end
-                                        endfunction
-                                        function res=_sign(x, epsilon)
-                                         if (x >= epsilon) res=1;  else if (x <= -epsilon) res=-1; else
-                                           res=x/epsilon;  end  end  endfunction
-                                        ligne_seuil=10;
-                                        m=fscanfMat('nav_scilab.txt');
-                                        n=size(m,"r");
-                                        x=zeros(n);
-                                        y=zeros(n);
-                                        for i=1:n,
-                                          [x(i),y(i)]=GPS2RefCoordSystem(48.39, -4.425, latitude(i), longitude(i));
-                                        end
-                                        ax=m(:,19);ay=m(:,20);
-                                        bx=m(:,21);by=m(:,22);
-                                        e=m(:,26);
-                                        phi=atan(by-ay,bx-ax);
-                                        gammabar=zeros(n);
-                                        for i=1:n,
-                                          gammabar(i)=asin(((lambda-1)/lambda)*_sign(e(i),ligne_seuil));
-                                        end
-                                        step=250;
-                                        xset("color",noir);
-                                        xset("color",rouge);
-                                        for i=1:step:n,
-                                          draw_arrow(x(i),y(i),phi(i)+gammabar(i));
-                                        end
-                                        mean(winddir)*180.0/%pi
-                                             */
     //qDebug() << "k0="<<k0<<"x="<<X[k0]<<"Dir0="<<Dir0[k0]<<'\n';
     repaint();
 }
@@ -384,19 +422,38 @@ void widgetVaimos::paintEvent(QPaintEvent *)
                          QString("t=%1 s, x=%2, y=%3, theta=%4 deg ").
 						 arg(T[k0]).arg(X[k0]).arg(Y[k0]).arg(fmod_360_pos_rad2deg(M_PI/2.0-Theta[k0]))); a++;
         painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("SOG=%1 m.sec^-1 = %2 noeuds, COG=%3 deg ").
+                         QString("SOG=%1 m.sec^-1 = %2 knots, COG=%3 deg ").
                          arg(Filteredspeed_gps[k0]).arg(Filteredspeed_gps[k0]*1.94).arg(fmod_360_pos_rad2deg(M_PI/2.0-Filteredtheta_gps[k0]))); a++;
+		if (!motorboatmode)
+		{
+			painter.drawText(QRectF(3, a*20, 400,20),
+				QString("length=%1 m, sail angle =%2 deg, rudder angle=%3 deg ").
+				arg(Distance_gps[k0]).arg(fmod_360_pos_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(Deltag[k0])); a++;
+			painter.drawText(QRectF(3, a*20, 400,20),
+				QString("wind : dir=%1 deg =%2 deg, speed=%3 m.s^-1 =%4 knots ").
+				arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
+		}
+		else
+		{
+			painter.drawText(QRectF(3, a*20, 400,20),
+				QString("length=%1 m, rudder angle=%2 deg").
+				arg(Distance_gps[k0]).arg(Deltag[k0])); a++;
+		}
         painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("longueur=%1 m, angle voile =%2, angle gouv=%3 ").
-                         arg(Distance_gps[k0]).arg(fmod_360_pos_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(Deltag[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("Vent : dir=%1 deg =%2 deg, vitesse=%3 m.s^-1 =%4 noeuds ").
-                         arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
-        painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("ecart a la ligne = %1, ||am||= %2, ||bm||= %3 ").
+                         QString("dist to the line = %1, ||am||= %2, ||bm||= %3 ").
                          arg(Ecart[k0]).arg(Norm_am[k0]).arg(Norm_bm[k0])); a++;
+		if (recalce)
+		{
+			double Longa = 0, Lata = 0, Longb = 0, Latb = 0, Longi = 0, Lati = 0;
+			RefCoordSystem2GPS(Lat0[k0], Long0[k0], Ax[k0], Ay[k0], &Lata, &Longa);
+			RefCoordSystem2GPS(Lat0[k0], Long0[k0], Bx[k0], By[k0], &Latb, &Longb);
+			RefCoordSystem2GPS(Lat0[k0], Long0[k0], X[k0], Y[k0], &Lati, &Longi);
+			painter.drawText(QRectF(3, a*20, 400,20),
+							 QString("dist to the line (recalculated) = %1 ").
+							 arg(calculateSignedDistanceToLine2(Longb, Latb, Longa, Lata, Long[k0], Lat[k0]))); a++;
+		}
         painter.drawText(QRectF(3, a*20, 400,20),
-                         QString("MTi(deg) : Roll %1, Pitch = %2, Yaw = %3 ").
+                         QString("AHRS (deg) : Roll %1, Pitch = %2, Yaw = %3 ").
                          arg(Roll[k0]*180/M_PI).arg(Pitch[k0]*180/M_PI).arg(Yaw[k0]*180/M_PI)); a++;
     }
     painter.end();

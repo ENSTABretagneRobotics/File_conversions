@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 19. Jun 22:30:17 2018
+** Created: Sat 23. Jun 16:35:32 2018
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -48,6 +48,11 @@ public:
     QLabel *ks1_label;
     QLabel *Echelle_label;
     QLabel *Step_label;
+    QCheckBox *FilteredWindDirMode_checkBox;
+    QCheckBox *ResetOrigin_checkBox;
+    QCheckBox *ThickLine_checkBox;
+    QCheckBox *MotorboatMode_checkBox;
+    QCheckBox *Recalce_checkBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -77,7 +82,7 @@ public:
         k0_horizontalScrollBar->setOrientation(Qt::Horizontal);
         Echelle_verticalScrollBar = new QScrollBar(centralWidget);
         Echelle_verticalScrollBar->setObjectName(QString::fromUtf8("Echelle_verticalScrollBar"));
-        Echelle_verticalScrollBar->setGeometry(QRect(20, 60, 21, 311));
+        Echelle_verticalScrollBar->setGeometry(QRect(20, 60, 21, 531));
         Echelle_verticalScrollBar->setMinimum(1);
         Echelle_verticalScrollBar->setMaximum(100);
         Echelle_verticalScrollBar->setSingleStep(1);
@@ -88,52 +93,70 @@ public:
         pushButtonLoadFile->setGeometry(QRect(760, 0, 75, 23));
         Step_verticalScrollBar = new QScrollBar(centralWidget);
         Step_verticalScrollBar->setObjectName(QString::fromUtf8("Step_verticalScrollBar"));
-        Step_verticalScrollBar->setGeometry(QRect(70, 60, 16, 311));
+        Step_verticalScrollBar->setGeometry(QRect(70, 60, 16, 531));
         Step_verticalScrollBar->setMinimum(1);
         Step_verticalScrollBar->setValue(10);
         Step_verticalScrollBar->setOrientation(Qt::Vertical);
         Wind_checkBox = new QCheckBox(centralWidget);
         Wind_checkBox->setObjectName(QString::fromUtf8("Wind_checkBox"));
-        Wind_checkBox->setGeometry(QRect(760, 70, 70, 17));
+        Wind_checkBox->setGeometry(QRect(760, 50, 131, 17));
         Wind_checkBox->setChecked(true);
         Sail1_checkBox = new QCheckBox(centralWidget);
         Sail1_checkBox->setObjectName(QString::fromUtf8("Sail1_checkBox"));
         Sail1_checkBox->setEnabled(true);
-        Sail1_checkBox->setGeometry(QRect(760, 100, 151, 17));
+        Sail1_checkBox->setGeometry(QRect(760, 70, 131, 17));
         Sail1_checkBox->setAcceptDrops(false);
         Sail1_checkBox->setChecked(false);
         Sail2_checkBox = new QCheckBox(centralWidget);
         Sail2_checkBox->setObjectName(QString::fromUtf8("Sail2_checkBox"));
-        Sail2_checkBox->setGeometry(QRect(760, 130, 101, 17));
+        Sail2_checkBox->setGeometry(QRect(760, 90, 131, 17));
         Sail2_checkBox->setChecked(true);
         Text_checkBox = new QCheckBox(centralWidget);
         Text_checkBox->setObjectName(QString::fromUtf8("Text_checkBox"));
-        Text_checkBox->setGeometry(QRect(760, 40, 70, 17));
+        Text_checkBox->setGeometry(QRect(760, 30, 131, 17));
         Text_checkBox->setChecked(true);
         Go_checkBox = new QCheckBox(centralWidget);
         Go_checkBox->setObjectName(QString::fromUtf8("Go_checkBox"));
-        Go_checkBox->setGeometry(QRect(760, 160, 81, 17));
+        Go_checkBox->setGeometry(QRect(760, 110, 131, 17));
         Go_checkBox->setChecked(true);
         ks0_verticalScrollBar = new QScrollBar(centralWidget);
         ks0_verticalScrollBar->setObjectName(QString::fromUtf8("ks0_verticalScrollBar"));
-        ks0_verticalScrollBar->setGeometry(QRect(760, 240, 16, 331));
+        ks0_verticalScrollBar->setGeometry(QRect(760, 260, 20, 331));
         ks0_verticalScrollBar->setOrientation(Qt::Vertical);
         ks1_verticalScrollBar = new QScrollBar(centralWidget);
         ks1_verticalScrollBar->setObjectName(QString::fromUtf8("ks1_verticalScrollBar"));
-        ks1_verticalScrollBar->setGeometry(QRect(810, 240, 16, 331));
+        ks1_verticalScrollBar->setGeometry(QRect(810, 260, 20, 331));
         ks1_verticalScrollBar->setOrientation(Qt::Vertical);
         ks0_label = new QLabel(centralWidget);
         ks0_label->setObjectName(QString::fromUtf8("ks0_label"));
-        ks0_label->setGeometry(QRect(760, 220, 46, 13));
+        ks0_label->setGeometry(QRect(760, 240, 46, 13));
         ks1_label = new QLabel(centralWidget);
         ks1_label->setObjectName(QString::fromUtf8("ks1_label"));
-        ks1_label->setGeometry(QRect(810, 220, 46, 13));
+        ks1_label->setGeometry(QRect(810, 240, 46, 13));
         Echelle_label = new QLabel(centralWidget);
         Echelle_label->setObjectName(QString::fromUtf8("Echelle_label"));
         Echelle_label->setGeometry(QRect(20, 40, 46, 13));
         Step_label = new QLabel(centralWidget);
         Step_label->setObjectName(QString::fromUtf8("Step_label"));
         Step_label->setGeometry(QRect(70, 40, 46, 13));
+        FilteredWindDirMode_checkBox = new QCheckBox(centralWidget);
+        FilteredWindDirMode_checkBox->setObjectName(QString::fromUtf8("FilteredWindDirMode_checkBox"));
+        FilteredWindDirMode_checkBox->setGeometry(QRect(760, 150, 131, 18));
+        FilteredWindDirMode_checkBox->setChecked(false);
+        ResetOrigin_checkBox = new QCheckBox(centralWidget);
+        ResetOrigin_checkBox->setObjectName(QString::fromUtf8("ResetOrigin_checkBox"));
+        ResetOrigin_checkBox->setGeometry(QRect(760, 210, 131, 18));
+        ThickLine_checkBox = new QCheckBox(centralWidget);
+        ThickLine_checkBox->setObjectName(QString::fromUtf8("ThickLine_checkBox"));
+        ThickLine_checkBox->setGeometry(QRect(760, 130, 131, 18));
+        ThickLine_checkBox->setChecked(true);
+        MotorboatMode_checkBox = new QCheckBox(centralWidget);
+        MotorboatMode_checkBox->setObjectName(QString::fromUtf8("MotorboatMode_checkBox"));
+        MotorboatMode_checkBox->setGeometry(QRect(760, 170, 131, 18));
+        Recalce_checkBox = new QCheckBox(centralWidget);
+        Recalce_checkBox->setObjectName(QString::fromUtf8("Recalce_checkBox"));
+        Recalce_checkBox->setGeometry(QRect(760, 190, 131, 18));
+        Recalce_checkBox->setChecked(true);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -162,8 +185,13 @@ public:
         Go_checkBox->setText(QApplication::translate("MainWindow", "Go direction", 0, QApplication::UnicodeUTF8));
         ks0_label->setText(QApplication::translate("MainWindow", "ks0", 0, QApplication::UnicodeUTF8));
         ks1_label->setText(QApplication::translate("MainWindow", "ks1", 0, QApplication::UnicodeUTF8));
-        Echelle_label->setText(QApplication::translate("MainWindow", "Echelle", 0, QApplication::UnicodeUTF8));
+        Echelle_label->setText(QApplication::translate("MainWindow", "Scale", 0, QApplication::UnicodeUTF8));
         Step_label->setText(QApplication::translate("MainWindow", "Step", 0, QApplication::UnicodeUTF8));
+        FilteredWindDirMode_checkBox->setText(QApplication::translate("MainWindow", "Filtered wind mode", 0, QApplication::UnicodeUTF8));
+        ResetOrigin_checkBox->setText(QApplication::translate("MainWindow", "Reset origin", 0, QApplication::UnicodeUTF8));
+        ThickLine_checkBox->setText(QApplication::translate("MainWindow", "Thick line", 0, QApplication::UnicodeUTF8));
+        MotorboatMode_checkBox->setText(QApplication::translate("MainWindow", "Motorboat mode", 0, QApplication::UnicodeUTF8));
+        Recalce_checkBox->setText(QApplication::translate("MainWindow", "Recalc dist to the line", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -79,7 +79,7 @@
       <x>20</x>
       <y>60</y>
       <width>21</width>
-      <height>311</height>
+      <height>531</height>
      </rect>
     </property>
     <property name="minimum">
@@ -117,7 +117,7 @@
       <x>70</x>
       <y>60</y>
       <width>16</width>
-      <height>311</height>
+      <height>531</height>
      </rect>
     </property>
     <property name="minimum">
@@ -134,8 +134,8 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>70</y>
-      <width>70</width>
+      <y>50</y>
+      <width>131</width>
       <height>17</height>
      </rect>
     </property>
@@ -153,8 +153,8 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>100</y>
-      <width>151</width>
+      <y>70</y>
+      <width>131</width>
       <height>17</height>
      </rect>
     </property>
@@ -172,8 +172,8 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>130</y>
-      <width>101</width>
+      <y>90</y>
+      <width>131</width>
       <height>17</height>
      </rect>
     </property>
@@ -188,8 +188,8 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>40</y>
-      <width>70</width>
+      <y>30</y>
+      <width>131</width>
       <height>17</height>
      </rect>
     </property>
@@ -204,8 +204,8 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>160</y>
-      <width>81</width>
+      <y>110</y>
+      <width>131</width>
       <height>17</height>
      </rect>
     </property>
@@ -220,8 +220,8 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>240</y>
-      <width>16</width>
+      <y>260</y>
+      <width>20</width>
       <height>331</height>
      </rect>
     </property>
@@ -233,8 +233,8 @@
     <property name="geometry">
      <rect>
       <x>810</x>
-      <y>240</y>
-      <width>16</width>
+      <y>260</y>
+      <width>20</width>
       <height>331</height>
      </rect>
     </property>
@@ -246,7 +246,7 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>220</y>
+      <y>240</y>
       <width>46</width>
       <height>13</height>
      </rect>
@@ -259,7 +259,7 @@
     <property name="geometry">
      <rect>
       <x>810</x>
-      <y>220</y>
+      <y>240</y>
       <width>46</width>
       <height>13</height>
      </rect>
@@ -278,7 +278,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Echelle</string>
+     <string>Scale</string>
     </property>
    </widget>
    <widget class="QLabel" name="Step_label">
@@ -292,6 +292,80 @@
     </property>
     <property name="text">
      <string>Step</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="FilteredWindDirMode_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>150</y>
+      <width>131</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Filtered wind mode</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="ResetOrigin_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>210</y>
+      <width>131</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reset origin</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="ThickLine_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>130</y>
+      <width>131</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Thick line</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="MotorboatMode_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>170</y>
+      <width>131</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Motorboat mode</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="Recalce_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>190</y>
+      <width>131</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Recalc dist to the line</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

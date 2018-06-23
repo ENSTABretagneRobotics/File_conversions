@@ -1,3 +1,6 @@
+6
+Added some options and minor display updates.
+
 5
 Improved compatibility with Qt 5.
 Corrected silent bug in latitude and longitude parsing.
