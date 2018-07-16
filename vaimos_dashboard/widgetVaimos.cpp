@@ -273,7 +273,7 @@ void widgetVaimos::LoadFile()
     {
         dt=T[k]-T[k-1];
 		Dt.push_back(dt);
-        vit=0.95*vit+(0.05/dt)*sqrt(pow(X[k]-X[k-1],2)+pow(Y[k]-Y[k-1],2));
+        if (dt == 0) vit=0; else vit=0.95*vit+(0.05/dt)*sqrt(pow(X[k]-X[k-1],2)+pow(Y[k]-Y[k-1],2));
         Vit.push_back(vit);
         longueur=longueur+vit*dt;
         //longueur=longueur+sqrt(pow(X[k]-X[k-1],2)+pow(Y[k]-Y[k-1],2));
@@ -281,7 +281,7 @@ void widgetVaimos::LoadFile()
 
 		theta_gps=atan2(Y[k]-Y[k-1],X[k]-X[k-1]);
         Theta_gps.push_back(theta_gps);
-		speed_gps=sqrt(pow(X[k]-X[k-1],2)+pow(Y[k]-Y[k-1],2))/Dt[k];
+		if (Dt[k] == 0) speed_gps=0; else speed_gps=sqrt(pow(X[k]-X[k-1],2)+pow(Y[k]-Y[k-1],2))/Dt[k];
         Speed_gps.push_back(speed_gps);
 		distance_gps=Distance_gps[k-1]+sqrt(pow(X[k]-X[k-1],2)+pow(Y[k]-Y[k-1],2));
         Distance_gps.push_back(distance_gps);
@@ -420,7 +420,7 @@ void widgetVaimos::paintEvent(QPaintEvent *)
 						 arg(K[k0]).arg(ks0).arg(ks1)); a++;
         painter.drawText(QRectF(3, a*20, 400,20),
                          QString("t=%1 s, x=%2, y=%3, theta=%4 deg ").
-						 arg(T[k0]).arg(X[k0]).arg(Y[k0]).arg(fmod_360_pos_rad2deg(M_PI/2.0-Theta[k0]))); a++;
+						 arg(T[k0],0,'f',3).arg(X[k0],0,'f',3).arg(Y[k0],0,'f',3).arg(fmod_360_pos_rad2deg(M_PI/2.0-Theta[k0]))); a++;
         painter.drawText(QRectF(3, a*20, 400,20),
                          QString("SOG=%1 m.sec^-1 = %2 knots, COG=%3 deg ").
                          arg(Filteredspeed_gps[k0]).arg(Filteredspeed_gps[k0]*1.94).arg(fmod_360_pos_rad2deg(M_PI/2.0-Filteredtheta_gps[k0]))); a++;
@@ -428,7 +428,7 @@ void widgetVaimos::paintEvent(QPaintEvent *)
 		{
 			painter.drawText(QRectF(3, a*20, 400,20),
 				QString("length=%1 m, sail angle =%2 deg, rudder angle=%3 deg ").
-				arg(Distance_gps[k0]).arg(fmod_360_pos_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(Deltag[k0])); a++;
+				arg(Distance_gps[k0],0,'f',3).arg(fmod_360_pos_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(fmod_360_rad2deg(Deltag[k0]))); a++;
 			painter.drawText(QRectF(3, a*20, 400,20),
 				QString("wind : dir=%1 deg =%2 deg, speed=%3 m.s^-1 =%4 knots ").
 				arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
@@ -437,7 +437,7 @@ void widgetVaimos::paintEvent(QPaintEvent *)
 		{
 			painter.drawText(QRectF(3, a*20, 400,20),
 				QString("length=%1 m, rudder angle=%2 deg").
-				arg(Distance_gps[k0]).arg(Deltag[k0])); a++;
+				arg(Distance_gps[k0],0,'f',3).arg(fmod_360_rad2deg(Deltag[k0]))); a++;
 		}
         painter.drawText(QRectF(3, a*20, 400,20),
                          QString("dist to the line = %1, ||am||= %2, ||bm||= %3 ").

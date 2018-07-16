@@ -1,3 +1,6 @@
+8
+Corrected some float display problems.
+
 7
 Use now calculateSignedDistanceToLine2ref() for "dist to the line (recalculated)".
 
