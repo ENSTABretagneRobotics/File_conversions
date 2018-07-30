@@ -4,13 +4,16 @@ CC = gcc
 
 #CFLAGS += -g -D _DEBUG
 CFLAGS += -O3
-CFLAGS += -Wall
-CFLAGS += -Wextra
+CFLAGS += -Wall -Wno-unknown-pragmas -Wno-unused-parameter -Wextra
+#CFLAGS += -Winline
 
-#CFLAGS += -I.
-#LDFLAGS += -lpthread
-#LDFLAGS += -lrt
-LDFLAGS += -lm
+#LDFLAGS += -static-libgcc -static-libstdc++ -static
+
+# For Windows/MinGW
+#CFLAGS += ENABLE_GETTIMEOFDAY_WIN32
+#LDFLAGS += -lws2_32
+# For Linux
+LDFLAGS += -lrt -lm
 
 default: $(PROGS)
 

@@ -115,6 +115,13 @@ copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.h" .\NMEA2CSV\OSMisc.h"
 copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\NMEA2CSV\OSTime.c"
 copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\NMEA2CSV\OSTime.h"
 
+copy /B /Y /Z "%OSUTILS_PATH%\OSCore.c" .\NMEA2CSV_WRSC2018\OSCore.c"
+copy /B /Y /Z "%OSUTILS_PATH%\OSCore.h" .\NMEA2CSV_WRSC2018\OSCore.h"
+copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.c" .\NMEA2CSV_WRSC2018\OSMisc.c"
+copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.h" .\NMEA2CSV_WRSC2018\OSMisc.h"
+copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\NMEA2CSV_WRSC2018\OSTime.c"
+copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\NMEA2CSV_WRSC2018\OSTime.h"
+
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.c" .\NMEA2CSV_WRSC2016\OSCore.c"
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.h" .\NMEA2CSV_WRSC2016\OSCore.h"
 copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.c" .\NMEA2CSV_WRSC2016\OSMisc.c"

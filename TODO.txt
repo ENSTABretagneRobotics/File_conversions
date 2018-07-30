@@ -1,3 +1,4 @@
+
 Tool to translate and rotate .ply, utiliserait un env.txt et prendrait en param deltax, delay, deltaz en m, deltaroll, deltapitch, deltayaw en deg
 
 Utiliser NMEAProtocol.h dans NMEA2CSV pour être plus pratique, faire aussi UBX2CSV (u-center semble pas pouvoir convertir)...?
@@ -33,6 +34,8 @@ vibes3d-like avec googleearth? mais reset de la vue à chaque rechargement du fic
 
 
 OLD
+
+rajouter options compilation static linux
 
 Removed XP support...
 

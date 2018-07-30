@@ -1,0 +1,2 @@
+1
+Initial version from NMEA2CSV V9, specific version for WRSC 2018 (CSV-3s format by default).

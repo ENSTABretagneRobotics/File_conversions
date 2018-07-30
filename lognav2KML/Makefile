@@ -1,18 +1,17 @@
 PROGS = lognav2KML
 
-#CC = /home/user/armadeus-4.0/buildroot/output/build/staging_dir/usr/bin/arm-linux-gcc
-#CC = arm-linux-gcc
-CC = gcc
-
 #CFLAGS += -g -D _DEBUG
 CFLAGS += -O3
-CFLAGS += -Wall
-CFLAGS += -Wextra
+CFLAGS += -Wall -Wno-unknown-pragmas -Wno-unused-parameter -Wextra
+#CFLAGS += -Winline
 
-#CFLAGS += -I.
-#LDFLAGS += -lpthread
-#LDFLAGS += -lrt
-LDFLAGS += -lm
+#LDFLAGS += -static-libgcc -static-libstdc++ -static
+
+# For Windows/MinGW
+#CFLAGS += ENABLE_GETTIMEOFDAY_WIN32
+#LDFLAGS += -lws2_32
+# For Linux
+LDFLAGS += -lrt -lm
 
 default: $(PROGS)
 

@@ -3,17 +3,20 @@ PROGS = LocalBoxes2KML
 CC = gcc
 CXX = g++
 
-CFLAGS += -g
-#CFLAGS += -O3
-CFLAGS += -Wall
-#CFLAGS += -Wextra -Winline
+#CFLAGS += -g -D _DEBUG
+CFLAGS += -O3
+CFLAGS += -Wall -Wno-unknown-pragmas -Wno-unused-parameter -Wextra
+#CFLAGS += -Winline
 
 CXXFLAGS += $(CFLAGS) -fpermissive
 
+#LDFLAGS += -static-libgcc -static-libstdc++ -static
+
 # For Windows/MinGW
+#CFLAGS += ENABLE_GETTIMEOFDAY_WIN32
 #LDFLAGS += -lws2_32
 # For Linux
-#LDFLAGS += -lrt -lm
+LDFLAGS += -lrt -lm
 
 default: $(PROGS)
 
