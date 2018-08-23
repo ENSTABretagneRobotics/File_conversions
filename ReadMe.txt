@@ -10,6 +10,9 @@ mission2Waypoints : convert an UxVCtrl mission file containing waypoints-related
 ArduPilot2Waypoints : convert a waypoints file Waypoints.txt from Mission Planner to a waypoints file Waypoints.csv compatible with Waypoints2KML. The reverse operation can be done using Waypoints2Ardupilot.
 
 
+GPX2Waypoints : convert a waypoints file Waypoints.gpx from OpenCPN to a waypoints file Waypoints.csv compatible with Waypoints2KML. The reverse operation can be done using Waypoints2GPX.
+
+
 logstate2TLOG : convert a log file containing data from logstate.csv from UxVCtrl program to a binary MAVLink .tlog file for easy replay in Mission Planner. Warning : some information are missing or extrapolated and there might be some confusion about the type of attitude and position (e.g. whether it comes from GPS, baro, IMU, or the result of a data fusion, whether it is relative to Home, etc.)...
 
 
