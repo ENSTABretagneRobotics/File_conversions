@@ -144,6 +144,17 @@ int main(int argc, char* argv[])
 		return EXIT_FAILURE;
 	}
 
+	switch (CSV_format)
+	{
+	case CSV_3S_WRSC_FORMAT:
+		fprintf(fileout, "hhmmsssdd,lat (in 1/10000000 deg),lon (in 1/10000000 deg)\n");
+		break;
+	case CSV_2S_WRSC_FORMAT:
+	default:
+		fprintf(fileout, "hhmmssdd,lat (in 1/10000000 deg),lon (in 1/10000000 deg)\n");
+		break;
+	}
+
 	printf("Converting...\n");
 
 	i = 0;
