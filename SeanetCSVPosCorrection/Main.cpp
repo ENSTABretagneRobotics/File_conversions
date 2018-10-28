@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 	{
 		strcpy(szFileInPath1, "Seanet.csv");
 		strcpy(szFileInPath2, "logstate.csv");
-		printf("Warning : Not enough parameters specified.\n");
+		printf("Warning : Wrong number of parameters.\n");
 		printf("Usage : SeanetCSVPosCorrection Seanet.csv logstate.csv.\n");
 		printf("Default : SeanetCSVPosCorrection %.255s %.255s.\n", szFileInPath1, szFileInPath2);
 	}

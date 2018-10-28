@@ -1,2 +1,5 @@
+2
+Changed configuration filename to NMEA2CSV_WRSC2018.txt and added _wrsc2018 suffix to output filename.
+
 1
 Initial version from NMEA2CSV V9, specific version for WRSC 2018 (CSV-3s format by default).

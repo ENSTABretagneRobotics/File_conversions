@@ -19,6 +19,7 @@ extern bool filteredwinddirmode;
 extern bool motorboatmode;
 extern bool recalce;
 extern bool resetorigin;
+extern bool switchavailable;
 
 //++++++++++++++++++++++++++++++++//
 #include <float.h>
@@ -162,8 +163,9 @@ void widgetVaimos::LoadFile()
 
     Mode.clear(); K.clear(); 
 	T.clear(); Theta.clear(); Lat.clear(); Long.clear(); X.clear(); Y.clear(); Deltav_R0.clear();
-    Winddir.clear(); Windspeed.clear(); Deltag.clear(); Deltavmax.clear(); Ax.clear(); Ay.clear(); Bx.clear(); By.clear();    
+    Winddir.clear(); Windspeed.clear(); Filteredwinddir.clear(); Filteredwindspeed.clear(); Deltag.clear(); Deltavmax.clear(); Ax.clear(); Ay.clear(); Bx.clear(); By.clear();    
     Ecart.clear(); Norm_am.clear(); Norm_bm.clear(); Roll.clear(); Pitch.clear(); Yaw.clear(); Dir0.clear(); Vit.clear(); Longueur.clear();
+	SwitchAvailable0.clear();
     Theta_gps.clear(); Speed_gps.clear(); Distance_gps.clear(); Filteredtheta_gps.clear(); Filteredspeed_gps.clear(); Dt.clear();
 	Lat0.clear(); Long0.clear();
 
@@ -192,8 +194,6 @@ void widgetVaimos::LoadFile()
 			Winddir.push_back(winddir);
 			windspeed=10.0;//mots[10].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
 			Windspeed.push_back(windspeed);
-			// [9] filteredwinddir (in rad) : winddir filtré
-			// [10] filteredwindspeed (in m/s) : windspeed filtré
 		}
 		else
 		{
@@ -201,10 +201,12 @@ void widgetVaimos::LoadFile()
 			Winddir.push_back(winddir);
 			windspeed=mots[8].toDouble();           // [8] windspeed (in m/s) : vitesse du vent réel donnée par la station météo
 			Windspeed.push_back(windspeed);
-			// [9] filteredwinddir (in rad) : winddir filtré
-			// [10] filteredwindspeed (in m/s) : windspeed filtré
 		}
-        double deltav_R0=3*M_PI/2-mots[11].toDouble();    // [11] heading (in rad) : angle de la voile par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
+ 			double filteredwinddir=3*M_PI/2-mots[9].toDouble();       // [9] filteredwinddir (in rad) : winddir filtré
+			Filteredwinddir.push_back(filteredwinddir);
+			double filteredwindspeed=mots[10].toDouble();           // [10] filteredwindspeed (in m/s) : windspeed filtré
+			Filteredwindspeed.push_back(filteredwindspeed);
+       double deltav_R0=3*M_PI/2-mots[11].toDouble();    // [11] heading (in rad) : angle de la voile par rapport au Nord calculé par la station météo (0: Nord, 1.57: Est, 3.14: Sud, 4.71: Ouest)
         Deltav_R0.push_back(deltav_R0);
         double theta=mots[12].toDouble();               // [12] theta (in rad) : angle de cap du bateau exprimé dans le repère de référence (voir article)
         Theta.push_back(theta);
@@ -248,6 +250,11 @@ void widgetVaimos::LoadFile()
         Deltavmax.push_back(deltavmax);
         double dir0=mots[31].toDouble(); //[31] direction voulue
         Dir0.push_back(dir0);
+        if (switchavailable)
+        {
+         double switchavailable0=mots[34].toDouble();
+         SwitchAvailable0.push_back(switchavailable0);
+        }
         line1 = in.readLine();
    }
 	ks0=0;
@@ -384,9 +391,9 @@ void widgetVaimos::Draw()
                 Xc.push_back(-a);  Yc.push_back(-a);
                 QColor col("Green");
                 if (fabs(Roll[k]*180/M_PI)>35) col=QColor("Red");
-                else  if (Mode[k]!=0) col=QColor("Yellow");
+                else if (Mode[k]!=0) col=QColor("Yellow");
+                if ((switchavailable)&&(SwitchAvailable0[k]<=1.4)) col=QColor("Orange");
                 addPolygon(Xc,Yc,X[k],Y[k],Theta[k],col);
-
             }
     //qDebug() << "k0="<<k0<<"x="<<X[k0]<<"Dir0="<<Dir0[k0]<<'\n';
     repaint();
@@ -430,8 +437,10 @@ void widgetVaimos::paintEvent(QPaintEvent *)
 				QString("length=%1 m, sail angle =%2 deg, rudder angle=%3 deg ").
 				arg(Distance_gps[k0],0,'f',3).arg(fmod_360_pos_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(fmod_360_rad2deg(Deltag[k0]))); a++;
 			painter.drawText(QRectF(3, a*20, 400,20),
-				QString("wind : dir=%1 deg =%2 deg, speed=%3 m.s^-1 =%4 knots ").
-				arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
+				//QString("winddir=%1 deg =%2 deg, windspeed=%3 m.s^-1 =%4 knots ").
+				//arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
+				QString("winddir=%1/%2 deg, windspeed=%3 m.s^-1 =%4 knots ").
+				arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(fmod_360_pos_rad2deg(-(Filteredwinddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;
 		}
 		else
 		{

@@ -41,7 +41,7 @@ inline int LoadConfig()
 	bForce_GLL = 0;
 	CSV_format = CSV_3S_WRSC_FORMAT;
 
-	file = fopen("NMEA2CSV.txt", "r");
+	file = fopen("NMEA2CSV_WRSC2018.txt", "r");
 	if (file != NULL)
 	{
 		if (fgets3(file, line, sizeof(line)) == NULL) printf("Invalid configuration file.\n");
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
 		sprintf(szFileInPath, "%.249s", argv[1]);
 	}
 
-	GetFileNameAndFilePathAndChangeExtension(szFileInPath, ".csv", szFileOutPath, szName);
+	GetFileNameAndFilePathAndChangeExtension(szFileInPath, "_wrsc2018.csv", szFileOutPath, szName);
 
 	printf("Check and change if needed\n\n");
 	printf("Control Panel\\Regional and Language Options\\Customize\\Numbers\n\n");

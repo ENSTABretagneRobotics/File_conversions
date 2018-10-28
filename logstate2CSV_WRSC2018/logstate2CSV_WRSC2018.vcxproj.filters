@@ -45,5 +45,6 @@
   <ItemGroup>
     <None Include="Makefile" />
     <None Include="logstate.csv" />
+    <None Include="logstate2.csv" />
   </ItemGroup>
 </Project>

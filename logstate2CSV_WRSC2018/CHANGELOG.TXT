@@ -1,2 +1,5 @@
+2
+Assume that there are 2 input files : 1st with valid GPS and IMU and 2nd with valid AGL.
+
 1
 Initial version.

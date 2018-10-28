@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 16. Jul 13:59:11 2018
+** Created: Sun 28. Oct 21:51:57 2018
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -53,6 +53,7 @@ public:
     QCheckBox *ThickLine_checkBox;
     QCheckBox *MotorboatMode_checkBox;
     QCheckBox *Recalce_checkBox;
+    QCheckBox *SwitchAvailable_checkBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -121,18 +122,18 @@ public:
         Go_checkBox->setChecked(true);
         ks0_verticalScrollBar = new QScrollBar(centralWidget);
         ks0_verticalScrollBar->setObjectName(QString::fromUtf8("ks0_verticalScrollBar"));
-        ks0_verticalScrollBar->setGeometry(QRect(760, 260, 20, 331));
+        ks0_verticalScrollBar->setGeometry(QRect(760, 280, 20, 311));
         ks0_verticalScrollBar->setOrientation(Qt::Vertical);
         ks1_verticalScrollBar = new QScrollBar(centralWidget);
         ks1_verticalScrollBar->setObjectName(QString::fromUtf8("ks1_verticalScrollBar"));
-        ks1_verticalScrollBar->setGeometry(QRect(810, 260, 20, 331));
+        ks1_verticalScrollBar->setGeometry(QRect(810, 280, 20, 311));
         ks1_verticalScrollBar->setOrientation(Qt::Vertical);
         ks0_label = new QLabel(centralWidget);
         ks0_label->setObjectName(QString::fromUtf8("ks0_label"));
-        ks0_label->setGeometry(QRect(760, 240, 46, 13));
+        ks0_label->setGeometry(QRect(760, 260, 46, 13));
         ks1_label = new QLabel(centralWidget);
         ks1_label->setObjectName(QString::fromUtf8("ks1_label"));
-        ks1_label->setGeometry(QRect(810, 240, 46, 13));
+        ks1_label->setGeometry(QRect(810, 260, 46, 13));
         Echelle_label = new QLabel(centralWidget);
         Echelle_label->setObjectName(QString::fromUtf8("Echelle_label"));
         Echelle_label->setGeometry(QRect(20, 40, 46, 13));
@@ -157,6 +158,9 @@ public:
         Recalce_checkBox->setObjectName(QString::fromUtf8("Recalce_checkBox"));
         Recalce_checkBox->setGeometry(QRect(760, 190, 131, 18));
         Recalce_checkBox->setChecked(true);
+        SwitchAvailable_checkBox = new QCheckBox(centralWidget);
+        SwitchAvailable_checkBox->setObjectName(QString::fromUtf8("SwitchAvailable_checkBox"));
+        SwitchAvailable_checkBox->setGeometry(QRect(760, 230, 131, 18));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -192,6 +196,7 @@ public:
         ThickLine_checkBox->setText(QApplication::translate("MainWindow", "Thick line", 0, QApplication::UnicodeUTF8));
         MotorboatMode_checkBox->setText(QApplication::translate("MainWindow", "Motorboat mode", 0, QApplication::UnicodeUTF8));
         Recalce_checkBox->setText(QApplication::translate("MainWindow", "Recalc dist to the line", 0, QApplication::UnicodeUTF8));
+        SwitchAvailable_checkBox->setText(QApplication::translate("MainWindow", "Switch available", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -7,7 +7,7 @@ int ks0=0;
 int ks1=0;
 int Echelle=0;
 int step=0;
-bool wind=false,sail1=false,sail2=false,go=false,thickline=false,text=false,filteredwinddirmode=false,motorboatmode=false,recalce=false,resetorigin=false;
+bool wind=false,sail1=false,sail2=false,go=false,thickline=false,text=false,filteredwinddirmode=false,motorboatmode=false,recalce=false,resetorigin=false,switchavailable=false;
 
 MainWindow::MainWindow(QWidget *parent) :  QMainWindow(parent),
 ui(new Ui::MainWindow)
@@ -27,6 +27,7 @@ ui(new Ui::MainWindow)
 	connect(ui->MotorboatMode_checkBox,SIGNAL(stateChanged(int)),this,SLOT(Init()));
 	connect(ui->Recalce_checkBox,SIGNAL(stateChanged(int)),this,SLOT(Init()));
 	connect(ui->ResetOrigin_checkBox,SIGNAL(stateChanged(int)),this,SLOT(LoadFile()));
+	connect(ui->SwitchAvailable_checkBox,SIGNAL(stateChanged(int)),this,SLOT(LoadFile()));
 	connect(ui->ks0_verticalScrollBar,SIGNAL(valueChanged(int)),this,SLOT(Init()));
 	connect(ui->ks1_verticalScrollBar,SIGNAL(valueChanged(int)),this,SLOT(Init()));
 
@@ -35,6 +36,17 @@ ui(new Ui::MainWindow)
 
 void MainWindow::LoadFile()
 {  
+	wind=ui->Wind_checkBox->isChecked();
+	sail1=ui->Sail1_checkBox->isChecked();
+	sail2=ui->Sail2_checkBox->isChecked();
+	go=ui->Go_checkBox->isChecked();
+	thickline=ui->ThickLine_checkBox->isChecked();
+	text=ui->Text_checkBox->isChecked();
+	filteredwinddirmode=ui->FilteredWindDirMode_checkBox->isChecked();
+	motorboatmode=ui->MotorboatMode_checkBox->isChecked();
+	recalce=ui->Recalce_checkBox->isChecked();
+	resetorigin=ui->ResetOrigin_checkBox->isChecked();
+	switchavailable=ui->SwitchAvailable_checkBox->isChecked();
 	ui->widgetVaimos1->LoadFile();
 	ui->k0_horizontalScrollBar->setMaximum(kmax-1);
 	ui->k0_horizontalScrollBar->setValue(kmax-10);
@@ -62,6 +74,7 @@ void MainWindow::Init()
 	motorboatmode=ui->MotorboatMode_checkBox->isChecked();
 	recalce=ui->Recalce_checkBox->isChecked();
 	resetorigin=ui->ResetOrigin_checkBox->isChecked();
+	switchavailable=ui->SwitchAvailable_checkBox->isChecked();
 	ui->widgetVaimos1->Draw();
 	ui->widgetVaimos1->repaint();
 }

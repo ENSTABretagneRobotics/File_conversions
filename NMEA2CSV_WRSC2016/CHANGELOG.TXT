@@ -1,2 +1,5 @@
+2
+Added _wrsc2016 suffix to output filename.
+
 1
 Initial version from NMEA2CSV V7, specific version for WRSC 2016 (CSV-2s format), that uses GPRMC.

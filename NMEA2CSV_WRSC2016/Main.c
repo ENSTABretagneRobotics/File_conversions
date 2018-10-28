@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 
 	strcpy(szTemp, szFileInPath);
 	RemoveExtensionInFilePath(szTemp);
-	sprintf(szFileOutPath, "%.249s.csv", szTemp);
+	sprintf(szFileOutPath, "%.249s_wrsc2016.csv", szTemp);
 	strcpy(szName, szTemp);
 	RemovePathInFilePath(szName);
 
