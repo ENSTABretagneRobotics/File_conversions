@@ -1,3 +1,6 @@
+3
+Updates for MODE, OF, CURR, BAT messages.
+
 2
 Renamed program from log2tlog to dataflash2tlog.
 

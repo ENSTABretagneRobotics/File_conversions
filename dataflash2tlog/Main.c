@@ -38,12 +38,14 @@ int main(int argc, char* argv[])
 	double Alt_BARO = 0, Press = 0, Temp_BARO = 0, CRt_BARO = 0, Offset = 0, GndTemp = 0;
 	unsigned int SMS = 0;
 	double Dist1 = 0, Orient1 = 0, Dist2 = 0, Orient2 = 0;
+	unsigned int Qual = 0;
+	double flowX = 0, flowY = 0, bodyX = 0, bodyY = 0;
 	//double Q1 = 0, Q2 = 0, Q3 = 0, Q4 = 0;
 	double VibeX = 0, VibeY = 0, VibeZ = 0;
 	unsigned int Clip0 = 0, Clip1 = 0, Clip2 = 0;
 	unsigned int CTot = 0, CNum = 0, CId = 0;
 	double Prm1 = 0, Prm2 = 0, Prm3 = 0, Prm4 = 0, CLat = 0, CLng = 0, CAlt = 0;
-	double Volt = 0, Curr = 0, CurrTot = 0, Temp = 0;
+	double Volt = 0, VoltR = 0, Curr = 0, CurrTot = 0, EnrgTot = 0, Temp = 0, Res = 0;
 	double Vcc = 0, VServo = 0;
 	unsigned int Flags = 0;
 	unsigned int C1 = 0, C2 = 0, C3 = 0, C4 = 0, C5 = 0, C6 = 0, C7 = 0, C8 = 0, C9 = 0, C10 = 0, C11 = 0, C12 = 0, C13 = 0, C14 = 0;
@@ -204,16 +206,24 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 		//MODE, 63460340, Stabilize, 0, 1
 		else if (
 			(sscanf(line, "MODE, %I64u, Stabilize, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
-			(sscanf(line, "MODE, %I64u, Land, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Acro, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
 			(sscanf(line, "MODE, %I64u, AltHold, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
-			(sscanf(line, "MODE, %I64u, Guided, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
 			(sscanf(line, "MODE, %I64u, Auto, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
-			(sscanf(line, "MODE, %I64u, RTL, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
-			(sscanf(line, "MODE, %I64u, AutoTune, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Guided, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
 			(sscanf(line, "MODE, %I64u, Loiter, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
-			(sscanf(line, "MODE, %I64u, PosHold, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, RTL, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
 			(sscanf(line, "MODE, %I64u, Circle, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
-			(sscanf(line, "MODE, %I64u, Acro, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3))
+			(sscanf(line, "MODE, %I64u, Land, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Drift, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Sport, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Flip, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, AutoTune, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, PosHold, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Brake, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Throw, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Avoid_ADSB, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, Guided_NoGPS, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3)||
+			(sscanf(line, "MODE, %I64u, SmartRTL, %d, %d", &TimeUS, &ModeNum, &Rsn) == 3))
 		{
 			j++;
 			mavlink_heartbeat_t heartbeat;
@@ -410,6 +420,29 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
 			i++;
 		}
+		//OF, 144539588, 255, -0.05597964, 0.3796437, -0.008142494, 0.01424936
+		else if (sscanf(line, "OF, %I64u, %u, %lf, %lf, %lf, %lf", &TimeUS, &Qual, &flowX, &flowY, &bodyX, &bodyY) == 6)
+		{
+			j++;
+			mavlink_optical_flow_t optical_flow;
+			memset(&optical_flow, 0, sizeof(optical_flow));
+			optical_flow.time_usec = TimeUS;
+			optical_flow.quality = (uint8_t)Qual;
+			optical_flow.flow_comp_m_x = (float)flowX; // To check...
+			optical_flow.flow_comp_m_y = (float)flowY; // To check...
+			mavlink_msg_optical_flow_encode(system_id, component_id, &msg, &optical_flow);
+			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
+			i++;
+			mavlink_optical_flow_rad_t optical_flow_rad;
+			memset(&optical_flow_rad, 0, sizeof(optical_flow_rad));
+			optical_flow_rad.time_usec = TimeUS;
+			optical_flow_rad.quality = (uint8_t)Qual;
+			optical_flow_rad.integrated_x = (float)flowX; // To check...
+			optical_flow_rad.integrated_y = (float)flowY; // To check...
+			mavlink_msg_optical_flow_rad_encode(system_id, component_id, &msg, &optical_flow_rad);
+			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
+			i++;
+		}
 		//VIBE, 380979906, 25.80228, 38.46054, 44.74593, 0, 90, 0
 		else if (sscanf(line, "VIBE, %I64u, %lf, %lf, %lf, %u, %u, %u", &TimeUS, &VibeX, &VibeY, &VibeZ, &Clip0, &Clip1, &Clip2) == 7)
 		{
@@ -428,7 +461,9 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			i++;
 		}
 		//CURR, 563347566, 23.06225, 2.736309, 218.271, 0.00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		else if (sscanf(line, "CURR, %I64u, %lf, %lf, %lf, %lf", &TimeUS, &Volt, &Curr, &CurrTot, &Temp) == 5)
+		//BAT, 144573364, 13.23588, 14.95658, 0, 0.001671574, 2.478911E-05, 0, 28.04165
+		else if ((sscanf(line, "CURR, %I64u, %lf, %lf, %lf, %lf", &TimeUS, &Volt, &Curr, &CurrTot, &Temp) == 5)||
+		(sscanf(line, "BAT, %I64u, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &Volt, &VoltR, &Curr, &CurrTot, &EnrgTot, &Temp, &Res) == 8))
 		{
 			j++;
 			mavlink_battery_status_t battery_status;
