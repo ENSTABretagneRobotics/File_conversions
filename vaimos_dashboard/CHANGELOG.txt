@@ -1,3 +1,6 @@
+10
+Updated motorboatmode.
+
 9
 Added SwitchAvailable checkbox.
 Updated Filteredwinddir and Filteredwindspeed handling.

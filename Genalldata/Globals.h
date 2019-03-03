@@ -18,16 +18,5 @@ using namespace std;
 
 // Environment parameters.
 extern double angle_env, lat_env, long_env, alt_env;
-extern int nb_circles, nb_walls;
-extern vector<double> circles_x;
-extern vector<double> circles_y;
-extern vector<double> circles_r;
-extern vector<double> walls_xa;
-extern vector<double> walls_ya;
-extern vector<double> walls_xb;
-extern vector<double> walls_yb;
-
-// Environment variables.
-extern COORDSYSTEM csMap;
 
 #endif // GLOBALS_H

@@ -342,7 +342,7 @@ void widgetVaimos::Draw()
                 if (go)
                 {
                         vector<double> Xg,Yg;                            // Direction suivie en mode direct.
-                    if (Mode[k]==0)
+                    if ((Mode[k]==0)||(motorboatmode))
                     {
                         double h=1;
                         Xg.push_back(0);        Yg.push_back(0);

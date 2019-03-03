@@ -1,3 +1,4 @@
+vaimosdashboard : add info about avoidance (see UxVCtrl V303 commit)...
 
 Tool to translate and rotate .ply, utiliserait un env.txt et prendrait en param deltax, delay, deltaz en m, deltaroll, deltapitch, deltayaw en deg
 

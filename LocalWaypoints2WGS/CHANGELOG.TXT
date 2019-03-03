@@ -1,3 +1,6 @@
+3
+Updated env.txt file format.
+
 2
 Changed accuracy of latitude and longitude.
 
