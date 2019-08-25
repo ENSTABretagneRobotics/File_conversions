@@ -70,6 +70,12 @@ int main(int argc, char* argv[])
 	memset(line, 0, sizeof(line));
 	while (fgets3(filein, line, sizeof(line)) != NULL)
 	{
+		if (sscanf(line, "aglreg %lf", &alt) == 1)
+		{
+		}
+		if (sscanf(line, "altreg %lf", &alt) == 1)
+		{
+		}
 		if (sscanf(line, "depthreg %lf", &alt) == 1)
 		{
 		}

@@ -495,8 +495,9 @@ inline void uSleep(long Microseconds)
 	ft.QuadPart = -(10*(LONGLONG)Microseconds); // Convert to 100 nanosecond interval, negative value indicates relative time.
 
 	timer = CreateWaitableTimer(NULL, TRUE, NULL);
-	SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
-	WaitForSingleObject(timer, INFINITE);
+	SetWaitableTimer(timer, &ft, 0, NULL, NULL, FALSE);
+	//WaitForSingleObject(timer, INFINITE);
+	WaitForSingleObject(timer, (DWORD)(1+Microseconds/1000));
 	CloseHandle(timer);
 #else 
 	// usleep() is considered as obsolete.

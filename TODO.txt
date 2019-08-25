@@ -1,3 +1,4 @@
+
 vaimosdashboard : add info about avoidance (see UxVCtrl V303 commit)...
 
 Tool to translate and rotate .ply, utiliserait un env.txt et prendrait en param deltax, delay, deltaz en m, deltaroll, deltapitch, deltayaw en deg
@@ -5,6 +6,8 @@ Tool to translate and rotate .ply, utiliserait un env.txt et prendrait en param 
 Utiliser NMEAProtocol.h dans NMEA2CSV pour être plus pratique, faire aussi UBX2CSV (u-center semble pas pouvoir convertir)...?
 
 Debug logvid2imgoverlay
+
+Waypoints2mission : add optional config file to choose if there is a label, an action, a prefix name for the action, a default timeout...
 
 gérer le z dans les waypoints...
 

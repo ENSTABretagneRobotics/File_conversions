@@ -578,6 +578,41 @@ inline char* fgets3(FILE* file, char* line, int nbChar)
 }
 
 /*
+Return a line of a file using fgets(), skipping lines that begin with a '%' 
+(Scilab-style comments), a '#' (Linux configuration files-style comments) or 
+"//" (C-style comments). 
+Return NULL when fgets() returns NULL, or if 
+the maximum number of characters to read is less than 2.
+
+FILE* file : (IN) Pointer to a file.
+char* line : (IN) Storage location for data.
+int nbChar : (IN) Maximum number of characters to read.
+
+Return : The line or NULL.
+*/
+inline char* fgets4(FILE* file, char* line, int nbChar)
+{ 
+	char* r = NULL;
+
+	if (nbChar < 2)
+	{
+		return NULL;
+	}
+
+	do   
+	{
+		r = fgets(line, nbChar, file);
+	} 
+	while ((
+		(line[0] == '%')||
+		(line[0] == '#')||
+		((line[0] == '/')&&(line[1] == '/'))
+		) && (r != NULL));
+
+	return r;
+}
+
+/*
 Return a line from an input file using fgets(), skipping lines that begin with a '%' 
 (Scilab-style comments), a '#' (Linux configuration files-style comments) or 
 "//" (C-style comments). 

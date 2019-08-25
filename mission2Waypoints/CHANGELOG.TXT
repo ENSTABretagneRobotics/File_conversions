@@ -1,3 +1,6 @@
+3
+Added support of aglreg and altreg commands.
+
 2
 Added altitude.
 
