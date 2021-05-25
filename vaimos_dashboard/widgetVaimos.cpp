@@ -435,7 +435,7 @@ void widgetVaimos::paintEvent(QPaintEvent *)
 		{
 			painter.drawText(QRectF(3, a*20, 400,20),
 				QString("length=%1 m, sail angle =%2 deg, rudder angle=%3 deg ").
-				arg(Distance_gps[k0],0,'f',3).arg(fmod_360_pos_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(fmod_360_rad2deg(Deltag[k0]))); a++;
+				arg(Distance_gps[k0],0,'f',3).arg(fmod_360_rad2deg(Deltav_R0[k0]+M_PI-Theta[k0])).arg(fmod_360_rad2deg(Deltag[k0]))); a++;
 			painter.drawText(QRectF(3, a*20, 400,20),
 				//QString("winddir=%1 deg =%2 deg, windspeed=%3 m.s^-1 =%4 knots ").
 				//arg(Winddir[k0]*180/M_PI).arg(fmod_360_pos_rad2deg(-(Winddir[k0]-3.0*M_PI/2.0))).arg(Windspeed[k0]).arg(1.94*Windspeed[k0])); a++;

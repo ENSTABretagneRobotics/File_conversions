@@ -1,3 +1,6 @@
+11
+sailangle now displayed in [-180;180] deg.
+
 10
 Updated motorboatmode.
 

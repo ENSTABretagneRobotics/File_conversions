@@ -263,6 +263,7 @@ $RECYCLE.BIN/
 # Other
 # =========================
 
+*build-*
 */__pycache__/
 */*.pyc
 !*/Release*/

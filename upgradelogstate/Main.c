@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, omegaxhat_err = 0, omegayhat_err = 0, omegazhat_err = 0, accrxhat_err = 0, accryhat_err = 0, accrzhat_err = 0;
 	double wx = 0, wy = 0, wz = 0, wphi = 0, wtheta = 0, wpsi = 0, wd = 0, wu = 0, wagl = 0;
 	double uvx = 0, uvy = 0, uvz = 0, uwx = 0, uwy = 0, uwz = 0, u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u7 = 0, u8 = 0, u9 = 0, u10 = 0, u11 = 0, u12 = 0, u13 = 0, u14 = 0;
-	double Energy_electronics = 0, Energy_actuators = 0;
+	double EPU1 = 0, EPU2 = 0;
 	double vxyhat = 0, vxyhat_err = 0;
 	double xhat_inf = 0, xhat_sup = 0, yhat_inf = 0, yhat_sup = 0, zhat_inf = 0, zhat_sup = 0, psihat_inf = 0, psihat_sup = 0, vxyhat_inf = 0, vxyhat_sup = 0, omegazhat_inf = 0, omegazhat_sup = 0;
 	int tv_sec = 0, tv_usec = 0;
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 		"xhat_err;yhat_err;zhat_err;phihat_err;thetahat_err;psihat_err;vrxhat_err;vryhat_err;vrzhat_err;omegaxhat_err;omegayhat_err;omegazhat_err;accrxhat_err;accryhat_err;accrzhat_err;"
 		"wx;wy;wz;wphi;wtheta;wpsi;wd;wu;wagl;"
 		"uvx;uvy;uvz;uwx;uwy;uwz;u1;u2;u3;u4;u5;u6;u7;u8;u9;u10;u11;u12;u13;u14;"
-		"Energy_electronics;Energy_actuators;\n"
+		"EPU1;EPU2;\n"
 		); 
 
 	printf("Converting...\n");
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 			&xhat_inf, &xhat_sup, &yhat_inf, &yhat_sup, &zhat_inf, &zhat_sup, 
 			&psihat_inf, &psihat_sup, &vxyhat_inf, &vxyhat_sup, &omegazhat_inf, &omegazhat_sup,
 			&tv_sec, &tv_usec, &latitude, &longitude, &altitude_AMSL, &heading, 
-			&Energy_electronics, &Energy_actuators) == 32)||
+			&EPU1, &EPU2) == 32)||
 			(sscanf(line, "%lf;%lf;%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;"
 			"%lf;%lf;%lf;%lf;%lf;%lf;"
@@ -141,7 +141,7 @@ int main(int argc, char* argv[])
 				vrxhat_err, vryhat_err, vrzhat_err, omegaxhat_err, omegayhat_err, omegazhat_err, accrxhat_err, accryhat_err, accrzhat_err,
 				wx, wy, wz, wphi, wtheta, wpsi, wd, wu, wagl, 
 				uvx, uvy, uvz, uwx, uwy, uwz, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, 
-				Energy_electronics, Energy_actuators);
+				EPU1, EPU2);
 			i++;
 		}
 		else

@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 	double vrxhat_err = 0, vryhat_err = 0, vrzhat_err = 0, omegaxhat_err = 0, omegayhat_err = 0, omegazhat_err = 0, accrxhat_err = 0, accryhat_err = 0, accrzhat_err = 0;
 	double wx = 0, wy = 0, wz = 0, wphi = 0, wtheta = 0, wpsi = 0, wd = 0, wu = 0, wagl = 0;
 	double uvx = 0, uvy = 0, uvz = 0, uwx = 0, uwy = 0, uwz = 0, u1 = 0, u2 = 0, u3 = 0, u4 = 0, u5 = 0, u6 = 0, u7 = 0, u8 = 0, u9 = 0, u10 = 0, u11 = 0, u12 = 0, u13 = 0, u14 = 0;
-	double Energy_electronics = 0, Energy_actuators = 0;
+	double EPU1 = 0, EPU2 = 0;
 	double vxyhat = 0, vxyhat_err = 0;
 
 	if (argc != 2)
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 	}
 
 	fprintf(fileout, 
-		"t (in s);xhat;yhat;zhat;thetahat;vxyhat;omegahat;u1;u2;u3;u;uw;xhat-;xhat+;yhat-;yhat+;zhat-;zhat+;thetahat-;thetahat+;vxyhat-;vxyhat+;omegahat-;omegahat+;tv_sec;tv_usec;lathat;longhat;althat;headinghat;Energy_electronics;Energy_actuators;\n"
+		"t (in s);xhat;yhat;zhat;thetahat;vxyhat;omegahat;u1;u2;u3;u;uw;xhat-;xhat+;yhat-;yhat+;zhat-;zhat+;thetahat-;thetahat+;vxyhat-;vxyhat+;omegahat-;omegahat+;tv_sec;tv_usec;lathat;longhat;althat;headinghat;EPU1;EPU2;\n"
 		); 
 
 	printf("Converting...\n");
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 			&vrxhat_err, &vryhat_err, &vrzhat_err, &omegaxhat_err, &omegayhat_err, &omegazhat_err, &accrxhat_err, &accryhat_err, &accrzhat_err,
 			&wx, &wy, &wz, &wphi, &wtheta, &wpsi, &wd, &wu, &wagl, 
 			&uvx, &uvy, &uvz, &uwx, &uwy, &uwz, &u1, &u2, &u3, &u4, &u5, &u6, &u7, &u8, &u9, &u10, &u11, &u12, &u13, &u14, 
-			&Energy_electronics, &Energy_actuators) == 79)
+			&EPU1, &EPU2) == 79)
 		{
 			vxyhat = sqrt(sqr(vrxhat)+sqr(vryhat));
 			vxyhat_err = sqrt(sqr(vrxhat_err)+sqr(vryhat_err));
@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
 				xhat-xhat_err, xhat+xhat_err, yhat-yhat_err, yhat+yhat_err, zhat-zhat_err, zhat+zhat_err, psihat-psihat_err, psihat+psihat_err, 
 				vxyhat-vxyhat_err, vxyhat+vxyhat_err, omegazhat-omegazhat_err, omegazhat+omegazhat_err,
 				(int)t_epoch, (int)((t_epoch-(int)t_epoch)*1000000.0), latitude, longitude, altitude_AMSL, heading, 
-				Energy_electronics, Energy_actuators);
+				EPU1, EPU2);
 			i++;
 		}
 		else
