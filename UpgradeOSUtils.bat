@@ -1,6 +1,6 @@
 cd /d "%~dp0"
 
-set OSUTILS_PATH=..\..\..\..\..\..\..\..\..\..\Personal data\Software\Other\Software development\C++\Robotics\Current\OSUtils
+set OSUTILS_PATH=%~d0\Personal data\Software\Other\Software development\C++\Robotics\Current\OSUtils
 
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.c" .\ArduPilot2Waypoints\OSCore.c
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.h" .\ArduPilot2Waypoints\OSCore.h
