@@ -22,8 +22,9 @@ int main(int argc, char* argv[])
 	//uint8_t target_system = 1, target_component = 0;
 	uint8_t system_id = 1, component_id = 1;
 	uint64_t TimeUS = 0;
+	unsigned int I = 0;
 	unsigned int Status = 0, GMS = 0, GWk = 0, NSats = 0, U = 0;
-	double HDop = 0, Lat = 0, Lng = 0, Alt_AMSL_GPS = 0, Spd = 0, GCrs = 0, VZ = 0;
+	double HDop = 0, Lat = 0, Lng = 0, Alt_AMSL_GPS = 0, Spd = 0, GCrs = 0, VZ = 0, GPSYaw = 0;
 	unsigned int Subsys = 0,ECode = 0;
 	unsigned int Id = 0;
 	BOOL bArmed = FALSE;
@@ -31,12 +32,13 @@ int main(int argc, char* argv[])
 	double ThI = 0, ABst = 0, ThO = 0, ThH = 0, DAlt = 0, Alt = 0, BAlt = 0, DSAlt = 0, SAlt = 0, TAlt = 0, DCRt = 0, CRt = 0;
 	double DPosX = 0, DPosY = 0, PosX = 0, PosY = 0, DVelX = 0, DVelY = 0, VelX = 0, VelY = 0, DAccX = 0, DAccY = 0;
 	double Lat_POS = 0, Lng_POS = 0, Alt_POS = 0, RelHomeAlt = 0, RelOriginAlt = 0;
+	unsigned int AEKF = 0;
 	double DesRoll = 0, Roll = 0, DesPitch = 0, Pitch = 0, DesYaw = 0, Yaw = 0, ErrRP = 0, ErrYaw = 0;
 	char Message[51];
 	char Name[17];
 	double Value = 0;
 	double Alt_BARO = 0, Press = 0, Temp_BARO = 0, CRt_BARO = 0, Offset = 0, GndTemp = 0;
-	unsigned int SMS = 0;
+	unsigned int SMS = 0, Stat1 = 0;
 	double Dist1 = 0, Orient1 = 0, Dist2 = 0, Orient2 = 0;
 	unsigned int Qual = 0;
 	double flowX = 0, flowY = 0, bodyX = 0, bodyY = 0;
@@ -133,8 +135,12 @@ mavlink_ekf_status_report_t
 mavlink_ahrs2_t/mavlink_ahrs3_t???
 */
 
+		//GPS, 182929586, 0, 6, 231688000, 2167, 23, 0.77, 48.4181976, -4.4719822, 94.57, 0.014, 116.528, 0.016, 181.4797, 1
 		//GPS, 380997198, 3, 141473400, 1961, 10, 0.89, 48.4762186, -4.5440161, 119.53, 1.108, 198.187, -0.49, 1
-		if (sscanf(line, "GPS, %I64u, %u, %u, %u, %u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %u", &TimeUS, &Status, &GMS, &GWk, &NSats, &HDop, &Lat, &Lng, &Alt_AMSL_GPS, &Spd, &GCrs, &VZ, &U) == 13)
+		if ((sscanf(line, "GPS, %I64u, %u, %u, %u, %u, %u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %u", 
+			&TimeUS, &I, &Status, &GMS, &GWk, &NSats, &HDop, &Lat, &Lng, &Alt_AMSL_GPS, &Spd, &GCrs, &VZ, &GPSYaw, &U) == 15)||
+			(sscanf(line, "GPS, %I64u, %u, %u, %u, %u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %u", 
+				&TimeUS, &Status, &GMS, &GWk, &NSats, &HDop, &Lat, &Lng, &Alt_AMSL_GPS, &Spd, &GCrs, &VZ, &U) == 13))
 		{
 			j++;
 			mavlink_gps_raw_int_t gps_raw_int;
@@ -327,7 +333,8 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			i++;
 		}
 		//NTUN, 549071374, -206.6111, -76.6899, -235.0755, -81.34146, 27.78842, 4.615891, -64.85806, -10.16781, 322.2938, 6.05488
-		else if (sscanf(line, "NTUN, %I64u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &DPosX, &DPosY, &PosX, &PosY, &DVelX, &DVelY, &VelX, &VelY, &DAccX, &DAccY) == 11)
+		else if (sscanf(line, "NTUN, %I64u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf",
+			&TimeUS, &DPosX, &DPosY, &PosX, &PosY, &DVelX, &DVelY, &VelX, &VelY, &DAccX, &DAccY) == 11)
 		{
 			j++;
 		}
@@ -350,8 +357,12 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
 			i++;
 		}
+		//ATT, 194728916, 0, -1.05, 0, 2.28, 0, 193.01, 0.03, 1, 3
 		//ATT, 380979385, 3.39, 4.97, -3.56, 0.41, 263.21, 268.16, 0.08, 0.05
-		else if (sscanf(line, "ATT, %I64u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &DesRoll, &Roll, &DesPitch, &Pitch, &DesYaw, &Yaw, &ErrRP, &ErrYaw) == 9)
+		else if ((sscanf(line, "ATT, %I64u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %u", 
+			&TimeUS, &DesRoll, &Roll, &DesPitch, &Pitch, &DesYaw, &Yaw, &ErrRP, &ErrYaw, &AEKF) == 10)||
+			(sscanf(line, "ATT, %I64u, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf", 
+			&TimeUS, &DesRoll, &Roll, &DesPitch, &Pitch, &DesYaw, &Yaw, &ErrRP, &ErrYaw) == 9))
 		{
 			j++;
 			mavlink_attitude_t attitude;
@@ -394,8 +405,10 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
 			i++;
 		}
+		//BARO, 117509900, 0, 0.01978004, 100902, 40.84, 0.07505818, 117509, 0, 35, 1
 		//BARO, 411727952, 17.52584, 100579.2, 25.55, -0.127921, 411727, 0, 32.89091
-		else if (sscanf(line, "BARO, %I64u, %lf, %lf, %lf, %lf, %u, %lf, %lf", &TimeUS, &Alt_BARO, &Press, &Temp_BARO, &CRt_BARO, &SMS, &Offset, &GndTemp) == 8)
+		else if ((sscanf(line, "BARO, %I64u, %u, %lf, %lf, %lf, %lf, %u, %lf, %lf", &TimeUS, &I, &Alt_BARO, &Press, &Temp_BARO, &CRt_BARO, &SMS, &Offset, &GndTemp) == 9)||
+			(sscanf(line, "BARO, %I64u, %lf, %lf, %lf, %lf, %u, %lf, %lf", &TimeUS, &Alt_BARO, &Press, &Temp_BARO, &CRt_BARO, &SMS, &Offset, &GndTemp) == 8))
 		{
 			j++;
 			mavlink_scaled_pressure_t scaled_pressure;
@@ -405,6 +418,18 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			//scaled_pressure.press_diff = (float)Alt_BARO;
 			scaled_pressure.temperature = (int16_t)(Temp_BARO*100.0);
 			mavlink_msg_scaled_pressure_encode(system_id, component_id, &msg, &scaled_pressure);
+			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
+			i++;
+		}
+		//RFND,TimeUS,Instance,Dist,Stat,Orient
+		else if (sscanf(line, "RFND, %I64u, %u, %lf, %u, %lf", &TimeUS, &I, &Dist1, &Stat1, &Orient1) == 5)
+		{
+			j++;
+			mavlink_rangefinder_t rangefinder;
+			memset(&rangefinder, 0, sizeof(rangefinder));
+			rangefinder.distance = (float)(Dist1/100);
+			rangefinder.voltage = (float)(Dist1/100);
+			mavlink_msg_rangefinder_encode(system_id, component_id, &msg, &rangefinder);
 			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
 			i++;
 		}
@@ -443,8 +468,10 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
 			i++;
 		}
+		//VIBE, 194910152, 0, 0.01745942, 0.01978292, 0.01973939, 9
 		//VIBE, 380979906, 25.80228, 38.46054, 44.74593, 0, 90, 0
-		else if (sscanf(line, "VIBE, %I64u, %lf, %lf, %lf, %u, %u, %u", &TimeUS, &VibeX, &VibeY, &VibeZ, &Clip0, &Clip1, &Clip2) == 7)
+		else if ((sscanf(line, "VIBE, %I64u, %u, %lf, %lf, %lf, %u", &TimeUS, &I, &VibeX, &VibeY, &VibeZ, &Clip0) == 6)||
+			(sscanf(line, "VIBE, %I64u, %lf, %lf, %lf, %u, %u, %u", &TimeUS, &VibeX, &VibeY, &VibeZ, &Clip0, &Clip1, &Clip2) == 7))
 		{
 			j++;
 			mavlink_vibration_t vibration;
@@ -463,6 +490,7 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 		//CURR, 563347566, 23.06225, 2.736309, 218.271, 0.00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		//BAT, 144573364, 13.23588, 14.95658, 0, 0.001671574, 2.478911E-05, 0, 28.04165
 		else if ((sscanf(line, "CURR, %I64u, %lf, %lf, %lf, %lf", &TimeUS, &Volt, &Curr, &CurrTot, &Temp) == 5)||
+		(sscanf(line, "BAT, %I64u, %u, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &I, &Volt, &VoltR, &Curr, &CurrTot, &EnrgTot, &Temp, &Res) == 9)||
 		(sscanf(line, "BAT, %I64u, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &Volt, &VoltR, &Curr, &CurrTot, &EnrgTot, &Temp, &Res) == 8))
 		{
 			j++;
@@ -583,8 +611,10 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 			fwrite_tlog_gpstow(GMS, GWk, msg, fileout);
 			i++;
 		}
+		//MAG, 194709930, 0, -209, -75, 411, 0, 0, 0, 0, 0, 0, 1, 194709926
 		//MAG, 411625728, -53, 150, 369, 1, 17, -77, 0, 0, 0, 1, 411625723
-		else if (sscanf(line, "MAG, %I64u, %d, %d, %d", &TimeUS, &MagX, &MagY, &MagZ) == 4)
+		else if ((sscanf(line, "MAG, %I64u, %u, %d, %d, %d", &TimeUS, &I, &MagX, &MagY, &MagZ) == 5)||
+			(sscanf(line, "MAG, %I64u, %d, %d, %d", &TimeUS, &MagX, &MagY, &MagZ) == 4))
 		{
 			j++;
 		}
@@ -596,8 +626,10 @@ mavlink_ahrs2_t/mavlink_ahrs3_t???
 		{
 			j++;
 		}
+		//IMU, 182929178, 0, 0.002522397, -0.001043871, -0.0002923453, 0.3591292, 0.1684806, -10.07592, 0, 0, 43.86654, 1, 1, 8019, 4009
 		//IMU, 411575125, 0.2243799, 0.061694, -0.3788114, -0.7872514, 0.6289721, -10.71861, 0, 0, 24.81149, 1, 1, 999, 999
-		else if (sscanf(line, "IMU, %I64u, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &GyrX, &GyrY, &GyrZ, &AccX, &AccY, &AccZ) == 7)
+		else if ((sscanf(line, "IMU, %I64u, %u, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &I, &GyrX, &GyrY, &GyrZ, &AccX, &AccY, &AccZ) == 8)||
+			(sscanf(line, "IMU, %I64u, %lf, %lf, %lf, %lf, %lf, %lf", &TimeUS, &GyrX, &GyrY, &GyrZ, &AccX, &AccY, &AccZ) == 7))
 		{
 			j++;
 			mavlink_raw_imu_t raw_imu; // Why raw for the first IMU and scaled for the second one...?
