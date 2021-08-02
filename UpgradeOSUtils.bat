@@ -50,10 +50,10 @@ copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.c" .\LocalBoxes2KML\OSMisc.c
 copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.h" .\LocalBoxes2KML\OSMisc.h
 copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\LocalBoxes2KML\OSTime.c
 copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\LocalBoxes2KML\OSTime.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\LocalBoxes2KML\AxisOptions.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\LocalBoxes2KML\CoordSystem.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\LocalBoxes2KML\CoordSystem2Img.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\LocalBoxes2KML\CoordSystemChg.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\AxisOptions.h" .\LocalBoxes2KML\AxisOptions.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\CoordSystem.h" .\LocalBoxes2KML\CoordSystem.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\CoordSystem2Img.h" .\LocalBoxes2KML\CoordSystem2Img.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\CoordSystemChg.h" .\LocalBoxes2KML\CoordSystemChg.h
 
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.c" .\lognav2KML\OSCore.c
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.h" .\lognav2KML\OSCore.h
@@ -75,10 +75,10 @@ copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.c" .\MDM2CSV\OSMisc.c
 copy /B /Y /Z "%OSUTILS_PATH%\OSMisc.h" .\MDM2CSV\OSMisc.h
 copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\MDM2CSV\OSTime.c
 copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\MDM2CSV\OSTime.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\MDM2CSV\AxisOptions.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\MDM2CSV\CoordSystem.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.c" .\MDM2CSV\CoordSystem2Img.h
-copy /B /Y /Z "%OSUTILS_PATH%\OSTime.h" .\MDM2CSV\CoordSystemChg.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\AxisOptions.h" .\MDM2CSV\AxisOptions.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\CoordSystem.h" .\MDM2CSV\CoordSystem.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\CoordSystem2Img.h" .\MDM2CSV\CoordSystem2Img.h
+copy /B /Y /Z "%OSUTILS_PATH%\..\Extensions\Img\CoordSystemChg.h" .\MDM2CSV\CoordSystemChg.h
 
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.c" .\MDMRNG2KML_clampToGround\OSCore.c
 copy /B /Y /Z "%OSUTILS_PATH%\OSCore.h" .\MDMRNG2KML_clampToGround\OSCore.h
