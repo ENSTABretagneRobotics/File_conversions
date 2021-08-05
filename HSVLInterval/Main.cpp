@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 // OpenCV headers.
-#include "opencv/highgui.h"
+#include "opencv2/highgui.hpp"
 
 // min and max might cause incompatibilities with GCC...
 #ifndef max

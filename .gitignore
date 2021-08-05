@@ -271,3 +271,4 @@ $RECYCLE.BIN/
 !*/Release*/*.exe
 **/TODO/
 !*ReadMe.txt
+!dataflash*/*.log

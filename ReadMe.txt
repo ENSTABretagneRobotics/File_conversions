@@ -13,7 +13,13 @@ ArduPilot2Waypoints : convert a waypoints file Waypoints.txt from Mission Planne
 GPX2Waypoints : convert a waypoints file Waypoints.gpx from OpenCPN to a waypoints file Waypoints.csv compatible with Waypoints2KML. The reverse operation can be done using Waypoints2GPX.
 
 
+HSVLInterval : if image.png is a colored image and image_bin.png is the same image with black pixels except in a region of interest (this can be done easilly e.g. using MS Paint), display the RGB, HSL, HSV intervals containing all the colors that appear in that region.
+
+
 logstate2TLOG : convert a log file containing data from logstate.csv from UxVCtrl program to a binary MAVLink .tlog file for easy replay in Mission Planner. Warning : some information are missing or extrapolated and there might be some confusion about the type of attitude and position (e.g. whether it comes from GPS, baro, IMU, or the result of a data fusion, whether it is relative to Home, etc.)...
+
+
+dataflash2SBG : convert an ArduPilot DataFlash log from Mission Planner to a sbgCenter log file (see SBG2MT).
 
 
 dataflash2tlog : convert an ArduPilot DataFlash log from Mission Planner to a binary MAVLink .tlog file for easy replay in Mission Planner. Warning : some information are missing or extrapolated and there might be some confusion about the type of attitude and position (e.g. whether it comes from GPS, baro, IMU, or the result of a data fusion, whether it is relative to Home, etc.)...
