@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Input Files">
-      <UniqueIdentifier>{d6a5b262-5341-41e9-8f33-e8cea120be1c}</UniqueIdentifier>
+      <UniqueIdentifier>{69f74eca-2e63-456c-87eb-e1fd7af47c9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,15 +49,15 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="env.txt">
+    <None Include="CHANGELOG.TXT" />
+    <None Include="env.txt">
       <Filter>Input Files</Filter>
-    </Text>
-    <Text Include="wplocal.txt">
+    </None>
+    <None Include="Waypoints.csv">
       <Filter>Input Files</Filter>
-    </Text>
-    <Text Include="CHANGELOG.TXT" />
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

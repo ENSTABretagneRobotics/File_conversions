@@ -10,7 +10,11 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include "Waypoints.h"
+#include "Utils.h"
+
+#ifdef ENABLE_PROJ
+#include <proj.h>
+#endif // ENABLE_PROJ
 
 #include <vector>
 
@@ -19,4 +23,4 @@ using namespace std;
 // Environment parameters.
 extern double angle_env, lat_env, long_env, alt_env;
 
-#endif // GLOBALS_H
+#endif // !GLOBALS_H

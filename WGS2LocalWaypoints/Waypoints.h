@@ -12,7 +12,7 @@
 
 #include "Utils.h"
 
-#define MAX_NB_WP 256
+#define MAX_NB_WP 16384
 
 int LoadWaypoints(double wpslat[], double wpslong[], int* pNbWPs);
 int CheckWaypoints(double wpslat[], double wpslong[], int nbWPs);

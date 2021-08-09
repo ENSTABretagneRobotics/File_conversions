@@ -1,3 +1,6 @@
+4
+Added CMake and PROJ library support (not tested).
+
 3
 Updated env.txt file format.
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8...3.16)
 project(HSVLInterval)
 #find_package(OpenCV 3.2 REQUIRED)
 find_package(OpenCV)

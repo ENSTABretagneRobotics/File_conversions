@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Input Files">
-      <UniqueIdentifier>{d6a5b262-5341-41e9-8f33-e8cea120be1c}</UniqueIdentifier>
+      <UniqueIdentifier>{40d53eae-a64f-464c-9fe1-40a4fbaee251}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,9 +30,6 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Waypoints.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Env.h">
@@ -44,20 +41,17 @@
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Waypoints.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="env.txt">
+    <None Include="env.txt">
       <Filter>Input Files</Filter>
-    </Text>
-    <Text Include="wplocal.txt">
+    </None>
+    <None Include="wplocal.txt">
       <Filter>Input Files</Filter>
-    </Text>
-    <Text Include="CHANGELOG.TXT" />
+    </None>
+    <None Include="CHANGELOG.TXT" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>
