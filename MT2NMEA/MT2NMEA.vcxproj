@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
+    <Text Include="CMakeLists.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +117,6 @@
     <ClInclude Include="OSTime.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
     <None Include="MT.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

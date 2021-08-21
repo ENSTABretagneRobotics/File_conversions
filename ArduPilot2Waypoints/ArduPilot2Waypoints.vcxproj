@@ -111,8 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CHANGELOG.TXT" />
-    <None Include="Makefile" />
     <None Include="Waypoints.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

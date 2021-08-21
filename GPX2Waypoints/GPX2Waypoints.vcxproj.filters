@@ -41,9 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
     <None Include="Waypoints.gpx" />
   </ItemGroup>
 </Project>

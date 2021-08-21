@@ -107,6 +107,7 @@
     <ClCompile Include="OSTime.c" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="CMakeLists.txt" />
     <Text Include="lognav.txt" />
     <Text Include="CHANGELOG.TXT" />
     <Text Include="NMEA2CSV.txt" />

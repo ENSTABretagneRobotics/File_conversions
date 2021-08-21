@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OSCore.h" />
@@ -115,7 +116,6 @@
     <ClInclude Include="OSTime.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
     <None Include="SBG.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

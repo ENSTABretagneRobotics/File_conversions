@@ -47,6 +47,8 @@
       <Filter>Input Files</Filter>
     </None>
     <None Include="CHANGELOG.TXT" />
-    <None Include="Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

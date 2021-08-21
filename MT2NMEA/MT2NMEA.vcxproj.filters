@@ -37,6 +37,7 @@
   <ItemGroup>
     <Text Include="CHANGELOG.TXT" />
     <Text Include="ReadMe.txt" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OSCore.h">
@@ -50,7 +51,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
     <None Include="MT.csv">
       <Filter>Input Files</Filter>
     </None>

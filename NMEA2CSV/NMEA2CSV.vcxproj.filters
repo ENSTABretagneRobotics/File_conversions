@@ -42,6 +42,7 @@
     <Text Include="NMEA2CSV.txt">
       <Filter>Input Files</Filter>
     </Text>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OSCore.h">
